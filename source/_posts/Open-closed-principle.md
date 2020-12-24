@@ -1,6 +1,8 @@
 ---
 title: Open-closed principle
 date: 2020-08-23 14:28:47
+photos:
+- /images/philipp-berndt-5i0GnoTTjSE-unsplash.jpg
 tags:
 - OOP
 - Software Engineering
