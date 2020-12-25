@@ -1,7 +1,6 @@
 # Header
 menu:
-  Home: /
-  Archives: /archives
+  home: /
 rss: /atom.xml
 banner: images/andrew-ridley-jR4Zf-riEjI-unsplash.jpg
 
