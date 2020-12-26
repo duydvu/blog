@@ -6,7 +6,7 @@
   <link href="http://blogcuatui.online/atom.xml" rel="self"/>
   
   <link href="http://blogcuatui.online/"/>
-  <updated>2020-12-25T17:53:57.882Z</updated>
+  <updated>2020-12-26T08:43:49.938Z</updated>
   <id>http://blogcuatui.online/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Cấu hình VS Code để lập trình trên server bằng Remote - SSH</title>
+    <link href="http://blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/"/>
+    <id>http://blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/</id>
+    <published>2020-12-26T11:18:29.000Z</published>
+    <updated>2020-12-26T08:43:49.938Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Trong bài viết này, mình sẽ hướng dẫn cho các bạn cách thiết lập môi trường lập trình trên server hơn thông qua extension Remote - SSH</summary>
+        
+      
+    
+    
+    
+    
+    <category term="IDE" scheme="http://blogcuatui.online/tags/IDE/"/>
+    
+    <category term="Coding" scheme="http://blogcuatui.online/tags/Coding/"/>
+    
+    <category term="VScode" scheme="http://blogcuatui.online/tags/VScode/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Open-closed principle</title>
     <link href="http://blogcuatui.online/2020/08/23/Open-closed-principle/"/>
     <id>http://blogcuatui.online/2020/08/23/Open-closed-principle/</id>
     <published>2020-08-23T14:28:47.000Z</published>
-    <updated>2020-12-25T17:53:57.882Z</updated>
+    <updated>2020-12-26T08:43:49.938Z</updated>
     
     
       
@@ -50,7 +77,7 @@
     <link href="http://blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/"/>
     <id>http://blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/</id>
     <published>2020-08-09T16:13:43.000Z</published>
-    <updated>2020-12-25T17:53:57.882Z</updated>
+    <updated>2020-12-26T08:43:49.938Z</updated>
     
     
       
