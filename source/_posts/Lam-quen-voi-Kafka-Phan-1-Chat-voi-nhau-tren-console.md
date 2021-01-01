@@ -177,6 +177,8 @@ Bạn thử mở 2 tab terminal, cho mỗi terminal chạy script này. Tab 1 nh
 
 Khi bạn nhập 1 tin nhắn ở tab 1 và nhấn Enter thì tin nhắn đó sẽ được hiện trên tab 2, điều tương tự cũng diễn ra khi bạn nhập vào tab 2.
 
+Bạn có thể xem code đầy đủ của bài viết này ở [đây](https://github.com/duydvu/kafka-tutorial).
+
 Như vậy là chúng ta đã hoàn thành xong 1 ứng dụng đơn giản để chat trên console bằng Python và Kafka. Mặc dù vậy, nó vần còn thiếu nhiều tính năng quan trọng như:
 - Chỉ cho 2 user nhắn tin với nhau trong 1 phiên riêng biệt. Hiện tại, nếu có nhiều hơn 2 user thì sẽ có trường hợp 1 user cùng nhắn tin với 2 user khác.
 - Chỉ cho phép user này nhắn tin với user kia khi được họ cho phép.
