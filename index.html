@@ -79,6 +79,108 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" class="article-date">
+  <time datetime="2021-01-01T18:18:04.000Z" itemprop="datePublished">2021-01-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả, Kafka được sinh ra để làm nhiệm vụ đó. Trong phần đầu tiên của series “Làm quen với Kafka”, mình sẽ viết 1 ứng dụng Python dùng để chat với nhau trên màn hình console để hiểu được những tính năng cơ bản của Kafka.</p>
+<p>Lưu ý đây chỉ là 1 ứng dụng làm cho vui để làm quen với Kafka thôi chứ không nên đưa vào thực tế nhé.</p>
+<h1 id="Truoc-het-Kafka-la-gi"><a href="#Truoc-het-Kafka-la-gi" class="headerlink" title="Trước hết, Kafka là gì?"></a>Trước hết, Kafka là gì?</h1><p>Kafka là 1 nền tảng event streaming rất phổ biến hiện nay được phát triển bởi tổ chức Apache và là một phần mềm mã nguồn mở. Event streaming ở đây có nghĩa là việc lấy dữ liệu theo thời gian thực từ những nguồn như là cơ sở dữ liệu, cảm biến, thiết bị di động, dịch vụ đám mây và ứng dụng dưới dạng những luồng sự kiện; lưu những sự kiện này để sau đó có thể lấy lên lại và xử lý.</p>
+<h2 id="Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao"><a href="#Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao" class="headerlink" title="Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!"></a>Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!</h2><p>Tưởng tượng bạn đang xem kênh Discovery trên TV của bạn. Những hình ảnh và âm thanh mà bạn thấy và nghe được đều được phát đi từ đài truyền hình của kênh này. Ở đây, đài truyền hình của kênh Discovery đóng vai trò là <strong>publisher</strong>, còn bạn - người xem là <strong>subscriber</strong> và kênh Discovery chính là <strong>topic</strong>.</p>
+<p>Publisher có nhiệm vụ là phát đi thông tin vào 1 topic (kênh), thông tin trong trường hợp này là dữ liệu ở dạng hình ảnh và âm thanh. Subscriber có thể đăng ký để lắng nghe trên 1 topic (chọn kênh để xem) và nhận được thông tin mà publisher phát đi. Subscriber cũng có thể lắng nghe trên nhiều topic (xem nhiều kênh trên nhiều TV, nếu bạn giàu và rảnh :D).</p>
+<p>Đối với publisher, việc ai nhận được thông tin không quan trọng, miễn là cứ có thông tin thì nó sẽ phát đi vào 1 hoặc nhiều topic cụ thể. Còn đối với subscriber, publisher nào phát không quan trọng, miễn là topic đó có thông tin thì cứ lấy ra mà xử lý.</p>
+<h1 id="Viet-ung-dung-chat-tren-console"><a href="#Viet-ung-dung-chat-tren-console" class="headerlink" title="Viết ứng dụng chat trên console"></a>Viết ứng dụng chat trên console</h1><p>Kafka hoạt động theo cơ chế client-server, trong đó, server là 1 process chạy trên 1 máy tính và client có thể kết nối đến nó giống như cách bạn kết nối đến database, sử dụng địa chỉ IP và port cùng với username và password nếu có. Client có thể là publisher, consumer hoặc là admin.</p>
+<p>Việc đầu tiên bạn cần phải làm đó là khởi động Kafka server trên 1 chiếc máy tính.</p>
+<h2 id="Khoi-dong-Kafka-server"><a href="#Khoi-dong-Kafka-server" class="headerlink" title="Khởi động Kafka server"></a>Khởi động Kafka server</h2><ol>
+<li><strong>Bước 1</strong>: Mở terminal lên vào nhập dòng lệnh sau để tải Kafka:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">wget https://downloads.apache.org/kafka/2.7.0/kafka_2.13-2.7.0.tgz</span><br></pre></td></tr></table></figure></li>
+<li><strong>Bước 2</strong>: Giải nén file vừa tải về:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xzf kafka_2.13-2.7.0.tgz</span><br><span class="line"><span class="built_in">cd</span> kafka_2.13-2.7.0</span><br></pre></td></tr></table></figure></li>
+<li><strong>Bước 3</strong>: Khởi động ZooKeeper service:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zookeeper-server-start.sh config/zookeeper.properties</span><br></pre></td></tr></table></figure></li>
+<li><strong>Bước 4</strong>: Mở 1 terminal mới và nhập dòng lệnh sau đây để bắt đầu chạy Kafka server:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Co-che-hoat-dong"><a href="#Co-che-hoat-dong" class="headerlink" title="Cơ chế hoạt động"></a>Cơ chế hoạt động</h2><p>Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút về cách nó hoạt động như sau:</p>
+<ul>
+<li>Mỗi user khi được tạo sẽ được cấp cho 1 định danh duy nhất, ở đây mình dùng tên của user cho đơn giản. Mỗi user cũng sẽ được cấp 1 topic duy nhất mang tên của chính user đó. Ví dụ: user có tên là user1 sẽ được cấp cho topic cũng tên là user1.</li>
+<li>Mỗi user luôn subscribe vào topic của chính họ, và publish vào topic của các user khác.</li>
+<li>Giả sử user A và user B đang chat với nhau, user A muốn gửi tin nhắn cho B thì sẽ publish nội dung tin nhắn vào topic B, sau đó user B đang subscribe trên topic của mình sẽ nhận được tin nhắn từ A, quá trình nhắn tin từ B tới A cũng diễn ra tương tụ.</li>
+</ul>
+<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/kafka-message.svg" alt="Minh họa cách thức giao tiếp giữa 2 user A và B"></p>
+<h2 id="Code-nao"><a href="#Code-nao" class="headerlink" title="Code nào"></a>Code nào</h2><p>Để có thể giao tiếp được với Kafka server, bạn cần dùng thư viện kafka-python. Sử dụng pip để cài đặt thư viện này:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install kafka-python</span><br></pre></td></tr></table></figure>
+<p>Bạn có thể đọc document của thư viện này tại <a target="_blank" rel="noopener" href="https://kafka-python.readthedocs.io/en/master/usage.html">đây</a>.</p>
+<p>Trước tiên, mình thử publish vào 1 topic bằng đoạn code sau:</p>
+<figure class="highlight python"><figcaption><span>publisher.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> kafka <span class="keyword">import</span> KafkaProducer</span><br><span class="line"></span><br><span class="line">BOOTSTRAP_SERVERS = [<span class="string">&#x27;localhost:9092&#x27;</span>]</span><br><span class="line">producer = KafkaProducer(bootstrap_servers=BOOTSTRAP_SERVERS,</span><br><span class="line">                         value_serializer=<span class="keyword">lambda</span> value: <span class="built_in">bytes</span>(value, encoding=<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line">username1 = <span class="built_in">input</span>(<span class="string">&#x27;What is your name? &#x27;</span>)</span><br><span class="line">username2 = <span class="built_in">input</span>(<span class="string">&#x27;Who do want connect? &#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    value = <span class="built_in">input</span>()</span><br><span class="line">    producer.send(username2, value=value)</span><br><span class="line">    producer.flush()</span><br></pre></td></tr></table></figure>
+
+<p>Đoạn code này sẽ hỏi tên của bạn và tên của user mà bạn muốn nhắn tin, sau đó nó bắt đầu 1 vòng lặp forever để chờ bạn nhập tin nhắn và gửi tin nhắn đó đến topic của user kia.</p>
+<p><code>BOOTSTRAP_SERVERS</code> chứa thông tin để kết nối đến server Kafka mà mình vừa khởi động ở trên, vì mình chạy Kafka trên máy của mình nên địa chỉ IP của server Kafka là localhost và port mặc định là 9092.</p>
+<p>Một message trong Kafka có 2 trường: <code>key</code> và <code>value</code>. Bạn có thể truyền bất cứ dữ liệu nào vào trong 2 trường này. Ở đây mình chỉ cần gửi nội dung tin nhắn nên dùng trường <code>value</code> là đủ.</p>
+<p>Dữ liệu trong 1 message phải có dạng <code>byte</code>. Vậy nên trước khi gửi mình phải chuyển tin nhắn từ dạng <code>string</code> sang <code>byte</code> bằng cách truyền tham số <code>value_serializer</code> cho 1 hàm lambda.</p>
+<p>Test script này bằng lệnh trong terminal:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python publisher.py</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-160825.png" alt="Chạy thử script chat.py với tên là user1 và user2"></p>
+<p>Vì mình mới chỉ chạy ở bên phía user1 nên không có bất cứ phản hồi nào từ user2. Giờ mình sẽ viết code để user2 lắng nghe tin nhắn từ user1:</p>
+<figure class="highlight python"><figcaption><span>subscriber.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> kafka <span class="keyword">import</span> KafkaConsumer</span><br><span class="line"></span><br><span class="line">BOOTSTRAP_SERVERS = [<span class="string">&#x27;localhost:9092&#x27;</span>]</span><br><span class="line">username2 = <span class="built_in">input</span>(<span class="string">&#x27;What is your name? &#x27;</span>)</span><br><span class="line"></span><br><span class="line">consumer = KafkaConsumer(username2, auto_offset_reset=<span class="string">&#x27;latest&#x27;</span>,</span><br><span class="line">                         bootstrap_servers=BOOTSTRAP_SERVERS,</span><br><span class="line">                         value_deserializer=<span class="keyword">lambda</span> value: value.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> msg <span class="keyword">in</span> consumer:</span><br><span class="line">    print(msg.value)</span><br></pre></td></tr></table></figure>
+<p>Đoạn code trên khởi tạo 1 instance <code>KafkaConsumer</code> để subscribe vào topic của user2 và bắt đầu 1 vòng lặp for để lắng nghe trên topic này. Vòng lặp for này sẽ chờ message từ topic trong thời gian vô hạn và không bao giờ dừng lại trừ khi bạn dừng chương trình.</p>
+<p>Tham số <code>value_deserializer</code> là 1 hàm được dùng khi consumer nhận được message từ topic để chuyển trường <code>value</code> của message từ dạng <code>byte</code> trở về dạng ban đầu của nó, trong trường hợp này là <code>string</code>.</p>
+<p>Để chạy script này, mở một tab terminal mới và chạy lệnh:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python subscriber.py</span><br></pre></td></tr></table></figure>
+
+<p>Nhập tên user2 để bắt đầu lắng nghe.</p>
+<p>Quay lại tab đang chạy publisher, thử nhập 1 message bất kỳ và quay lại tab đang chạy subscriber. Bạn sẽ thấy message mà mình vừa nhập hiện trên terminal của subscriber.</p>
+<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-161638.png" alt="Chạy thử script chat.py với tên là user1 và user2"></p>
+<p>Như vậy là chúng ta đã thiết lập được giao tiếp 1 chiều giữa 2 user. Tiếp theo, mình sẽ làm cho mỗi user vừa publish vừa subscribe vào Kafka để có thể vừa gửi và nhập tin nhắn.</p>
+<p>Như bạn thấy trong 2 đoạn code trên, cả 2 đều chứa 1 vòng lặp vô hạn. Điều này có nghĩa là khi user đang gửi tin nhắn thì không thể nhận tin nhắn và ngược lại, vì bản chất của 2 đoạn code trên là blocking - chương trình sẽ chờ trong vô hạn để hoàn thành 1 tác vụ rồi mới chuyển sang tác vụ kế tiếp.</p>
+<p>Để giải quyết vấn đề này, mình sẽ sử dụng thread để tạo 1 thread chạy song song với thread chính. Thread chính có nhiệm vụ là gửi tin nhắn cho đối phương còn thread được tạo có nhiệm vụ nhận tin nhắn từ đối phương.</p>
+<p>Trong Python, để làm việc với thread, mình sử dụng thư viện threading có sẵn. Cách sử dụng khá đơn giản, chỉ cần khởi tạo 1 instance <code>Thread</code> với 2 tham số: <code>target</code> là hàm sẽ chạy trong thread mới; và <code>args</code> là tham số truyền vào hàm <code>target</code>. Sau đó gọi method <code>start</code>. Ví dụ:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">thread = threading.Thread(target=foo, args=())</span><br><span class="line">thread.start()</span><br></pre></td></tr></table></figure>
+
+<p>Vậy trước khi bắt đầu vòng lặp while trong publisher, mình chỉ cần tạo 1 thread mới chạy hàm của subscriber là xong. Dưới đây là đoạn code hoàn chỉnh của chương trình:</p>
+<figure class="highlight python"><figcaption><span>chat.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> kafka <span class="keyword">import</span> KafkaConsumer, KafkaProducer</span><br><span class="line"></span><br><span class="line">BOOTSTRAP_SERVERS = [<span class="string">&#x27;localhost:9092&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">subscribe</span>(<span class="params">topic</span>):</span></span><br><span class="line">    consumer = KafkaConsumer(topic, auto_offset_reset=<span class="string">&#x27;latest&#x27;</span>,</span><br><span class="line">                             bootstrap_servers=BOOTSTRAP_SERVERS,</span><br><span class="line">                             value_deserializer=<span class="keyword">lambda</span> value: value.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">for</span> msg <span class="keyword">in</span> consumer:</span><br><span class="line">        print(msg.value)</span><br><span class="line"></span><br><span class="line">username1 = <span class="built_in">input</span>(<span class="string">&#x27;What is your name? &#x27;</span>)</span><br><span class="line">username2 = <span class="built_in">input</span>(<span class="string">&#x27;Who do want connect? &#x27;</span>)</span><br><span class="line"></span><br><span class="line">consumer_thread = threading.Thread(target=subscribe, args=(username2,))</span><br><span class="line">consumer_thread.start()</span><br><span class="line"></span><br><span class="line">producer = KafkaProducer(bootstrap_servers=BOOTSTRAP_SERVERS,</span><br><span class="line">                         value_serializer=<span class="keyword">lambda</span> value: <span class="built_in">bytes</span>(value, encoding=<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    key = username1</span><br><span class="line">    value = <span class="built_in">input</span>()</span><br><span class="line">    producer.send(username1, value=value)</span><br><span class="line">    producer.flush()</span><br></pre></td></tr></table></figure>
+
+<p>Bạn thử mở 2 tab terminal, cho mỗi terminal chạy script này. Tab 1 nhập lần lượt user1 và user2, tab 2 nhập ngược lại user2 và user1.</p>
+<p>Khi bạn nhập 1 tin nhắn ở tab 1 và nhấn Enter thì tin nhắn đó sẽ được hiện trên tab 2, điều tương tự cũng diễn ra khi bạn nhập vào tab 2.</p>
+<p>Như vậy là chúng ta đã hoàn thành xong 1 ứng dụng đơn giản để chat trên console bằng Python và Kafka. Mặc dù vậy, nó vần còn thiếu nhiều tính năng quan trọng như:</p>
+<ul>
+<li>Chỉ cho 2 user nhắn tin với nhau trong 1 phiên riêng biệt. Hiện tại, nếu có nhiều hơn 2 user thì sẽ có trường hợp 1 user cùng nhắn tin với 2 user khác.</li>
+<li>Chỉ cho phép user này nhắn tin với user kia khi được họ cho phép.</li>
+</ul>
+<p>Mình sẽ thực hiện những tính năng này trong phần 2 của series.</p>
+<p>Happy Coding!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blogcuatui.online/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckje6sj2q00038cnh2z2d65t5" class="article-share-link">Chia sẻ</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Cau-hinh-VS-Code-de-code-tren-server" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" class="article-date">
@@ -153,7 +255,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="ckje5eyby0001xrnhfxqp85n8" class="article-share-link">Chia sẻ</a>
+      <a data-url="http://blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="ckje6sj2n00018cnh1n9kflx9" class="article-share-link">Chia sẻ</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
@@ -215,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blogcuatui.online/2020/08/23/Open-closed-principle/" data-id="ckje5eyc7000ixrnh56ay0pgj" class="article-share-link">Chia sẻ</a>
+      <a data-url="http://blogcuatui.online/2020/08/23/Open-closed-principle/" data-id="ckje6sj2r00048cnh1qac6s9n" class="article-share-link">Chia sẻ</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li></ul>
@@ -264,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/" data-id="ckje5eyc8000jxrnhcyl1ey28" class="article-share-link">Chia sẻ</a>
+      <a data-url="http://blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/" data-id="ckje6sj30000y8cnh3zk4dkw5" class="article-share-link">Chia sẻ</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li></ul>
@@ -289,7 +391,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
     </div>
   </div>
 
@@ -299,7 +401,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOP/" style="font-size: 20px;">OOP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 20px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
+      <a href="/tags/Coding/" style="font-size: 20px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/OOP/" style="font-size: 20px;">OOP</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 20px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
     </div>
   </div>
 
@@ -308,7 +410,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">tháng 12 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">tháng 8 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">tháng 1 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">tháng 12 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">tháng 8 2020</a></li></ul>
     </div>
   </div>
 
@@ -319,6 +421,10 @@
     <h3 class="widget-title">Bài viết gần đây</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
+          </li>
         
           <li>
             <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
