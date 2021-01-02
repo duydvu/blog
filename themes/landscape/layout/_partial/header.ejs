@@ -6,9 +6,9 @@
         <%= config.title %>
       </h1>
       <% if (config.description){ %>
-        <h2 id="subtitle-wrap">
-          <a href="<%- url_for() %>" id="subtitle"><%= config.description %></a>
-        </h2>
+        <div id="subtitle-wrap">
+          <h2 id="subtitle"><%= config.description %></h2>
+        </div>
       <% } %>
     </div>
     <div id="header-inner" class="inner">
