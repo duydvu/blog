@@ -45,7 +45,7 @@ Trước khi kết nối đến server thông qua VS Code, bạn cần phải t�
 Nếu bạn đã cấu hình SSH server bằng SSH key rồi thì hãy đến với [bước 3](#Buoc-3-Thiet-lap-moi-truong-SSH-tren-VS-Code).
 
 Mở 1 terminal mới và nhập lệnh sau:
-```
+```bash
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
 ```
 Câu lệnh trên sẽ trả về kết quả như dưới đây:
@@ -60,19 +60,19 @@ Nhấn Enter 2 lần để hoàn tất việc tạo SSH key trên máy tính c�
 Tiếp theo, bạn cần phải SSH vào server để thêm SSH key mà bạn vừa tạo vào danh sách authorized keys của server. Bước này dùng để xác thực quyền truy cập vào server cho máy tính của bạn.
 
 Đầu tiên, bạn cần copy public key sử dụng lệnh dưới đây:
-```
+```bash
 cat ~/.ssh/id_rsa.pub
 ```
 Copy toàn bộ nội dung trả về của lệnh này.
 
 Tiếp theo, kết nối SSH vào server bằng lệnh sau:
-```
+```bash
 ssh <username>@<ip-address>
 ```
 Thay `username` và `ip-address` thành giá trị tương ứng mà bạn có. Nhập mật khẩu để xác thực.
 
 Sau đó, chèn nội dung của public key vào cuối file `~/.ssh/authorized_keys` bằng lệnh sau:
-```
+```bash
 echo "<paste-your-public-key-content-here>" >> ~/.ssh/authorized_keys
 ```
 Thay `paste-your-public-key-content-here` bằng nội dung của public key mà bạn vừa copy.
