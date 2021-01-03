@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Blog của tui</title>
-  <icon>http://blogcuatui.online/favicon.png</icon>
+  <icon>https://www.blogcuatui.online/favicon.png</icon>
   
-  <link href="http://blogcuatui.online/atom.xml" rel="self"/>
+  <link href="https://www.blogcuatui.online/atom.xml" rel="self"/>
   
-  <link href="http://blogcuatui.online/"/>
-  <updated>2021-01-01T11:43:45.813Z</updated>
-  <id>http://blogcuatui.online/</id>
+  <link href="https://www.blogcuatui.online/"/>
+  <updated>2021-01-03T07:48:02.833Z</updated>
+  <id>https://www.blogcuatui.online/</id>
   
   <author>
     <name>Vũ Đức Duy</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Làm quen với Kafka: Phần 1 - Chat với nhau trên console</title>
-    <link href="http://blogcuatui.online/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/"/>
-    <id>http://blogcuatui.online/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/</id>
+    <link href="https://www.blogcuatui.online/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/"/>
+    <id>https://www.blogcuatui.online/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/</id>
     <published>2021-01-01T18:18:04.000Z</published>
-    <updated>2021-01-01T11:43:45.813Z</updated>
+    <updated>2021-01-03T07:48:02.833Z</updated>
     
     
       
@@ -35,20 +35,20 @@
     
     
     
-    <category term="Coding" scheme="http://blogcuatui.online/tags/Coding/"/>
+    <category term="Coding" scheme="https://www.blogcuatui.online/tags/Coding/"/>
     
-    <category term="Kafka" scheme="http://blogcuatui.online/tags/Kafka/"/>
+    <category term="Kafka" scheme="https://www.blogcuatui.online/tags/Kafka/"/>
     
-    <category term="Python" scheme="http://blogcuatui.online/tags/Python/"/>
+    <category term="Python" scheme="https://www.blogcuatui.online/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Cấu hình VS Code để lập trình trên server bằng Remote - SSH</title>
-    <link href="http://blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/"/>
-    <id>http://blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/</id>
+    <link href="https://www.blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/"/>
+    <id>https://www.blogcuatui.online/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/</id>
     <published>2020-12-26T11:18:29.000Z</published>
-    <updated>2021-01-01T11:43:45.809Z</updated>
+    <updated>2021-01-03T07:48:02.833Z</updated>
     
     
       
@@ -62,20 +62,20 @@
     
     
     
-    <category term="IDE" scheme="http://blogcuatui.online/tags/IDE/"/>
+    <category term="IDE" scheme="https://www.blogcuatui.online/tags/IDE/"/>
     
-    <category term="Coding" scheme="http://blogcuatui.online/tags/Coding/"/>
+    <category term="Coding" scheme="https://www.blogcuatui.online/tags/Coding/"/>
     
-    <category term="VScode" scheme="http://blogcuatui.online/tags/VScode/"/>
+    <category term="VScode" scheme="https://www.blogcuatui.online/tags/VScode/"/>
     
   </entry>
   
   <entry>
     <title>Open-closed principle</title>
-    <link href="http://blogcuatui.online/2020/08/23/Open-closed-principle/"/>
-    <id>http://blogcuatui.online/2020/08/23/Open-closed-principle/</id>
+    <link href="https://www.blogcuatui.online/2020/08/23/Open-closed-principle/"/>
+    <id>https://www.blogcuatui.online/2020/08/23/Open-closed-principle/</id>
     <published>2020-08-23T14:28:47.000Z</published>
-    <updated>2021-01-01T11:43:45.813Z</updated>
+    <updated>2021-01-03T07:48:02.837Z</updated>
     
     
       
@@ -89,22 +89,22 @@
     
     
     
-    <category term="Python" scheme="http://blogcuatui.online/tags/Python/"/>
+    <category term="Python" scheme="https://www.blogcuatui.online/tags/Python/"/>
     
-    <category term="OOP" scheme="http://blogcuatui.online/tags/OOP/"/>
+    <category term="OOP" scheme="https://www.blogcuatui.online/tags/OOP/"/>
     
-    <category term="Software Engineering" scheme="http://blogcuatui.online/tags/Software-Engineering/"/>
+    <category term="Software Engineering" scheme="https://www.blogcuatui.online/tags/Software-Engineering/"/>
     
-    <category term="SOLID" scheme="http://blogcuatui.online/tags/SOLID/"/>
+    <category term="SOLID" scheme="https://www.blogcuatui.online/tags/SOLID/"/>
     
   </entry>
   
   <entry>
     <title>Sự đối lập giữa Object và Data Structure</title>
-    <link href="http://blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/"/>
-    <id>http://blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/</id>
+    <link href="https://www.blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/"/>
+    <id>https://www.blogcuatui.online/2020/08/09/su-doi-lap-giua-object-va-data-structure/</id>
     <published>2020-08-09T16:13:43.000Z</published>
-    <updated>2021-01-01T11:43:45.813Z</updated>
+    <updated>2021-01-03T07:48:02.837Z</updated>
     
     
       
@@ -118,13 +118,13 @@
     
     
     
-    <category term="OOP" scheme="http://blogcuatui.online/tags/OOP/"/>
+    <category term="OOP" scheme="https://www.blogcuatui.online/tags/OOP/"/>
     
-    <category term="Software Engineering" scheme="http://blogcuatui.online/tags/Software-Engineering/"/>
+    <category term="Software Engineering" scheme="https://www.blogcuatui.online/tags/Software-Engineering/"/>
     
-    <category term="Data structure" scheme="http://blogcuatui.online/tags/Data-structure/"/>
+    <category term="Data structure" scheme="https://www.blogcuatui.online/tags/Data-structure/"/>
     
-    <category term="Java" scheme="http://blogcuatui.online/tags/Java/"/>
+    <category term="Java" scheme="https://www.blogcuatui.online/tags/Java/"/>
     
   </entry>
   

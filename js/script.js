@@ -2,7 +2,8 @@
   // Search
   var $searchWrap = $('#search-form-wrap'),
     isSearchAnim = false,
-    searchAnimDuration = 200;
+    searchAnimDurationIn = 200,
+    searchAnimDurationOut = 300;
 
   var startSearchAnim = function(){
     isSearchAnim = true;
@@ -12,7 +13,7 @@
     setTimeout(function(){
       isSearchAnim = false;
       callback && callback();
-    }, searchAnimDuration);
+    }, callback ? searchAnimDurationIn : searchAnimDurationOut);
   };
 
   $('#nav-search-btn').on('click', function(){
