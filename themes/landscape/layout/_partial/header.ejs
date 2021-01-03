@@ -1,22 +1,11 @@
 <header id="header">
-  <div id="banner"></div>
   <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo">
-        <%= config.title %>
-      </h1>
-      <% if (config.description){ %>
-        <div id="subtitle-wrap">
-          <h2 id="subtitle"><%= config.description %></h2>
-        </div>
-      <% } %>
-    </div>
-    <div id="header-inner" class="inner">
+    <div id="header-inner">
       <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        <% for (var i in theme.menu){ %>
-          <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= __(i) %></a>
-        <% } %>
+        <a id="logo" href="/">
+          <img src="/favicon.png" alt="Blog của tui">
+          <h1>Blog của tui</h1>
+        </a>
       </nav>
       <nav id="sub-nav">
         <% if (theme.rss){ %>
