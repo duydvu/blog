@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blogcuatui.online/
+url: https://www.blogcuatui.online/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -117,3 +117,11 @@ feed:
   icon: favicon.png
   autodiscovery: true
   template:
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
+  template:
+  rel: false
+  tags: true
+  categories: true
