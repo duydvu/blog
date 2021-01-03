@@ -142,19 +142,20 @@
   border-top: 1px solid color-border
   padding-top: line-height
   margin: 0 article-padding article-padding
-  a
-    color: color-grey
-    text-decoration: none
-    &:hover
-      color: color-default
 
 .article-tag-list-item
   float: left
   margin-right: 10px
-
-.article-tag-list-link
-  &:before
-    content: "#"
+  background: color-background
+  padding: 0 10px
+  border-radius: 3px
+  a
+    color: color-default
+    text-decoration: none
+    opacity: 0.8
+    transition: 0.1s ease-in-out
+    &:hover
+      opacity: 1
 
 .article-comment-link
   float: right
