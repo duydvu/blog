@@ -1,16 +1,31 @@
-if sidebar is bottom
-  @import "sidebar-bottom"
-else
-  @import "sidebar-aside"
+#sidebar
+  @media mq-normal
+    column(sidebar-column)
+
+.widget-wrap
+  margin: block-margin 0
+
+.widget-title
+  @extend $block-caption
 
 .widget
-  @extend $base-style
+  @extend $block
+  color: color-sidebar-text
+  background: color-widget-background
+  padding: 15px
   line-height: line-height
   word-wrap: break-word
   font-size: 0.9em
+  a
+    color: color-link
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+  li
+    margin: 5px 0
   ul, ol
-    list-style: none
-    margin: 0
+    margin-left: 15px
+    list-style: disc
     ul, ol
       margin: 0 20px
     ul
