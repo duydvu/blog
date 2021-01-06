@@ -12,7 +12,7 @@ Trong bài viết này, mình sẽ hướng dẫn cho các bạn cách thiết l
 
 Trước khi bắt đầu, mình sẽ trả lời cho câu hỏi:
 
-# Tại sao phải lập trình trên server?
+## Tại sao phải lập trình trên server?
 
 Đối với đa số lập trình viên, 1 chiếc laptop hoặc PC là đủ để phục vụ cho công việc của họ. Tuy nhiên, đối với Data Scientist thì đôi khi làm việc trên 1 thiết bị là chưa đủ. Bạn cần phải làm việc trên máy tính có cấu hình mạnh, bộ nhớ lớn để có thể load dữ liệu và huấn luyện mô hình, đặc biệt là các mô hình Deep Learning yêu cầu phải có 1 hoặc nhiều GPU và thời gian huấn luyện có khi lên tới hàng tuần. Những chiếc máy tính mạnh mẽ như vậy thường sẽ không vừa vặn với 1 chiếc laptop hoặc PC nên nếu làm việc trực tiếp thì sẽ khá khó khăn. Vì vậy, việc lập trình trên server sẽ giúp ích rất nhiều, ví dụ như:
 - Bạn có thể huấn luyện mô hình mà vẫn có thể tắt laptop mang đi nơi khác.
@@ -25,7 +25,7 @@ Có nhiều cách khác nhau để có thể lập trình được trên server,
 
 Bắt đầu nào!
 
-# Cài đặt extension Remote - SSH
+## Cài đặt extension Remote - SSH
 
 Mình giả định rằng bạn đã cài đặt sẵn VS Code trong máy rồi nên mình sẽ chỉ hướng dẫn sau khi bạn đã bật VS Code lên nhé.
 
@@ -37,9 +37,9 @@ Extension mà ta cần tìm sẽ xuất hiện trong kết quả tìm kiếm, nh
 
 Tiếp theo, mình sẽ hướng dẫn cách cấu hình môi trường lập trình trên server.
 
-# Cấu hình môi trường lập trình trên server
+## Cấu hình môi trường lập trình trên server
 
-## Bước 1: Tạo SSH key
+### Bước 1: Tạo SSH key
 
 Trước khi kết nối đến server thông qua VS Code, bạn cần phải tạo 1 SSH key để xác thực quyền kết nối của máy bạn với server mà không cần dùng mật khẩu.
 Nếu bạn đã cấu hình SSH server bằng SSH key rồi thì hãy đến với [bước 3](#Buoc-3-Thiet-lap-moi-truong-SSH-tren-VS-Code).
@@ -55,7 +55,7 @@ Enter passphrase (empty for no passphrase):
 ```
 Nhấn Enter 2 lần để hoàn tất việc tạo SSH key trên máy tính của bạn, key này được lưu tại `~/.ssh/id_rsa`.
 
-## Bước 2: Thêm SSH key vào danh sách authorized keys của server
+### Bước 2: Thêm SSH key vào danh sách authorized keys của server
 
 Tiếp theo, bạn cần phải SSH vào server để thêm SSH key mà bạn vừa tạo vào danh sách authorized keys của server. Bước này dùng để xác thực quyền truy cập vào server cho máy tính của bạn.
 
@@ -90,7 +90,7 @@ Host <ip-address>
   IdentityFile ~/.ssh/id_abc
 ```
 
-## Bước 3: Thiết lập môi trường SSH trên VS Code
+### Bước 3: Thiết lập môi trường SSH trên VS Code
 Sau khi đã có thể kết nối đến server thông qua SSH key, bạn hãy mở VS Code và làm theo các bước sau đây:
 1. Nhấn tổ hợp phím **Ctrl + Shift + P** để mở khung **Command Palette**.
 2. Nhập *"Remote-SSH: Add New SSH Host"* rồi nhấn **Enter**.

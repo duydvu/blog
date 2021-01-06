@@ -13,11 +13,11 @@ Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lư
 
 Lưu ý đây chỉ là 1 ứng dụng làm cho vui để làm quen với Kafka thôi chứ không nên đưa vào thực tế nhé.
 
-# Trước hết, Kafka là gì?
+## Trước hết, Kafka là gì?
 
 Kafka là 1 nền tảng event streaming rất phổ biến hiện nay được phát triển bởi tổ chức Apache và là một phần mềm mã nguồn mở. Event streaming ở đây có nghĩa là việc lấy dữ liệu theo thời gian thực từ những nguồn như là cơ sở dữ liệu, cảm biến, thiết bị di động, dịch vụ đám mây và ứng dụng dưới dạng những luồng sự kiện; lưu những sự kiện này để sau đó có thể lấy lên lại và xử lý.
 
-## Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!
+### Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!
 
 Tưởng tượng bạn đang xem kênh Discovery trên TV của bạn. Những hình ảnh và âm thanh mà bạn thấy và nghe được đều được phát đi từ đài truyền hình của kênh này. Ở đây, đài truyền hình của kênh Discovery đóng vai trò là **publisher**, còn bạn - người xem là **subscriber** và kênh Discovery chính là **topic**.
 
@@ -25,13 +25,13 @@ Publisher có nhiệm vụ là phát đi thông tin vào 1 topic (kênh), thông
 
 Đối với publisher, việc ai nhận được thông tin không quan trọng, miễn là cứ có thông tin thì nó sẽ phát đi vào 1 hoặc nhiều topic cụ thể. Còn đối với subscriber, publisher nào phát không quan trọng, miễn là topic đó có thông tin thì cứ lấy ra mà xử lý.
 
-# Viết ứng dụng chat trên console
+## Viết ứng dụng chat trên console
 
 Kafka hoạt động theo cơ chế client-server, trong đó, server là 1 process chạy trên 1 máy tính và client có thể kết nối đến nó giống như cách bạn kết nối đến database, sử dụng địa chỉ IP và port cùng với username và password nếu có. Client có thể là publisher, consumer hoặc là admin.
 
 Việc đầu tiên bạn cần phải làm đó là khởi động Kafka server trên 1 chiếc máy tính.
 
-## Khởi động Kafka server
+### Khởi động Kafka server
 1. **Bước 1**: Mở terminal lên vào nhập dòng lệnh sau để tải Kafka:
 ```bash
 cd ~/Downloads
@@ -51,7 +51,7 @@ bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
 ```
 
-## Cơ chế hoạt động
+### Cơ chế hoạt động
 Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút về cách nó hoạt động như sau:
 
 - Mỗi user khi được tạo sẽ được cấp cho 1 định danh duy nhất, ở đây mình dùng tên của user cho đơn giản. Mỗi user cũng sẽ được cấp 1 topic duy nhất mang tên của chính user đó. Ví dụ: user có tên là user1 sẽ được cấp cho topic cũng tên là user1.
@@ -60,7 +60,7 @@ Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút v�
 
 ![Minh họa cách thức giao tiếp giữa 2 user A và B](kafka-message.svg)
 
-## Code nào
+### Code nào
 
 Để có thể giao tiếp được với Kafka server, bạn cần dùng thư viện kafka-python. Sử dụng pip để cài đặt thư viện này:
 ```bash
