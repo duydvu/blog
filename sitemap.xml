@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/</loc>
-    
-    <lastmod>2021-01-09</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.kysuai.com/2020/08/23/Open-closed-principle/</loc>
     
     <lastmod>2021-01-09</lastmod>
@@ -23,14 +16,21 @@
   </url>
   
   <url>
-    <loc>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</loc>
+    <loc>https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/</loc>
     
     <lastmod>2021-01-09</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/</loc>
+    <loc>https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/</loc>
+    
+    <lastmod>2021-01-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</loc>
     
     <lastmod>2021-01-09</lastmod>
     

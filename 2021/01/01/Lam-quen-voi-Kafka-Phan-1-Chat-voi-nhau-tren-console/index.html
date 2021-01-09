@@ -24,7 +24,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg">
 <meta property="article:published_time" content="2021-01-01T18:18:04.000Z">
-<meta property="article:modified_time" content="2021-01-09T07:07:15.142Z">
+<meta property="article:modified_time" content="2021-01-09T10:15:36.308Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Coding">
 <meta property="article:tag" content="Kafka">
@@ -34,9 +34,10 @@
   
     <link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
   
-  
-    <link rel="icon" type="image/png" href="/favicon.png">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -53,7 +54,7 @@
     <div id="header-inner">
       <nav id="main-nav">
         <a id="logo" href="/">
-          <img src="/favicon.png" alt="Ký sự AI">
+          <img src="/favicon-32x32.png" alt="Ký sự AI">
           <h1>Ký sự AI</h1>
         </a>
       </nav>
@@ -69,11 +70,11 @@
     </div>
   </div>
 </header>
-      <div class="outer">
+      <div id="content" class="outer">
         <section id="main"><article id="post-Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" class="article-date">
-  <time datetime="2021-01-01T18:18:04.000Z" itemprop="datePublished">2021-01-01</time>
+  <time datetime="2021-01-01T18:18:04.000Z" itemprop="datePublished">01-01-2021</time>
 </a>
     
   </div>
@@ -94,7 +95,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" rel="gallery_ckjpd8nhu0004zknhawfme1qm">
+      <a class="article-gallery-img fancybox" href="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" rel="gallery_ckjpjyvs800041snaa9r2h1jm">
         <img src="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" itemprop="image">
       </a>
     
@@ -119,8 +120,10 @@
 <span class="token builtin class-name">cd</span> kafka_2.13-2.7.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 <li><strong>Bước 3</strong>: Khởi động ZooKeeper service:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 <li><strong>Bước 4</strong>: Mở 1 terminal mới và nhập dòng lệnh sau đây để bắt đầu chạy Kafka server:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/kafka-server-start.sh config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Co-che-hoat-dong"><a href="#Co-che-hoat-dong" class="headerlink" title="Cơ chế hoạt động"></a>Cơ chế hoạt động</h3>Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút về cách nó hoạt động như sau:</li>
+
+</li>
 </ol>
+<h3 id="Co-che-hoat-dong"><a href="#Co-che-hoat-dong" class="headerlink" title="Cơ chế hoạt động"></a>Cơ chế hoạt động</h3><p>Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút về cách nó hoạt động như sau:</p>
 <ul>
 <li>Mỗi user khi được tạo sẽ được cấp cho 1 định danh duy nhất, ở đây mình dùng tên của user cho đơn giản. Mỗi user cũng sẽ được cấp 1 topic duy nhất mang tên của chính user đó. Ví dụ: user có tên là user1 sẽ được cấp cho topic cũng tên là user1.</li>
 <li>Mỗi user luôn subscribe vào topic của chính họ, và publish vào topic của các user khác.</li>
@@ -218,7 +221,7 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjpd8nhu0004zknhawfme1qm" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjpjyvs800041snaa9r2h1jm" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
@@ -322,7 +325,7 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
       <footer id="footer">
   
   <div class="outer">
-    <div id="footer-info" class="inner">
+    <div id="footer-info">
       &copy; 2021 Vũ Đức Duy<br>
     </div>
   </div>
