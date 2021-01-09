@@ -27,6 +27,8 @@
 
 .article-header
   padding: article-padding article-padding 0
+  @media mq-mobile
+    padding: article-padding-mobile article-padding-mobile 0
 
 .article-title
   text-decoration: none
@@ -43,6 +45,8 @@
   clearfix()
   color: color-default
   padding: 0 article-padding
+  @media mq-mobile
+    padding: 0 article-padding-mobile
   p, table
     line-height: line-height
     margin: 1em 0
@@ -142,6 +146,8 @@
   border-top: 1px solid color-border
   padding-top: line-height
   margin: 0 article-padding article-padding
+  @media mq-mobile
+    margin: 0 article-padding-mobile article-padding-mobile
 
 .article-tag-list-item
   float: left
@@ -303,7 +309,6 @@ $article-share-link
     text-shadow: 0 1px darken(color-google, 20%)
 
 .article-gallery
-  background: #000
   position: relative
 
 .article-gallery-photos
