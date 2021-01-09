@@ -24,7 +24,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg">
 <meta property="article:published_time" content="2021-01-01T18:18:04.000Z">
-<meta property="article:modified_time" content="2021-01-04T16:09:36.068Z">
+<meta property="article:modified_time" content="2021-01-09T07:07:15.142Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Coding">
 <meta property="article:tag" content="Kafka">
@@ -94,7 +94,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" rel="gallery_ckjirexj30003a3nf9lwdfwmn">
+      <a class="article-gallery-img fancybox" href="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" rel="gallery_ckjpd8nhu0004zknhawfme1qm">
         <img src="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" itemprop="image">
       </a>
     
@@ -106,20 +106,20 @@
       
         <p>Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả, Kafka được sinh ra để làm nhiệm vụ đó. Trong phần đầu tiên của series “Làm quen với Kafka”, mình sẽ viết 1 ứng dụng Python dùng để chat với nhau trên màn hình console để hiểu được những tính năng cơ bản của Kafka.</p>
 <p>Lưu ý đây chỉ là 1 ứng dụng làm cho vui để làm quen với Kafka thôi chứ không nên đưa vào thực tế nhé.</p>
-<h1 id="Truoc-het-Kafka-la-gi"><a href="#Truoc-het-Kafka-la-gi" class="headerlink" title="Trước hết, Kafka là gì?"></a>Trước hết, Kafka là gì?</h1><p>Kafka là 1 nền tảng event streaming rất phổ biến hiện nay được phát triển bởi tổ chức Apache và là một phần mềm mã nguồn mở. Event streaming ở đây có nghĩa là việc lấy dữ liệu theo thời gian thực từ những nguồn như là cơ sở dữ liệu, cảm biến, thiết bị di động, dịch vụ đám mây và ứng dụng dưới dạng những luồng sự kiện; lưu những sự kiện này để sau đó có thể lấy lên lại và xử lý.</p>
-<h2 id="Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao"><a href="#Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao" class="headerlink" title="Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!"></a>Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!</h2><p>Tưởng tượng bạn đang xem kênh Discovery trên TV của bạn. Những hình ảnh và âm thanh mà bạn thấy và nghe được đều được phát đi từ đài truyền hình của kênh này. Ở đây, đài truyền hình của kênh Discovery đóng vai trò là <strong>publisher</strong>, còn bạn - người xem là <strong>subscriber</strong> và kênh Discovery chính là <strong>topic</strong>.</p>
+<h2 id="Truoc-het-Kafka-la-gi"><a href="#Truoc-het-Kafka-la-gi" class="headerlink" title="Trước hết, Kafka là gì?"></a>Trước hết, Kafka là gì?</h2><p>Kafka là 1 nền tảng event streaming rất phổ biến hiện nay được phát triển bởi tổ chức Apache và là một phần mềm mã nguồn mở. Event streaming ở đây có nghĩa là việc lấy dữ liệu theo thời gian thực từ những nguồn như là cơ sở dữ liệu, cảm biến, thiết bị di động, dịch vụ đám mây và ứng dụng dưới dạng những luồng sự kiện; lưu những sự kiện này để sau đó có thể lấy lên lại và xử lý.</p>
+<h3 id="Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao"><a href="#Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao" class="headerlink" title="Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!"></a>Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!</h3><p>Tưởng tượng bạn đang xem kênh Discovery trên TV của bạn. Những hình ảnh và âm thanh mà bạn thấy và nghe được đều được phát đi từ đài truyền hình của kênh này. Ở đây, đài truyền hình của kênh Discovery đóng vai trò là <strong>publisher</strong>, còn bạn - người xem là <strong>subscriber</strong> và kênh Discovery chính là <strong>topic</strong>.</p>
 <p>Publisher có nhiệm vụ là phát đi thông tin vào 1 topic (kênh), thông tin trong trường hợp này là dữ liệu ở dạng hình ảnh và âm thanh. Subscriber có thể đăng ký để lắng nghe trên 1 topic (chọn kênh để xem) và nhận được thông tin mà publisher phát đi. Subscriber cũng có thể lắng nghe trên nhiều topic (xem nhiều kênh trên nhiều TV, nếu bạn giàu và rảnh :D).</p>
 <p>Đối với publisher, việc ai nhận được thông tin không quan trọng, miễn là cứ có thông tin thì nó sẽ phát đi vào 1 hoặc nhiều topic cụ thể. Còn đối với subscriber, publisher nào phát không quan trọng, miễn là topic đó có thông tin thì cứ lấy ra mà xử lý.</p>
-<h1 id="Viet-ung-dung-chat-tren-console"><a href="#Viet-ung-dung-chat-tren-console" class="headerlink" title="Viết ứng dụng chat trên console"></a>Viết ứng dụng chat trên console</h1><p>Kafka hoạt động theo cơ chế client-server, trong đó, server là 1 process chạy trên 1 máy tính và client có thể kết nối đến nó giống như cách bạn kết nối đến database, sử dụng địa chỉ IP và port cùng với username và password nếu có. Client có thể là publisher, consumer hoặc là admin.</p>
+<h2 id="Viet-ung-dung-chat-tren-console"><a href="#Viet-ung-dung-chat-tren-console" class="headerlink" title="Viết ứng dụng chat trên console"></a>Viết ứng dụng chat trên console</h2><p>Kafka hoạt động theo cơ chế client-server, trong đó, server là 1 process chạy trên 1 máy tính và client có thể kết nối đến nó giống như cách bạn kết nối đến database, sử dụng địa chỉ IP và port cùng với username và password nếu có. Client có thể là publisher, consumer hoặc là admin.</p>
 <p>Việc đầu tiên bạn cần phải làm đó là khởi động Kafka server trên 1 chiếc máy tính.</p>
-<h2 id="Khoi-dong-Kafka-server"><a href="#Khoi-dong-Kafka-server" class="headerlink" title="Khởi động Kafka server"></a>Khởi động Kafka server</h2><ol>
+<h3 id="Khoi-dong-Kafka-server"><a href="#Khoi-dong-Kafka-server" class="headerlink" title="Khởi động Kafka server"></a>Khởi động Kafka server</h3><ol>
 <li><strong>Bước 1</strong>: Mở terminal lên vào nhập dòng lệnh sau để tải Kafka:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/Downloads
 <span class="token function">wget</span> https://downloads.apache.org/kafka/2.7.0/kafka_2.13-2.7.0.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 <li><strong>Bước 2</strong>: Giải nén file vừa tải về:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> -xzf kafka_2.13-2.7.0.tgz
 <span class="token builtin class-name">cd</span> kafka_2.13-2.7.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 <li><strong>Bước 3</strong>: Khởi động ZooKeeper service:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 <li><strong>Bước 4</strong>: Mở 1 terminal mới và nhập dòng lệnh sau đây để bắt đầu chạy Kafka server:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/kafka-server-start.sh config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="Co-che-hoat-dong"><a href="#Co-che-hoat-dong" class="headerlink" title="Cơ chế hoạt động"></a>Cơ chế hoạt động</h2>Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút về cách nó hoạt động như sau:</li>
+<h3 id="Co-che-hoat-dong"><a href="#Co-che-hoat-dong" class="headerlink" title="Cơ chế hoạt động"></a>Cơ chế hoạt động</h3>Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút về cách nó hoạt động như sau:</li>
 </ol>
 <ul>
 <li>Mỗi user khi được tạo sẽ được cấp cho 1 định danh duy nhất, ở đây mình dùng tên của user cho đơn giản. Mỗi user cũng sẽ được cấp 1 topic duy nhất mang tên của chính user đó. Ví dụ: user có tên là user1 sẽ được cấp cho topic cũng tên là user1.</li>
@@ -127,7 +127,7 @@
 <li>Giả sử user A và user B đang chat với nhau, user A muốn gửi tin nhắn cho B thì sẽ publish nội dung tin nhắn vào topic B, sau đó user B đang subscribe trên topic của mình sẽ nhận được tin nhắn từ A, quá trình nhắn tin từ B tới A cũng diễn ra tương tụ.</li>
 </ul>
 <p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/kafka-message.svg" alt="Minh họa cách thức giao tiếp giữa 2 user A và B"></p>
-<h2 id="Code-nao"><a href="#Code-nao" class="headerlink" title="Code nào"></a>Code nào</h2><p>Để có thể giao tiếp được với Kafka server, bạn cần dùng thư viện kafka-python. Sử dụng pip để cài đặt thư viện này:</p>
+<h3 id="Code-nao"><a href="#Code-nao" class="headerlink" title="Code nào"></a>Code nào</h3><p>Để có thể giao tiếp được với Kafka server, bạn cần dùng thư viện kafka-python. Sử dụng pip để cài đặt thư viện này:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> kafka-python<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Bạn có thể đọc document của thư viện này tại <a target="_blank" rel="noopener" href="https://kafka-python.readthedocs.io/en/master/usage.html">đây</a>.</p>
 <p>Trước tiên, mình thử publish vào 1 topic bằng đoạn code sau:</p>
@@ -218,7 +218,7 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjirexj30003a3nf9lwdfwmn" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjpd8nhu0004zknhawfme1qm" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
@@ -228,6 +228,15 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
   
     
 <nav id="article-nav">
+  
+    <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Mới hơn</strong>
+      <div class="article-nav-title">
+        
+          Cách thiết lập môi trường Docker cho server Jupyter của bạn
+        
+      </div>
+    </a>
   
   
     <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" id="article-nav-older" class="article-nav-link-wrap">
@@ -249,6 +258,10 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
     <h3 class="widget-title">Bài viết gần đây</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Cách thiết lập môi trường Docker cho server Jupyter của bạn</a>
+          </li>
         
           <li>
             <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
@@ -275,7 +288,7 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
     </div>
   </div>
 
@@ -285,7 +298,7 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Coding/" style="font-size: 20px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/OOP/" style="font-size: 20px;">OOP</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 20px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
+      <a href="/tags/Coding/" style="font-size: 20px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/OOP/" style="font-size: 20px;">OOP</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 20px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
     </div>
   </div>
 
