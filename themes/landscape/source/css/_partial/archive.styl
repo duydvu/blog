@@ -47,11 +47,8 @@
 
 #page-nav
   clearfix()
+  position: relative
   margin: block-margin auto
-  background: #fff
-  box-shadow: 1px 2px 3px #ddd
-  border: 1px solid color-border
-  border-radius: 3px
   text-align: center
   color: color-grey
   overflow: hidden
@@ -63,18 +60,14 @@
     color: color-grey
     text-decoration: none
     &:hover
-      background: color-grey
+      background: lightness(color-grey, 80%)
       color: #fff
-  .prev
-    float: left
-  .next
-    float: right
   .page-number
     display: inline-block
     @media mq-mobile
       display: none
   .current
-    color: color-default
-    font-weight: bold
+    color: #fff
+    background: color-grey
   .space
     color: color-border
