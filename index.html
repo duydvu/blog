@@ -123,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="ckjqpzbq700030kon7w5r8erf" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="ckjrbabzd0003x5onb0s400sy" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li></ul>
@@ -215,7 +215,7 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="ckjqpzbq400010kongc4g1pa2" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="ckjrbabz70001x5one48x8wfm" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li></ul>
@@ -365,7 +365,7 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjqpzbq900050kone77r8wqo" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjrbabzy000ox5onf9vm7f6u" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
@@ -377,200 +377,10 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
 
 
   
-    <article id="post-Cau-hinh-VS-Code-de-code-tren-server" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" class="article-date">
-  <time datetime="2020-12-26T11:18:29.000Z" itemprop="datePublished">26-12-2020</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
-    </h1>
-  
-
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Trong bài viết này, mình sẽ hướng dẫn cho các bạn cách thiết lập môi trường lập trình trên server hơn thông qua extension Remote - SSH của VS Code.</p>
-<p>Trước khi bắt đầu, mình sẽ trả lời cho câu hỏi:</p>
-<h2 id="Tai-sao-phai-lap-trinh-tren-server"><a href="#Tai-sao-phai-lap-trinh-tren-server" class="headerlink" title="Tại sao phải lập trình trên server?"></a>Tại sao phải lập trình trên server?</h2><p>Đối với đa số lập trình viên, 1 chiếc laptop hoặc PC là đủ để phục vụ cho công việc của họ. Tuy nhiên, đối với Data Scientist thì đôi khi làm việc trên 1 thiết bị là chưa đủ. Bạn cần phải làm việc trên máy tính có cấu hình mạnh, bộ nhớ lớn để có thể load dữ liệu và huấn luyện mô hình, đặc biệt là các mô hình Deep Learning yêu cầu phải có 1 hoặc nhiều GPU và thời gian huấn luyện có khi lên tới hàng tuần. Những chiếc máy tính mạnh mẽ như vậy thường sẽ không vừa vặn với 1 chiếc laptop hoặc PC nên nếu làm việc trực tiếp thì sẽ khá khó khăn. Vì vậy, việc lập trình trên server sẽ giúp ích rất nhiều, ví dụ như:</p>
-<ul>
-<li>Bạn có thể huấn luyện mô hình mà vẫn có thể tắt laptop mang đi nơi khác.</li>
-<li>Bạn có thể ra quán coffee với chiếc máy tính mỏng nhẹ mà vẫn làm việc được trên chiếc máy tính khủng.</li>
-<li>Bạn có thể chia sẻ máy với đồng nghiệp để cùng tận dụng tài nguyên của máy.</li>
-</ul>
-<p>Hơn nữa, các dịch vụ điện toán đám mây như là AWS, GCP cung cấp dịch vụ tính toán giúp cho chúng ta có thể làm việc trên những chiếc máy tính mạnh mà không cần phải bỏ 1 số tiền lớn để mua hoặc thuê về, điều này cũng khiến cho việc lập trình trên server ngày càng trở nên phổ biến.</p>
-<p>Có nhiều cách khác nhau để có thể lập trình được trên server, cách nhanh nhất là bật 1 trình soạn thảo văn bản như Vim hoặc Nano rồi bắt đầu code. Tuy nhiên, những trình soạn thảo này không cung cấp sẵn những tính năng hữu ích của 1 IDE như là syntax highlighting, autocompletion, debugger. Vim là 1 trình soạn thảo rất tuyệt vời vì nó cho phép gắn thêm plugin vào để thêm tính năng, nó cho phép bạn biến nó thành 1 IDE thực thụ thông qua việc cài đặt những plugin được cung cấp bởi rất nhiều lập trình viên khác. Tùy vào sở thích mà bạn có thể chọn Vim là công cụ chính cho việc lập trình trên server, mặc dù việc thao tác trên Vim khá phức tạp nhưng khi bạn đã quen với việc sử dụng nó rồi thì bạn sẽ thấy được sự mạnh mẽ và hiệu quả mà nó đem lại. Mình cũng hay sử dụng Vim cho những tác vụ edit đơn giản trên server vì nó rất nhanh và tiện lợi. Tạm gác Vim qua một bên, trong bài này mình sẽ chỉ tập trung vào cách cấu hình để bạn có thể lập trình trên server thông qua trình soạn thảo VS Code nổi tiếng của Microsoft (nếu bạn đã từng dùng Visual Studio rồi thì nên tránh nhầm lẫn nhé vì đây là 2 phần mềm khác nhau, Visual Studio là 1 IDE còn VS Code chỉ là 1 trình soạn thảo văn bản mà thôi!).</p>
-<p>Bắt đầu nào!</p>
-<h2 id="Cai-dat-extension-Remote-SSH"><a href="#Cai-dat-extension-Remote-SSH" class="headerlink" title="Cài đặt extension Remote - SSH"></a>Cài đặt extension Remote - SSH</h2><p>Mình giả định rằng bạn đã cài đặt sẵn VS Code trong máy rồi nên mình sẽ chỉ hướng dẫn sau khi bạn đã bật VS Code lên nhé.</p>
-<p>Để cài đặt extension trên VS Code, bạn hãy nhấn vào biểu tượng <strong>Extensions</strong> ở thanh công cụ bên trái, sau đó, trên thanh tìm kiếm gõ cụm từ <em>“Remote - SSH”</em>.</p>
-<p>Extension mà ta cần tìm sẽ xuất hiện trong kết quả tìm kiếm, nhấn vào đó rồi nhấn nút <strong>Install</strong> để bắt đầu quá trình cài đặt. Sau khi cài đặt xong, khởi động lại VS Code để load extension lên.</p>
-<p><img src="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/Screenshot-2020-12-26-120808.png" alt="Giao diện VS Code sau khi hoàn tất cài đặt Remote - SSH"></p>
-<p>Tiếp theo, mình sẽ hướng dẫn cách cấu hình môi trường lập trình trên server.</p>
-<h2 id="Cau-hinh-moi-truong-lap-trinh-tren-server"><a href="#Cau-hinh-moi-truong-lap-trinh-tren-server" class="headerlink" title="Cấu hình môi trường lập trình trên server"></a>Cấu hình môi trường lập trình trên server</h2><h3 id="Buoc-1-Tao-SSH-key"><a href="#Buoc-1-Tao-SSH-key" class="headerlink" title="Bước 1: Tạo SSH key"></a>Bước 1: Tạo SSH key</h3><p>Trước khi kết nối đến server thông qua VS Code, bạn cần phải tạo 1 SSH key để xác thực quyền kết nối của máy bạn với server mà không cần dùng mật khẩu.<br>Nếu bạn đã cấu hình SSH server bằng SSH key rồi thì hãy đến với <a href="#Buoc-3-Thiet-lap-moi-truong-SSH-tren-VS-Code">bước 3</a>.</p>
-<p>Mở 1 terminal mới và nhập lệnh sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen -t rsa -b <span class="token number">4096</span> -f ~/.ssh/id_rsa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Câu lệnh trên sẽ trả về kết quả như dưới đây:</p>
-<pre class="line-numbers language-none"><code class="language-none">Generating public&#x2F;private rsa key pair.
-Enter passphrase (empty for no passphrase):<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>Nhấn Enter 2 lần để hoàn tất việc tạo SSH key trên máy tính của bạn, key này được lưu tại <code>~/.ssh/id_rsa</code>.</p>
-<h3 id="Buoc-2-Them-SSH-key-vao-danh-sach-authorized-keys-cua-server"><a href="#Buoc-2-Them-SSH-key-vao-danh-sach-authorized-keys-cua-server" class="headerlink" title="Bước 2: Thêm SSH key vào danh sách authorized keys của server"></a>Bước 2: Thêm SSH key vào danh sách authorized keys của server</h3><p>Tiếp theo, bạn cần phải SSH vào server để thêm SSH key mà bạn vừa tạo vào danh sách authorized keys của server. Bước này dùng để xác thực quyền truy cập vào server cho máy tính của bạn.</p>
-<p>Đầu tiên, bạn cần copy public key sử dụng lệnh dưới đây:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> ~/.ssh/id_rsa.pub<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Copy toàn bộ nội dung trả về của lệnh này.</p>
-<p>Tiếp theo, kết nối SSH vào server bằng lệnh sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ssh</span> <span class="token operator">&lt;</span>username<span class="token operator">></span>@<span class="token operator">&lt;</span>ip-address<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Thay <code>username</code> và <code>ip-address</code> thành giá trị tương ứng mà bạn có. Nhập mật khẩu để xác thực.</p>
-<p>Sau đó, chèn nội dung của public key vào cuối file <code>~/.ssh/authorized_keys</code> bằng lệnh sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"&lt;paste-your-public-key-content-here>"</span> <span class="token operator">>></span> ~/.ssh/authorized_keys<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Thay <code>paste-your-public-key-content-here</code> bằng nội dung của public key mà bạn vừa copy.</p>
-<p>Như vậy là bạn đã hoàn tất việc xác thực SSH key với server, trong những lần ssh sau, bạn không cần phải cung cấp mật khẩu nữa giúp cho việc ssh vào server trở nên thuận tiện hơn.</p>
-<p><strong>Lưu ý</strong>: Nếu ở trong bước 1, bạn sử dụng tên khác để tạo SSH key như <code>id_abc</code> thì bạn cần phải làm thêm 1 bước là thay đổi cấu hình SSH để nó biết được cần phải dùng key nào khi kết nối đến server của bạn.</p>
-<p>Trong file <code>~/.ssh/config</code>, bạn cần thêm đoạn dưới đây vào cuối file:</p>
-<pre class="line-numbers language-." data-language="."><div class="caption"><span>Chỉ thêm khi file key của bạn khác với mặc định (id_rsa, id_dsa, id_ecdsa, id_ed25519)</span></div><code class="language-.">Host &lt;ip-address&gt;
-  HostName &lt;ip-address&gt;
-  User &lt;username&gt;
-  Port 22
-  IdentityFile ~&#x2F;.ssh&#x2F;id_abc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Buoc-3-Thiet-lap-moi-truong-SSH-tren-VS-Code"><a href="#Buoc-3-Thiet-lap-moi-truong-SSH-tren-VS-Code" class="headerlink" title="Bước 3: Thiết lập môi trường SSH trên VS Code"></a>Bước 3: Thiết lập môi trường SSH trên VS Code</h3><p>Sau khi đã có thể kết nối đến server thông qua SSH key, bạn hãy mở VS Code và làm theo các bước sau đây:</p>
-<ol>
-<li>Nhấn tổ hợp phím <strong>Ctrl + Shift + P</strong> để mở khung <strong>Command Palette</strong>.</li>
-<li>Nhập <em>“Remote-SSH: Add New SSH Host”</em> rồi nhấn <strong>Enter</strong>.</li>
-<li>Nhập câu lệnh SSH mà bạn sử dụng để SSH đến server: <code>ssh &lt;username&gt;@&lt;ip-address&gt;</code></li>
-<li>Nhập đường dẫn đến file config: <code>~/.ssh/config</code></li>
-</ol>
-<p>VS Code sẽ hiện thống báo rằng server đã được thêm vào. Giờ bạn chọn biểu tượng Remote Explorer ở thanh công cụ bên trái, bạn sẽ thấy địa chỉ ip của server vừa thêm vào. Từ bây giờ, bạn có thể mở 1 folder bất kỳ trên server bằng cách nhấn nút <strong>Connect to Host in New Window</strong> ở kế bên địa chỉ ip của server.</p>
-<p>Như vậy là bạn có thể bắt đầu lập trình trên server thông qua VS Code rồi đó.</p>
-<p>Một lưu ý nhỏ là khi dùng VS Code trên server thì bạn cần phải cài extension <strong>trên server đó</strong> thì mới có thể dùng được, tức là nếu có extension nào bạn đã cài trên máy rồi thì vẫn phải cài lại trên server.</p>
-<p>Happy coding!</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="ckjqpzbq800040konftyg5qpm" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Open-closed-principle" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/23/Open-closed-principle/" class="article-date">
-  <time datetime="2020-08-23T14:28:47.000Z" itemprop="datePublished">23-08-2020</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/23/Open-closed-principle/">Open-closed principle</a>
-    </h1>
-  
-
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Open-closed principle là 1 trong các nguyên tắc của bộ nguyên tắc lập trình SOLID trong lập trình hướng đối tượng. Đây là 1 nguyên tắc rất quan trọng bởi nó giúp cho code của dự án dễ bảo trì và mở rộng, có thể thích ứng với những thay đổi trong môi trường Agile.</p>
-<p>Nguyên văn phát biểu của nguyên tắc này như sau:</p>
-<blockquote>
-<p>“Các thực thể phần mềm (class, function,…) nên tạo điều kiện cho việc mở rộng, nhưng hạn chế cho việc thay đổi.”</p>
-</blockquote>
-<p>Có thể hiểu lợi ích của nguyên tắc này thông qua 1 ví dụ như sau, giả sử như bạn là một lập trình viên đang làm cho 1 công ty IT nọ. Bạn vào đó với vai trò phát triển phần mềm cho 1 dự án của 1 team trong công ty. Thật không may, mã nguồn của dự án đó nhiều đến nỗi bạn không kiểm soát được ảnh hưởng của những thành phần trong hệ thống đối với nhau. Nhưng công ty lại đòi hỏi bạn phải hiện thực 1 tính năng mới cho dự án trong 1 thời gian ngắn. Vậy làm cách nào bạn có thể hoàn thành công việc được giao đúng hạn? Bạn sợ rằng nếu bạn hiện thực tính năng mới theo yêu cầu nghĩa là bạn đang tạo ra 1 sự rủi ro khiển cho hệ thống không còn hoạt động giống như trước. Bạn liên tục đặt câu hỏi rằng liệu tính năng mới được thêm vào có làm phá vỡ những tính năng khác hiện có hay không. Nếu chuyện đó thật sự xảy ra thì nó không hẳn hoàn toàn là lỗi của bạn. Cái quan trọng nhất trong chuyện này là cách mà code của dự án đã được thiết kế như thế nào. Nếu code của dự án tuân theo open-closed principle thì bạn có thể hiện thực tính năng mới bằng cách viết thêm code cho dự án, tạo thêm class kế thừa từ class sẵn có trong dự án mà không cần phải thay đổi code có sẵn. Điều này giúp giảm thiểu rủi ro phá vỡ hệ thống đang hoạt động mà vẫn hoàn thành được tiến độ công việc của bạn. Trong khi đó, nếu dự án được thiết kế đi ngược lại open-closed principle thì bạn có thể phải thay đổi code của dự án. Rõ ràng là điều này tiềm ẩn nhiều rủi ro hơn và cũng khó hiện thực hơn trường hợp đầu tiên.</p>
-<p>Như vậy, ta đã thấy được lợi ích của việc thiết kế code theo open-closed principle rồi. Vậy code như thế nào mới gọi là tuân theo nguyên tắc đó? Ta hãy tiếp tục tìm hiểu thông qua ví dụ Python dưới đây.</p>
-<p>Mình đang làm 1 dự án xây dựng mô hình phân loại spam cho văn bản sử dụng Machine Learning. Để cho dễ hiểu, mình sẽ bỏ qua phần hiện thực của mô hình mà chỉ tập trung vào phần code để sử dụng mô hình mà thôi.</p>
-<p>Giả sử như mình đã xây dựng xong 1 mô hình có input là 1 đoạn văn bản và output ra là 1 số hoặc 0 hoặc 1, 0 nghĩa là không phải spam còn 1 nghĩa là spam. Nhưng trước khi đưa nó vào chạy thực tế, mình cần phải đánh giá mô hình này có hoặc động tốt hay không bằng việc cho nó dự đoán 1 tập nhiều văn bản khác nhau và tính tỷ lệ phần trăm mà nó dự đoán đúng. Vậy mình sẽ hiện thực 1 hàm đánh giá mô hình như sau:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Đây là hàm dùng để lấy output của mô hình</span>
-<span class="token keyword">def</span> <span class="token function">predict</span><span class="token punctuation">(</span>texts<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> np<span class="token punctuation">.</span>array<span class="token punctuation">:</span>
-    <span class="token comment"># Hàm này sẽ dùng mô hình đã được huấn luyện để chạy rồi trả về kết quả của mô hình</span>
-
-<span class="token keyword">def</span> <span class="token function">evaluate_spam_model</span><span class="token punctuation">(</span>texts<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> truth_labels<span class="token punctuation">:</span> np<span class="token punctuation">.</span>array<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">float</span><span class="token punctuation">:</span>
-    predicted_labels <span class="token operator">=</span> predict<span class="token punctuation">(</span>texts<span class="token punctuation">)</span>
-    num_correct_predictions <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>predicted_labels <span class="token operator">==</span> truth_labels<span class="token punctuation">)</span> <span class="token comment"># Tính số lần mà mô hình dự đoán đúng</span>
-    num_total_predictions <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>texts<span class="token punctuation">)</span> <span class="token comment"># Tổng số văn bản mà mô hình dự đoán.</span>
-    accuracy <span class="token operator">=</span> num_correct_predictions <span class="token operator">/</span> num_total_predictions <span class="token comment"># Tính accuracy của mô hình</span>
-    <span class="token keyword">return</span> accuracy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Khi chạy hàm này, mình nhận thấy kết quả đánh giá của mô hình không đạt yêu cầu đề ra nên mình quyết định thử dùng 1 phương pháp mới để cải thiện độ chính xác của mô hình. Sau khi hiện thực lại xong, mình nhận thấy hàm <code>predict</code> không thể chạy được mô hình mới vì bạn đã dùng thư viện khác để hiện thực nó. Bạn thay đổi code của mình thành như sau:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">predict</span><span class="token punctuation">(</span>texts<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> model_name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> np<span class="token punctuation">.</span>array<span class="token punctuation">:</span>
-    <span class="token keyword">if</span> model_name <span class="token operator">==</span> <span class="token string">'v1'</span><span class="token punctuation">:</span>
-        <span class="token comment"># Chạy mô hình đầu tiên</span>
-    <span class="token keyword">elif</span> model_name <span class="token operator">==</span> <span class="token string">'v2'</span><span class="token punctuation">:</span>
-        <span class="token comment"># Chạy mô hình thứ hai</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'No such model.'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">evaluate_spam_model</span><span class="token punctuation">(</span>texts<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> truth_labels<span class="token punctuation">:</span> np<span class="token punctuation">.</span>array<span class="token punctuation">,</span> model_name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">float</span><span class="token punctuation">:</span>
-    predicted_labels <span class="token operator">=</span> predict<span class="token punctuation">(</span>texts<span class="token punctuation">,</span> model_name<span class="token punctuation">)</span>
-    num_correct_predictions <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>predicted_labels <span class="token operator">==</span> truth_labels<span class="token punctuation">)</span> <span class="token comment"># Tính số lần mà mô hình dự đoán đúng</span>
-    num_total_predictions <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>texts<span class="token punctuation">)</span> <span class="token comment"># Tổng số văn bản mà mô hình dự đoán.</span>
-    accuracy <span class="token operator">=</span> num_correct_predictions <span class="token operator">/</span> num_total_predictions <span class="token comment"># Tính accuracy của mô hình</span>
-    <span class="token keyword">return</span> accuracy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Ở đây ta có 2 vấn đề:</p>
-<ol>
-<li>Việc thêm code vào hàm <code>predict</code> làm tăng rủi ro sinh ra bug cho hàm này. Nếu như mình chỉ có 2 hoặc 3 mô hình thì không thành vấn đề. Nhưng giả sử khi mình có tới hàng chục mô hình khác nhau thì đồng nghĩa với việc hàm này sẽ vô cùng dài và khó đọc. Khi đó thì việc kiểm tra lỗi sẽ trở nên khó khăn hơn.</li>
-<li>Việc thay đổi signature của hàm <code>predict</code> khiến cho những hàm sử dụng nó cũng thay đổi theo. Trong trường hợp này thì chỉ có 1 mình hàm <code>evaluate_spam_model</code> là phải thay đổi. Nhưng nếu như mình có hàm khác sử dụng hàm <code>evaluate_spam_model</code> thì sao? Ví dụ như hàm <code>report_spam_performance</code> sử dụng hàm <code>evaluate_spam_model</code> để chạy ra kết quả và output ra 1 report để mình xem. Như vậy, việc thay đổi signature của 1 hàm có thể dẫn đến việc thay đổi signature của toàn bộ hàm trực tiếp hoặc gián tiếp sử dụng nó.</li>
-</ol>
-<p>Rõ ràng là đoạn code trên không tuân theo open-closed principle. Vậy code tuân theo nguyên tắc này sẽ trông như thế nào? Hãy xem đoạn code dưới đây:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">SpamStrategy</span><span class="token punctuation">(</span>ABC<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment"># Khai báo class kế thừa Abstract Base Classes. Link: https://docs.python.org/3/library/abc.html#abc.ABC</span>
-    <span class="token decorator annotation punctuation">@abstractmethod</span>
-    <span class="token keyword">def</span> <span class="token function">predict</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> texts<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> np<span class="token punctuation">.</span>array<span class="token punctuation">:</span>
-        <span class="token keyword">pass</span>
-
-<span class="token keyword">class</span> <span class="token class-name">SpamV1Strategy</span><span class="token punctuation">(</span>SpamStrategy<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">predict</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> np<span class="token punctuation">.</span>array<span class="token punctuation">:</span>
-        <span class="token comment"># Chạy mô hình thứ nhất</span>
-
-<span class="token keyword">class</span> <span class="token class-name">SpamV2Strategy</span><span class="token punctuation">(</span>SpamStrategy<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">predict</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> np<span class="token punctuation">.</span>array<span class="token punctuation">:</span>
-        <span class="token comment"># Chạy mô hình thứ hai</span>
-
-
-<span class="token keyword">def</span> <span class="token function">evaluate_spam_model</span><span class="token punctuation">(</span>texts<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> truth_labels<span class="token punctuation">:</span> np<span class="token punctuation">.</span>array<span class="token punctuation">,</span> strategy<span class="token punctuation">:</span> SpamStrategy<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    predicted_labels <span class="token operator">=</span> strategy<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>texts<span class="token punctuation">,</span> model_name<span class="token punctuation">)</span>
-    num_correct_predictions <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>predicted_labels <span class="token operator">==</span> truth_labels<span class="token punctuation">)</span> <span class="token comment"># Tính số lần mà mô hình dự đoán đúng</span>
-    num_total_predictions <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>texts<span class="token punctuation">)</span> <span class="token comment"># Tổng số văn bản mà mô hình dự đoán.</span>
-    accuracy <span class="token operator">=</span> num_correct_predictions <span class="token operator">/</span> num_total_predictions <span class="token comment"># Tính accuracy của mô hình</span>
-    <span class="token keyword">return</span> accuracy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Ở đây, mình khai báo 1 abstract class <code>SpamStrategy</code> có khai báo 1 hàm abstract là <code>predict</code>. Mỗi lần hiện thực 1 mô hình spam mới thì mình sẽ tạo thêm 1 class mới kế thừa từ class này rồi chạy hàm <code>evaluate_spam_model</code> bằng việc thay đổi tham số strategy. Như vậy, mỗi lần mình hiện thực thêm 1 mô hình mới thì đoạn code của những mô hình cũ (những class kế thừa từ <code>SpamStrategy</code>) không bị thay đổi. Nếu như mình nhận thấy mô hình mới không được tốt như mô hình cũ thì mình vẫn có thể dễ dàng chạy lại mô hình cũ chỉ bằng việc thay đổi tham số của hàm <code>evaluate_spam_model</code> mà thôi!</p>
-<p>Thông qua ví dụ trên, chúng ta thấy được tầm quan trọng của việc thiết kế code theo open-closed principle. Đối với những dự án nhỏ, nguyên tắc này đôi khi là không cần thiết bởi nó khiến cho code trở nên dài dòng hơn. Nhưng khi dự án phình to ra với vô số hàm và class được thêm vào thì ta mới thấy rõ được tầm quan trọng của nguyên tác này.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2020/08/23/Open-closed-principle/" data-id="ckjqpzbqk00110kon5f94adnd" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Sau</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </nav>
 
 </section>
