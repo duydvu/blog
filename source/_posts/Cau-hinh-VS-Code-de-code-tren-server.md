@@ -10,6 +10,8 @@ tags:
 ---
 Trong bài viết này, mình sẽ hướng dẫn cho các bạn cách thiết lập môi trường lập trình trên server hơn thông qua extension Remote - SSH của VS Code.
 
+<escape><!-- more --></escape>
+
 Trước khi bắt đầu, mình sẽ trả lời cho câu hỏi:
 
 ## Tại sao phải lập trình trên server?

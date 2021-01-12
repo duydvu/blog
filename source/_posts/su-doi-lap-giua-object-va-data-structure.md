@@ -11,6 +11,8 @@ Bài viết này là kiến thức mình học được khi đọc cuốn *Clean
 
 Trong lập trình hướng đối tượng, 2 khái niệm object và data structure có sự đối lập nhau rõ ràng mặc dù nghe thì chúng có vẻ hơi hơi giống nhau. Trong bài viết này, mình sẽ tìm hiểu và phân tích sự đối lập này thông qua 1 ví dụ thực tế.
 
+<escape><!-- more --></escape>
+
 ## Sự khác nhau giữa Object và Data Structure
 
 Object đóng gói toàn bộ dữ liệu của nó bên trong 1 class và chỉ cung cấp ra bên ngoài một hoặc nhiều hàm để người dùng gọi. Như vậy, chỉ có các hàm bên trong 1 class mới có thể quản lý dữ liệu của class đó. Ngược lại, data structure để phơi bày dữ liệu của nó và không có bất kỳ hàm nào có ý nghĩa.

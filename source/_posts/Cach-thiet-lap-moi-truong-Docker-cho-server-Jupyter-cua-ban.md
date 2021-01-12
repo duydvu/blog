@@ -10,6 +10,8 @@ tags:
 ---
 Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để chạy VnCoreNLP, cài tensorflow GPU để huấn luyện model, cài cmake để cài CocCoc Tokenizer, quản lý dependency,... Có khi bạn lỡ làm sai gì đó khiến cho máy bạn gặp vấn đề mà không biết giải quyết làm sao, vừa tốn công sức vừa tốn thời gian cho những tác vụ không liên quan. Docker chính là chìa khóa để giái quyết những vấn đề trên. Bài viết này sẽ hướng dẫn bạn cách thiết lập môi trường Docker để chạy server Jupyter của bạn.
 
+<escape><!-- more --></escape>
+
 ## Docker là gì?
 
 Nếu bạn chưa biết về Docker hoặc biết 1 chút và muốn tìm hiểu thêm thì nên đọc phần này, nếu không thì bạn có thể kéo xuống [phần tiếp theo](#Tao-Docker-image).

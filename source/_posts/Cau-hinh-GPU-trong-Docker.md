@@ -9,6 +9,8 @@ Trong bài [trước](/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Ju
 
 Mình giả định rằng máy của bạn đang dùng Nvidia GPU và bạn đã cài driver cần thiết trên hệ điều hành Ubuntu rồi. Nếu bạn chưa cài đặt driver cho GPU thì vào đường link ở [đây](https://www.nvidia.com/Download/index.aspx), chọn tải rồi cài driver trước nhé.
 
+<escape><!-- more --></escape>
+
 ## Cài đặt nvidia-container-runtime
 Mở terminal và chạy đoạn lệnh dưới đây:
 ```bash
