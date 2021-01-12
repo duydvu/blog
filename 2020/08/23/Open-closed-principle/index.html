@@ -24,7 +24,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/images/philipp-berndt-5i0GnoTTjSE-unsplash.jpg">
 <meta property="article:published_time" content="2020-08-23T14:28:47.000Z">
-<meta property="article:modified_time" content="2021-01-10T15:48:06.135Z">
+<meta property="article:modified_time" content="2021-01-12T06:07:26.412Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="OOP">
@@ -96,7 +96,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/images/philipp-berndt-5i0GnoTTjSE-unsplash.jpg" rel="gallery_ckjrbabzz000qx5on8hwmf125">
+      <a class="article-gallery-img fancybox" href="/images/philipp-berndt-5i0GnoTTjSE-unsplash.jpg" rel="gallery_ckjtlfaeu0011zaoo7fxu9f72">
         <img src="/images/philipp-berndt-5i0GnoTTjSE-unsplash.jpg" itemprop="image">
       </a>
     
@@ -111,6 +111,7 @@
 <blockquote>
 <p>“Các thực thể phần mềm (class, function,…) nên tạo điều kiện cho việc mở rộng, nhưng hạn chế cho việc thay đổi.”</p>
 </blockquote>
+<p><escape><a id="more"></a></escape></p>
 <p>Có thể hiểu lợi ích của nguyên tắc này thông qua 1 ví dụ như sau, giả sử như bạn là một lập trình viên đang làm cho 1 công ty IT nọ. Bạn vào đó với vai trò phát triển phần mềm cho 1 dự án của 1 team trong công ty. Thật không may, mã nguồn của dự án đó nhiều đến nỗi bạn không kiểm soát được ảnh hưởng của những thành phần trong hệ thống đối với nhau. Nhưng công ty lại đòi hỏi bạn phải hiện thực 1 tính năng mới cho dự án trong 1 thời gian ngắn. Vậy làm cách nào bạn có thể hoàn thành công việc được giao đúng hạn? Bạn sợ rằng nếu bạn hiện thực tính năng mới theo yêu cầu nghĩa là bạn đang tạo ra 1 sự rủi ro khiển cho hệ thống không còn hoạt động giống như trước. Bạn liên tục đặt câu hỏi rằng liệu tính năng mới được thêm vào có làm phá vỡ những tính năng khác hiện có hay không. Nếu chuyện đó thật sự xảy ra thì nó không hẳn hoàn toàn là lỗi của bạn. Cái quan trọng nhất trong chuyện này là cách mà code của dự án đã được thiết kế như thế nào. Nếu code của dự án tuân theo open-closed principle thì bạn có thể hiện thực tính năng mới bằng cách viết thêm code cho dự án, tạo thêm class kế thừa từ class sẵn có trong dự án mà không cần phải thay đổi code có sẵn. Điều này giúp giảm thiểu rủi ro phá vỡ hệ thống đang hoạt động mà vẫn hoàn thành được tiến độ công việc của bạn. Trong khi đó, nếu dự án được thiết kế đi ngược lại open-closed principle thì bạn có thể phải thay đổi code của dự án. Rõ ràng là điều này tiềm ẩn nhiều rủi ro hơn và cũng khó hiện thực hơn trường hợp đầu tiên.</p>
 <p>Như vậy, ta đã thấy được lợi ích của việc thiết kế code theo open-closed principle rồi. Vậy code như thế nào mới gọi là tuân theo nguyên tắc đó? Ta hãy tiếp tục tìm hiểu thông qua ví dụ Python dưới đây.</p>
 <p>Mình đang làm 1 dự án xây dựng mô hình phân loại spam cho văn bản sử dụng Machine Learning. Để cho dễ hiểu, mình sẽ bỏ qua phần hiện thực của mô hình mà chỉ tập trung vào phần code để sử dụng mô hình mà thôi.</p>
@@ -172,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2020/08/23/Open-closed-principle/" data-id="ckjrbabzz000qx5on8hwmf125" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2020/08/23/Open-closed-principle/" data-id="ckjtlfaeu0011zaoo7fxu9f72" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li></ul>

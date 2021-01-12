@@ -91,39 +91,16 @@
       
         <p>Trong bài <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban">trước</a>, mình đã trình bày cách thiết lập môi trường Docker để chạy server Jupyter. Với nó, bạn có thể cài đặt bất kỳ package nào mà bạn muốn như scikit-learn, Tensorflow, PyTorch. Nhưng những thư viện này sẽ không thể sử dụng được GPU trong máy bạn như khi cài trực tiếp trên hệ điều hành bởi vì bạn chưa cấu hình GPU cho container của bạn. Trong bài này, mình sẽ hướng dẫn bạn cách để sử dụng được GPU trong Docker.</p>
 <p>Mình giả định rằng máy của bạn đang dùng Nvidia GPU và bạn đã cài driver cần thiết trên hệ điều hành Ubuntu rồi. Nếu bạn chưa cài đặt driver cho GPU thì vào đường link ở <a target="_blank" rel="noopener" href="https://www.nvidia.com/Download/index.aspx">đây</a>, chọn tải rồi cài driver trước nhé.</p>
-<h2 id="Cai-dat-nvidia-container-runtime"><a href="#Cai-dat-nvidia-container-runtime" class="headerlink" title="Cài đặt nvidia-container-runtime"></a>Cài đặt nvidia-container-runtime</h2><p>Mở terminal và chạy đoạn lệnh dưới đây:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey <span class="token operator">|</span> <span class="token punctuation">\</span>
-  <span class="token function">sudo</span> apt-key <span class="token function">add</span> -
-<span class="token assign-left variable">distribution</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">.</span> /etc/os-release<span class="token punctuation">;</span><span class="token builtin class-name">echo</span> $ID$VERSION_ID<span class="token variable">)</span></span>
-<span class="token function">curl</span> -s -L https://nvidia.github.io/nvidia-container-runtime/<span class="token variable">$distribution</span>/nvidia-container-runtime.list <span class="token operator">|</span> <span class="token punctuation">\</span>
-  <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/sources.list.d/nvidia-container-runtime.list
-<span class="token function">sudo</span> <span class="token function">apt-get</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Sau đó, nhập lệnh sau để cài đặt nvidia-container-runtime:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nvidia-container-runtime<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Khởi động lại Docker server:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> docker restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Thế là xong. Đến bước tiếp theo là khởi động 1 container mới với cấu hình cho phép truy cập GPU.</p>
-<h2 id="Khoi-dong-Docker-container"><a href="#Khoi-dong-Docker-container" class="headerlink" title="Khởi động Docker container"></a>Khởi động Docker container</h2><p>Để sử dụng GPU trong 1 container, bạn phải thêm tham số <code>--gpus</code> trong lệnh chạy <code>docker run</code>. Ví dụ:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 --gpus all jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Tham số <code>--gpus</code> có giá trị là <code>all</code> ở đây nghĩa là bạn cho phép container này truy cập vào toàn bộ GPU mà máy bạn đang có. Hoặc là bạn có thể chỉ định những GPU cụ thể được sử dụng trong container.</p>
-<p>Mỗi GPU trong máy được đánh giá trị index bắt đầu từ 0. Ví dụ nếu bạn có 2 GPU thì chúng sẽ được đánh index lần lượt là 0 và 1. Để xem index của từng GPU và các thông số khác như memory, usage thì có thể dùng lệnh <code>nvidia-smi</code>. Ví dụ như trong hình dưới đây:</p>
-<p><img src="/2021/01/10/Cau-hinh-GPU-trong-Docker/Screenshot-2021-01-10-121331.png" alt="Ví dụ chạy lệnh nvidia-smi"></p>
-<p>Ở cột ngoài cùng bên trái, bạn sẽ thấy index của từng GPU. Ở đây có 2 GPU nên được đánh lần lượt 0 và 1. GPU 0 đang sử dụng 4905 MB / 11178 MB, còn GPU 1 thì đang dùng 11140 MB / 11178 MB. Nếu bạn chỉ muốn cấp cho container sử dụng GPU 0 thì dùng lệnh như sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 --gpus <span class="token assign-left variable">device</span><span class="token operator">=</span><span class="token number">0</span> jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Hoặc nếu bạn có nhiều hơn 2 GPU thì bạn có thể chỉ định bất kỳ GPU nào được dùng trong container như sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 --gpus <span class="token assign-left variable">device</span><span class="token operator">=</span><span class="token number">0,2</span>,4 jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="Tong-ket"><a href="#Tong-ket" class="headerlink" title="Tổng kết"></a>Tổng kết</h2><p>Giờ đây bạn có thể cài thư viện Tensorflow GPU hay PyTorch trong server Jupyter là có thể dùng được ngay GPU. Với Docker, bạn có thể tha hồ cài đặt bất kỳ phần mềm nào mà bạn muốn.</p>
-<p>Mình cũng chia sẻ thêm một số package rất hữu ích mà mình hay dùng trong công việc:</p>
-<ul>
-<li><strong>tmux</strong>: cho phép bạn quản lý terminal theo phong cách xịn xò như 1 hacker, bạn có thể chạy 1 chương trình trong terminal và tắt nó đi mà không sợ bị dừng chương trình.</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh"><strong>ohmyzsh</strong></a>: terminal đẹp lung linh kèm theo 1 số plugin như git cho phép bạn thao tác trên terminal tiện lợi và thích thú hơn.</li>
-</ul>
-<p>Happy Coding!</p>
-
+<p><escape>
+        
+          <p class="article-more-link">
+            <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/">Đọc tiếp →</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="ckjrbabzd0003x5onb0s400sy" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="ckjtlfae60003zaooh7gm8myx" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li></ul>
@@ -158,64 +135,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để chạy VnCoreNLP, cài tensorflow GPU để huấn luyện model, cài cmake để cài CocCoc Tokenizer, quản lý dependency,… Có khi bạn lỡ làm sai gì đó khiến cho máy bạn gặp vấn đề mà không biết giải quyết làm sao, vừa tốn công sức vừa tốn thời gian cho những tác vụ không liên quan. Docker chính là chìa khóa để giái quyết những vấn đề trên. Bài viết này sẽ hướng dẫn bạn cách thiết lập môi trường Docker để chạy server Jupyter của bạn.</p>
-<h2 id="Docker-la-gi"><a href="#Docker-la-gi" class="headerlink" title="Docker là gì?"></a>Docker là gì?</h2><p>Nếu bạn chưa biết về Docker hoặc biết 1 chút và muốn tìm hiểu thêm thì nên đọc phần này, nếu không thì bạn có thể kéo xuống <a href="#Tao-Docker-image">phần tiếp theo</a>.</p>
-<p>Docker là 1 môi trường ảo hóa giống như VirtualBox hay VMware. Nếu bạn đã từng dùng máy ảo để chạy 1 hệ điều hành thì có thể thấy rằng chúng cung cấp cho bạn 1 môi trường độc lập với máy chính, những gì bạn làm trên máy ảo không ảnh hưởng đến máy chính. Nếu bạn lỡ phá gì đó hay dính malware thì chỉ cần reset máy ảo đó đi là xong. Sự tiện lợi này khiến cho máy ảo rất thích hợp cho việc phát triển phần mềm, triển khai phần mềm, test virus,… Nhưng cũng chính sự tiện lợi này khiến cho nó tốn rất nhiều tài nguyên của máy. Vì vậy, việc sử dụng máy ảo tương đối khó khăn.</p>
-<p>Docker ra đời nhằm khắc phục những hạn chế trên của máy ảo. Đối với máy ảo, nó dùng 1 thành phần gọi là hypervisor để mô phỏng phần cứng của nhiều máy trên 1 máy, nhờ đó cho phép nhiều máy ảo chạy trên 1 máy chính duy nhất, mỗi máy ảo có thể chạy hệ điều hành khác nhau. Trong khi đó, Docker tận dụng hệ điều hành của máy chính để chạy các container trên đó, mỗi container là 1 phần mềm được đóng gói chạy hoàn toàn độc lập với nhau. Bạn có thể làm gần như bất cứ điều gì trên container này mà không ảnh hướng đến container khác. Hình dưới đây sẽ giải thích rõ hơn về sự khác nhau giữa 2 kiến trúc này.</p>
-<p><img src="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/docker.png" alt="So sánh kiến trúc giữa Docker và máy ảo"></p>
-<p>Nhờ vào việc tận dụng tài nguyên có sẵn trong hệ điều hành của máy chính, Docker tiêu tốn ít RAM và dung lượng đĩa hơn so với máy ảo. Qua đó tạo điều kiện thuận lợi cho các nhà phát triển sử dụng Docker để việc phát triển phần mềm trở nên dễ dàng hơn, tình trạng code chạy ổn trên máy này nhưng bị bug trên máy kia được giảm thiểu vì giờ đây code đều chạy trên cùng 1 môi trường. Triển khai phần mềm cũng dễ dàng hơn, trước đây thì DevOps phải biết về các dependency của phần mềm để cài đặt trước khi triển khai, giờ thì chỉ cần Developer tạo 1 image chứa phần mềm và tất cả dependency rồi đưa nó cho DevOps, tới lượt DevOps thì chỉ cần <code>run</code> nó là xong.</p>
-<p>Đối với Data Scientist, việc sử dụng Docker cũng giúp ích rất nhiều. Ví dụ bạn có 1 tool yêu cầu Python 3.7 để chạy nhưng bạn lại đang dùng Python 3.5 thì bạn không cần phải nâng cấp Python của máy mà chỉ cần chạy tool đó trong 1 container có Python 3.7 là xong. Hoặc là trong quá trình cài đặt các phần mềm trên máy, đôi lúc bạn sẽ gặp trường hợp lỗi do cấu hình sai gì đó, nếu mà bạn không tìm được cách sửa thì sẽ tiêu tốn khá nhiều thời gian. Ngược lại, khi bạn cài trên Docker thì chỉ cần xóa container đang chạy rồi khởi động lại cái khác là xong. Mọi thứ rất nhanh phải không nào!</p>
-<p>Docker còn mang lại nhiều lợi ích hơn trong 1 team R&amp;D có nhiều Data Scientist. Bạn không cần phải quan tâm đến việc cài đặt hay cập nhật package này có ảnh hưởng đến thành viên khác trong team hay không, vì mọi thứ đã được <strong>isolated</strong> trong 1 container. Có thể bạn sẽ nghĩ rằng virtualenv của Python cho phép làm điều tương tự, nhưng Docker cho phép làm nhiều hơn thế không chỉ có mỗi quản lý Python package. Giả sử như bạn muốn dùng Java phiên bản mới hơn để chạy tool này nhưng đồng nghiệp của bạn lại đang dùng phiên bản cũ hơn không tương thích thì sao?</p>
-<p>Tóm lại, Docker là 1 công cụ tuyệt vời đã, đang và sẽ ngày càng phát triển trong tương lai, đóng một vai trò quan trọng trong việc phát triển phần mềm của thế giới. Vì vậy, nếu bạn chưa rành về Docker thì mình khuyên bạn nên bắt đầu tìm hiểu nó để cảm nhận rõ được những lợi ích của nó nhé.</p>
-<p>Nguồn tài liệu để học Docker:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/overview/">Docker Documentation</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1k8pox8mkxc">Video hướng dẫn về Docker rất bổ ích của anh Phạm Huy Hoàng</a></li>
-</ul>
-<p>Trước khi đi vào phần kế tiếp, bạn hãy chắc rằng mình đã nắm được những kiến thức cơ bản của Docker như image, container là gì rồi hãy bắt đầu nhé.</p>
-<h2 id="Tao-Docker-image"><a href="#Tao-Docker-image" class="headerlink" title="Tạo Docker image"></a>Tạo Docker image</h2><p>OK. Trong phần này mình sẽ hướng dẫn cách tạo 1 image dùng để chạy server Jupyter.</p>
-<p>Trong thư mục trống bất kỳ, tạo 1 file mới và đặt tên là <code>Dockerfile</code>, lưu ý là không được có đuôi extension. Mở file này bằng 1 trình editor và copy nội dung sau vào file:</p>
-<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token comment"># Có thể chọn image khác ở https://hub.docker.com/_/python</span>
-<span class="token keyword">FROM</span> python<span class="token punctuation">:</span>3.7
-
-<span class="token keyword">RUN</span> pip install jupyterlab
-<span class="token keyword">WORKDIR</span> /code
-<span class="token keyword">CMD</span> <span class="token punctuation">[</span><span class="token string">"jupyter-lab"</span><span class="token punctuation">,</span> <span class="token string">"--ip"</span><span class="token punctuation">,</span> <span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> <span class="token string">"--allow-root"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Sau đó, chạy lệnh trong terminal:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker build -t jupyter-server <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Lệnh này sẽ build 1 image chứa Python 3.7 và Jupyter trong đó.</p>
-<p>Sau khi build xong image, bây giờ bạn có thể sử dụng nó để chạy server Jupyter rồi. Để chạy server, chỉ cần chạy lệnh:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Bạn sẽ thấy thông báo server Jupyter đã được khởi động kèm theo token. Mở browser truy cập vào địa chỉ <a target="_blank" rel="noopener" href="http://localhost:8888/">http://localhost:8888</a> rồi nhập token đó vào, thế là bạn đã chạy được server Jupyter trên Docker rồi.</p>
-<p><strong>Lưu ý</strong>: Tất cả các file bạn tạo trên server Jupyter này đều được nằm trong container, bạn sẽ không tìm thấy thư mục code của bạn trong hệ thống file của máy chính. <strong>Nếu bạn có lỡ xóa container này thì mọi nội dung bạn tạo trong nó cũng bị xóa theo</strong>. Để tránh điều này, bạn nên mount thư mục <code>/code</code> trong container lên 1 thư mục trong hệ thống file của máy chính. Để làm điều vậy, bạn chỉ cần thêm 1 tham số trước khi chạy container:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 -v <span class="token operator">&lt;</span>path-to-your-directory<span class="token operator">></span>:/code jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Thay thế <code>&lt;path-to-your-directory&gt;</code> thành đường dần đến thư mục mà bạn muốn để code ở đó. Tham số vừa thêm vào có tác dụng mount thư mục trên máy chính của bạn lên thư mục <code>/code</code> trong container. Hiểu đơn giản là từ bây giờ 2 thư mục này có thể đồng bộ với nhau, nếu bạn tạo 1 file trong thư mục này thì nó sẽ xuất hiện trong thư mục còn lại. Nếu container bị xóa thì nội dung trong thư mục bạn chọn để mount vào vẫn y như cũ.</p>
-<h2 id="Cai-dat-thu-vien"><a href="#Cai-dat-thu-vien" class="headerlink" title="Cài đặt thư viện"></a>Cài đặt thư viện</h2><p>Bạn có thể cài thêm các thư viện cần thiết vào trong container đang chạy bằng 1 trong 3 cách sau đây</p>
-<h3 id="Cach-1-Lenh-docker-exec"><a href="#Cach-1-Lenh-docker-exec" class="headerlink" title="Cách 1: Lệnh docker exec"></a>Cách 1: Lệnh docker exec</h3><p>Để dùng lệnh này, trước tiên bạn cần phải biết tên hoặc ID của container. Mở 1 terminal mới và nhập lệnh sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token function">ps</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Lệnh này sẽ in ra danh sách những container đang chạy trong Docker server, nội dung tương tự như sau:</p>
-<pre class="line-numbers language-none"><code class="language-none">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 minutes ago       Up 7 minutes        0.0.0.0:8888-&gt;8888&#x2F;tcp   nifty_liskov<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>Cột <code>CONTAINER ID</code> hiện ID của container của bạn, còn cột <code>NAMES</code> hiện tên của container. Mỗi container khi được tạo sẽ được cấp cho 1 ID và tên duy nhất trong số các container đang còn tồn tại trong Docker server. Copy 1 trong 2 field này từ màn hình terminal của bạn và nhập lệnh dưới đây:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token builtin class-name">exec</span> -it <span class="token operator">&lt;</span>paste-here<span class="token operator">></span> <span class="token function">bash</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Sau khi nhấn Enter, terminal của bạn sẽ trở thành terminal trong container. Giờ bạn có thể cài bất cứ thư viện nào trong đây. Ví dụ như:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> numpy pandas<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Cach-2-Dung-tinh-nang-shell-command-tren-Jupyter"><a href="#Cach-2-Dung-tinh-nang-shell-command-tren-Jupyter" class="headerlink" title="Cách 2: Dùng tính năng shell command trên Jupyter"></a>Cách 2: Dùng tính năng shell command trên Jupyter</h3><p>Jupyter cho phép ta chạy bất cứ lệnh nào trong notebook.</p>
-<p>Để làm vậy, bạn cần phải thêm dấu chấm thang (!) vào trước lệnh shell rồi chạy notebook. Ví dụ:</p>
-<pre class="line-numbers language-none"><code class="language-none">!pip install numpy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Hình dưới đây là kết quả sau khi chạy lệnh trên trong notebook</p>
-<p><img src="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/screenshot.png" alt="Chạy lệnh shell command trong notebook"></p>
-<p>Cách này nhanh hơn rất nhiều so với cách 1.</p>
-<h3 id="Cach-3-Dung-terminal-cua-Jupyter-Lab"><a href="#Cach-3-Dung-terminal-cua-Jupyter-Lab" class="headerlink" title="Cách 3: Dùng terminal của Jupyter Lab"></a>Cách 3: Dùng terminal của Jupyter Lab</h3><p>Trên thanh công cụ của Jupyter Lab, chọn <strong>File</strong> → <strong>New</strong> → <strong>Terminal</strong>. Một tab mới được mở ra và bạn có thể nhập lệnh vào terminal để cài thư viện.</p>
-<p>Cách làm này chậm hơn cách thứ 2 nhưng mà phù hợp với những tác vụ như monitor bằng lệnh <code>top</code> hoặc <code>watch</code> hoặc <code>tail</code>.</p>
-<h2 id="Tong-ket"><a href="#Tong-ket" class="headerlink" title="Tổng kết"></a>Tổng kết</h2><p>Như vậy là bạn đã có 1 Docker container chạy server Jupyter để phục vụ cho công việc Data Science. Trong container này, bạn có thể cài đặt bất cứ phần mềm nào mà không sợ ảnh hưởng đến hệ điều hành trên máy bạn. Mỗi khi muốn tắt server, bạn có thể vào terminal dùng để chạy server và nhấn <strong>Ctrl + C</strong> là xong.</p>
-<p>Ngoài việc isolate nội dung thư mục, Docker còn cho phép bạn giới hạn tài nguyên cho container theo ý thích. Bạn có thể giới hạn số CPU mà container được sử dụng, hoặc lượng RAM tối đa được dùng để tránh trường hợp hết RAM gây đứng máy. Tìm hiểu ở <a target="_blank" rel="noopener" href="https://docs.docker.com/config/containers/resource_constraints/">đây</a> để xem cách làm.</p>
-<p>Còn 1 vấn đề mà mình chưa giải quyết là làm sao để sử dụng GPU trong Docker, nếu bạn đang làm dự án liên quan đến Deep Learning thì GPU cực kỳ cần thiết để tăng tốc quá trình huấn luyện mô hình. Vì vậy, mình sẽ giải quyết vần đề này trong bài viết theo.</p>
-<p>Happy Coding!</p>
-
+<p><escape>
+        
+          <p class="article-more-link">
+            <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Đọc tiếp →</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="ckjrbabz70001x5one48x8wfm" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="ckjtlfae00001zaoo1uxe0pv6" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li></ul>
@@ -251,124 +180,111 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
       
         <p>Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả, Kafka được sinh ra để làm nhiệm vụ đó. Trong phần đầu tiên của series “Làm quen với Kafka”, mình sẽ viết 1 ứng dụng Python dùng để chat với nhau trên màn hình console để hiểu được những tính năng cơ bản của Kafka.</p>
 <p>Lưu ý đây chỉ là 1 ứng dụng làm cho vui để làm quen với Kafka thôi chứ không nên đưa vào thực tế nhé.</p>
-<h2 id="Truoc-het-Kafka-la-gi"><a href="#Truoc-het-Kafka-la-gi" class="headerlink" title="Trước hết, Kafka là gì?"></a>Trước hết, Kafka là gì?</h2><p>Kafka là 1 nền tảng event streaming rất phổ biến hiện nay được phát triển bởi tổ chức Apache và là một phần mềm mã nguồn mở. Event streaming ở đây có nghĩa là việc lấy dữ liệu theo thời gian thực từ những nguồn như là cơ sở dữ liệu, cảm biến, thiết bị di động, dịch vụ đám mây và ứng dụng dưới dạng những luồng sự kiện; lưu những sự kiện này để sau đó có thể lấy lên lại và xử lý.</p>
-<h3 id="Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao"><a href="#Nghe-phuc-tap-qua-Tim-1-vi-du-cho-de-hieu-nao" class="headerlink" title="Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!"></a>Nghe phức tạp quá. Tìm 1 ví dụ cho dễ hiểu nào!</h3><p>Tưởng tượng bạn đang xem kênh Discovery trên TV của bạn. Những hình ảnh và âm thanh mà bạn thấy và nghe được đều được phát đi từ đài truyền hình của kênh này. Ở đây, đài truyền hình của kênh Discovery đóng vai trò là <strong>publisher</strong>, còn bạn - người xem là <strong>subscriber</strong> và kênh Discovery chính là <strong>topic</strong>.</p>
-<p>Publisher có nhiệm vụ là phát đi thông tin vào 1 topic (kênh), thông tin trong trường hợp này là dữ liệu ở dạng hình ảnh và âm thanh. Subscriber có thể đăng ký để lắng nghe trên 1 topic (chọn kênh để xem) và nhận được thông tin mà publisher phát đi. Subscriber cũng có thể lắng nghe trên nhiều topic (xem nhiều kênh trên nhiều TV, nếu bạn giàu và rảnh :D).</p>
-<p>Đối với publisher, việc ai nhận được thông tin không quan trọng, miễn là cứ có thông tin thì nó sẽ phát đi vào 1 hoặc nhiều topic cụ thể. Còn đối với subscriber, publisher nào phát không quan trọng, miễn là topic đó có thông tin thì cứ lấy ra mà xử lý.</p>
-<h2 id="Viet-ung-dung-chat-tren-console"><a href="#Viet-ung-dung-chat-tren-console" class="headerlink" title="Viết ứng dụng chat trên console"></a>Viết ứng dụng chat trên console</h2><p>Kafka hoạt động theo cơ chế client-server, trong đó, server là 1 process chạy trên 1 máy tính và client có thể kết nối đến nó giống như cách bạn kết nối đến database, sử dụng địa chỉ IP và port cùng với username và password nếu có. Client có thể là publisher, consumer hoặc là admin.</p>
-<p>Việc đầu tiên bạn cần phải làm đó là khởi động Kafka server trên 1 chiếc máy tính.</p>
-<h3 id="Khoi-dong-Kafka-server"><a href="#Khoi-dong-Kafka-server" class="headerlink" title="Khởi động Kafka server"></a>Khởi động Kafka server</h3><ol>
-<li><strong>Bước 1</strong>: Mở terminal lên vào nhập dòng lệnh sau để tải Kafka:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/Downloads
-<span class="token function">wget</span> https://downloads.apache.org/kafka/2.7.0/kafka_2.13-2.7.0.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><strong>Bước 2</strong>: Giải nén file vừa tải về:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> -xzf kafka_2.13-2.7.0.tgz
-<span class="token builtin class-name">cd</span> kafka_2.13-2.7.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><strong>Bước 3</strong>: Khởi động ZooKeeper service:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><strong>Bước 4</strong>: Mở 1 terminal mới và nhập dòng lệnh sau đây để bắt đầu chạy Kafka server:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/kafka-server-start.sh config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-</li>
-</ol>
-<h3 id="Co-che-hoat-dong"><a href="#Co-che-hoat-dong" class="headerlink" title="Cơ chế hoạt động"></a>Cơ chế hoạt động</h3><p>Trước khi bắt tay vào viết ứng dụng này, mình sẽ nói 1 chút về cách nó hoạt động như sau:</p>
-<ul>
-<li>Mỗi user khi được tạo sẽ được cấp cho 1 định danh duy nhất, ở đây mình dùng tên của user cho đơn giản. Mỗi user cũng sẽ được cấp 1 topic duy nhất mang tên của chính user đó. Ví dụ: user có tên là user1 sẽ được cấp cho topic cũng tên là user1.</li>
-<li>Mỗi user luôn subscribe vào topic của chính họ, và publish vào topic của các user khác.</li>
-<li>Giả sử user A và user B đang chat với nhau, user A muốn gửi tin nhắn cho B thì sẽ publish nội dung tin nhắn vào topic B, sau đó user B đang subscribe trên topic của mình sẽ nhận được tin nhắn từ A, quá trình nhắn tin từ B tới A cũng diễn ra tương tụ.</li>
-</ul>
-<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/kafka-message.svg" alt="Minh họa cách thức giao tiếp giữa 2 user A và B"></p>
-<h3 id="Code-nao"><a href="#Code-nao" class="headerlink" title="Code nào"></a>Code nào</h3><p>Để có thể giao tiếp được với Kafka server, bạn cần dùng thư viện kafka-python. Sử dụng pip để cài đặt thư viện này:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> kafka-python<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Bạn có thể đọc document của thư viện này tại <a target="_blank" rel="noopener" href="https://kafka-python.readthedocs.io/en/master/usage.html">đây</a>.</p>
-<p>Trước tiên, mình thử publish vào 1 topic bằng đoạn code sau:</p>
-<pre class="line-numbers language-python" data-language="python"><div class="caption"><span>publisher.py</span></div><code class="language-python"><span class="token keyword">from</span> kafka <span class="token keyword">import</span> KafkaProducer
-
-BOOTSTRAP_SERVERS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost:9092'</span><span class="token punctuation">]</span>
-producer <span class="token operator">=</span> KafkaProducer<span class="token punctuation">(</span>bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                         value_serializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> <span class="token builtin">bytes</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-username1 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'What is your name? '</span><span class="token punctuation">)</span>
-username2 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'Who do want connect? '</span><span class="token punctuation">)</span>
-
-<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-    value <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>send<span class="token punctuation">(</span>username2<span class="token punctuation">,</span> value<span class="token operator">=</span>value<span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Đoạn code này sẽ hỏi tên của bạn và tên của user mà bạn muốn nhắn tin, sau đó nó bắt đầu 1 vòng lặp forever để chờ bạn nhập tin nhắn và gửi tin nhắn đó đến topic của user kia.</p>
-<p><code>BOOTSTRAP_SERVERS</code> chứa thông tin để kết nối đến server Kafka mà mình vừa khởi động ở trên, vì mình chạy Kafka trên máy của mình nên địa chỉ IP của server Kafka là localhost và port mặc định là 9092.</p>
-<p>Một message trong Kafka có 2 trường: <code>key</code> và <code>value</code>. Bạn có thể truyền bất cứ dữ liệu nào vào trong 2 trường này. Ở đây mình chỉ cần gửi nội dung tin nhắn nên dùng trường <code>value</code> là đủ.</p>
-<p>Dữ liệu trong 1 message phải có dạng <code>byte</code>. Vậy nên trước khi gửi mình phải chuyển tin nhắn từ dạng <code>string</code> sang <code>byte</code> bằng cách truyền tham số <code>value_serializer</code> cho 1 hàm lambda.</p>
-<p>Test script này bằng lệnh trong terminal:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python publisher.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-160825.png" alt="Chạy thử script chat.py với tên là user1 và user2"></p>
-<p>Vì mình mới chỉ chạy ở bên phía user1 nên không có bất cứ phản hồi nào từ user2. Giờ mình sẽ viết code để user2 lắng nghe tin nhắn từ user1:</p>
-<pre class="line-numbers language-python" data-language="python"><div class="caption"><span>subscriber.py</span></div><code class="language-python"><span class="token keyword">from</span> kafka <span class="token keyword">import</span> KafkaConsumer
-
-BOOTSTRAP_SERVERS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost:9092'</span><span class="token punctuation">]</span>
-username2 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'What is your name? '</span><span class="token punctuation">)</span>
-
-consumer <span class="token operator">=</span> KafkaConsumer<span class="token punctuation">(</span>username2<span class="token punctuation">,</span> auto_offset_reset<span class="token operator">=</span><span class="token string">'latest'</span><span class="token punctuation">,</span>
-                         bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                         value_deserializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> value<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">for</span> msg <span class="token keyword">in</span> consumer<span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Đoạn code trên khởi tạo 1 instance <code>KafkaConsumer</code> để subscribe vào topic của user2 và bắt đầu 1 vòng lặp for để lắng nghe trên topic này. Vòng lặp for này sẽ chờ message từ topic trong thời gian vô hạn và không bao giờ dừng lại trừ khi bạn dừng chương trình.</p>
-<p>Tham số <code>value_deserializer</code> là 1 hàm được dùng khi consumer nhận được message từ topic để chuyển trường <code>value</code> của message từ dạng <code>byte</code> trở về dạng ban đầu của nó, trong trường hợp này là <code>string</code>.</p>
-<p>Để chạy script này, mở một tab terminal mới và chạy lệnh:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python subscriber.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Nhập tên user2 để bắt đầu lắng nghe.</p>
-<p>Quay lại tab đang chạy publisher, thử nhập 1 message bất kỳ và quay lại tab đang chạy subscriber. Bạn sẽ thấy message mà mình vừa nhập hiện trên terminal của subscriber.</p>
-<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-161638.png" alt="Chạy thử script chat.py với tên là user1 và user2"></p>
-<p>Như vậy là chúng ta đã thiết lập được giao tiếp 1 chiều giữa 2 user. Tiếp theo, mình sẽ làm cho mỗi user vừa publish vừa subscribe vào Kafka để có thể vừa gửi và nhập tin nhắn.</p>
-<p>Như bạn thấy trong 2 đoạn code trên, cả 2 đều chứa 1 vòng lặp vô hạn. Điều này có nghĩa là khi user đang gửi tin nhắn thì không thể nhận tin nhắn và ngược lại, vì bản chất của 2 đoạn code trên là blocking - chương trình sẽ chờ trong vô hạn để hoàn thành 1 tác vụ rồi mới chuyển sang tác vụ kế tiếp.</p>
-<p>Để giải quyết vấn đề này, mình sẽ sử dụng thread để tạo 1 thread chạy song song với thread chính. Thread chính có nhiệm vụ là gửi tin nhắn cho đối phương còn thread được tạo có nhiệm vụ nhận tin nhắn từ đối phương.</p>
-<p>Trong Python, để làm việc với thread, mình sử dụng thư viện threading có sẵn. Cách sử dụng khá đơn giản, chỉ cần khởi tạo 1 instance <code>Thread</code> với 2 tham số: <code>target</code> là hàm sẽ chạy trong thread mới; và <code>args</code> là tham số truyền vào hàm <code>target</code>. Sau đó gọi method <code>start</code>. Ví dụ:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">thread <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>foo<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>Vậy trước khi bắt đầu vòng lặp while trong publisher, mình chỉ cần tạo 1 thread mới chạy hàm của subscriber là xong. Dưới đây là đoạn code hoàn chỉnh của chương trình:</p>
-<pre class="line-numbers language-python" data-language="python"><div class="caption"><span>chat.py</span></div><code class="language-python"><span class="token keyword">import</span> threading
-
-<span class="token keyword">from</span> kafka <span class="token keyword">import</span> KafkaConsumer<span class="token punctuation">,</span> KafkaProducer
-
-BOOTSTRAP_SERVERS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost:9092'</span><span class="token punctuation">]</span>
-
-<span class="token keyword">def</span> <span class="token function">subscribe</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    consumer <span class="token operator">=</span> KafkaConsumer<span class="token punctuation">(</span>topic<span class="token punctuation">,</span> auto_offset_reset<span class="token operator">=</span><span class="token string">'latest'</span><span class="token punctuation">,</span>
-                             bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                             value_deserializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> value<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> msg <span class="token keyword">in</span> consumer<span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
-
-username1 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'What is your name? '</span><span class="token punctuation">)</span>
-username2 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'Who do want connect? '</span><span class="token punctuation">)</span>
-
-consumer_thread <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>subscribe<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span>username2<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-consumer_thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-producer <span class="token operator">=</span> KafkaProducer<span class="token punctuation">(</span>bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                         value_serializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> <span class="token builtin">bytes</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-    key <span class="token operator">=</span> username1
-    value <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>send<span class="token punctuation">(</span>username1<span class="token punctuation">,</span> value<span class="token operator">=</span>value<span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Bạn thử mở 2 tab terminal, cho mỗi terminal chạy script này. Tab 1 nhập lần lượt user1 và user2, tab 2 nhập ngược lại user2 và user1.</p>
-<p>Khi bạn nhập 1 tin nhắn ở tab 1 và nhấn Enter thì tin nhắn đó sẽ được hiện trên tab 2, điều tương tự cũng diễn ra khi bạn nhập vào tab 2.</p>
-<p>Bạn có thể xem code đầy đủ của bài viết này ở <a target="_blank" rel="noopener" href="https://github.com/duydvu/kafka-tutorial">đây</a>.</p>
-<p>Như vậy là chúng ta đã hoàn thành xong 1 ứng dụng đơn giản để chat trên console bằng Python và Kafka. Mặc dù vậy, nó vần còn thiếu nhiều tính năng quan trọng như:</p>
-<ul>
-<li>Chỉ cho 2 user nhắn tin với nhau trong 1 phiên riêng biệt. Hiện tại, nếu có nhiều hơn 2 user thì sẽ có trường hợp 1 user cùng nhắn tin với 2 user khác.</li>
-<li>Chỉ cho phép user này nhắn tin với user kia khi được họ cho phép.</li>
-</ul>
-<p>Mình sẽ thực hiện những tính năng này trong phần 2 của series.</p>
-<p>Happy Coding!</p>
-
+<p><escape>
+        
+          <p class="article-more-link">
+            <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Đọc tiếp →</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjrbabzy000ox5onf9vm7f6u" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="ckjtlfaee0005zaoo08wn9lpq" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Cau-hinh-VS-Code-de-code-tren-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" class="article-date">
+  <time datetime="2020-12-26T11:18:29.000Z" itemprop="datePublished">26-12-2020</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
+    </h1>
+  
+
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Trong bài viết này, mình sẽ hướng dẫn cho các bạn cách thiết lập môi trường lập trình trên server hơn thông qua extension Remote - SSH của VS Code.</p>
+<p><escape>
+        
+          <p class="article-more-link">
+            <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Đọc tiếp →</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div data-url="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="ckjtlfaec0004zaoogddbb3rd" class="article-share-link">Chia sẻ</div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Open-closed-principle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/23/Open-closed-principle/" class="article-date">
+  <time datetime="2020-08-23T14:28:47.000Z" itemprop="datePublished">23-08-2020</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/23/Open-closed-principle/">Open-closed principle</a>
+    </h1>
+  
+
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Open-closed principle là 1 trong các nguyên tắc của bộ nguyên tắc lập trình SOLID trong lập trình hướng đối tượng. Đây là 1 nguyên tắc rất quan trọng bởi nó giúp cho code của dự án dễ bảo trì và mở rộng, có thể thích ứng với những thay đổi trong môi trường Agile.</p>
+<p>Nguyên văn phát biểu của nguyên tắc này như sau:</p>
+<blockquote>
+<p>“Các thực thể phần mềm (class, function,…) nên tạo điều kiện cho việc mở rộng, nhưng hạn chế cho việc thay đổi.”</p>
+</blockquote>
+<p><escape>
+        
+          <p class="article-more-link">
+            <a href="/2020/08/23/Open-closed-principle/">Đọc tiếp →</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div data-url="https://www.kysuai.com/2020/08/23/Open-closed-principle/" data-id="ckjtlfaeu0011zaoo7fxu9f72" class="article-share-link">Chia sẻ</div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li></ul>
 
     </footer>
   </div>

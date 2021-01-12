@@ -24,7 +24,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/images/docker-logo.png">
 <meta property="article:published_time" content="2021-01-05T10:08:36.000Z">
-<meta property="article:modified_time" content="2021-01-10T15:48:06.127Z">
+<meta property="article:modified_time" content="2021-01-12T06:07:26.404Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Jupyter Notebook">
@@ -95,7 +95,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/images/docker-logo.png" rel="gallery_ckjrbabz70001x5one48x8wfm">
+      <a class="article-gallery-img fancybox" href="/images/docker-logo.png" rel="gallery_ckjtlfae00001zaoo1uxe0pv6">
         <img src="/images/docker-logo.png" itemprop="image">
       </a>
     
@@ -106,6 +106,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để chạy VnCoreNLP, cài tensorflow GPU để huấn luyện model, cài cmake để cài CocCoc Tokenizer, quản lý dependency,… Có khi bạn lỡ làm sai gì đó khiến cho máy bạn gặp vấn đề mà không biết giải quyết làm sao, vừa tốn công sức vừa tốn thời gian cho những tác vụ không liên quan. Docker chính là chìa khóa để giái quyết những vấn đề trên. Bài viết này sẽ hướng dẫn bạn cách thiết lập môi trường Docker để chạy server Jupyter của bạn.</p>
+<p><escape><a id="more"></a></escape></p>
 <h2 id="Docker-la-gi"><a href="#Docker-la-gi" class="headerlink" title="Docker là gì?"></a>Docker là gì?</h2><p>Nếu bạn chưa biết về Docker hoặc biết 1 chút và muốn tìm hiểu thêm thì nên đọc phần này, nếu không thì bạn có thể kéo xuống <a href="#Tao-Docker-image">phần tiếp theo</a>.</p>
 <p>Docker là 1 môi trường ảo hóa giống như VirtualBox hay VMware. Nếu bạn đã từng dùng máy ảo để chạy 1 hệ điều hành thì có thể thấy rằng chúng cung cấp cho bạn 1 môi trường độc lập với máy chính, những gì bạn làm trên máy ảo không ảnh hưởng đến máy chính. Nếu bạn lỡ phá gì đó hay dính malware thì chỉ cần reset máy ảo đó đi là xong. Sự tiện lợi này khiến cho máy ảo rất thích hợp cho việc phát triển phần mềm, triển khai phần mềm, test virus,… Nhưng cũng chính sự tiện lợi này khiến cho nó tốn rất nhiều tài nguyên của máy. Vì vậy, việc sử dụng máy ảo tương đối khó khăn.</p>
 <p>Docker ra đời nhằm khắc phục những hạn chế trên của máy ảo. Đối với máy ảo, nó dùng 1 thành phần gọi là hypervisor để mô phỏng phần cứng của nhiều máy trên 1 máy, nhờ đó cho phép nhiều máy ảo chạy trên 1 máy chính duy nhất, mỗi máy ảo có thể chạy hệ điều hành khác nhau. Trong khi đó, Docker tận dụng hệ điều hành của máy chính để chạy các container trên đó, mỗi container là 1 phần mềm được đóng gói chạy hoàn toàn độc lập với nhau. Bạn có thể làm gần như bất cứ điều gì trên container này mà không ảnh hướng đến container khác. Hình dưới đây sẽ giải thích rõ hơn về sự khác nhau giữa 2 kiến trúc này.</p>
@@ -163,7 +164,7 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="ckjrbabz70001x5one48x8wfm" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="ckjtlfae00001zaoo1uxe0pv6" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li></ul>
