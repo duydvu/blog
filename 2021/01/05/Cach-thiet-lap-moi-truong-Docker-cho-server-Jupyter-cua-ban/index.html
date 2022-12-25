@@ -24,7 +24,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/images/docker-logo.png">
 <meta property="article:published_time" content="2021-01-05T10:08:36.000Z">
-<meta property="article:modified_time" content="2021-01-12T06:07:26.404Z">
+<meta property="article:modified_time" content="2022-12-25T05:19:37.913Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Jupyter Notebook">
@@ -95,7 +95,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/images/docker-logo.png" rel="gallery_ckjtlfae00001zaoo1uxe0pv6">
+      <a class="article-gallery-img fancybox" href="/images/docker-logo.png" rel="gallery_clc2x8fdd0001deopcnypen8y">
         <img src="/images/docker-logo.png" itemprop="image">
       </a>
     
@@ -124,28 +124,28 @@
 <h2 id="Tao-Docker-image"><a href="#Tao-Docker-image" class="headerlink" title="Tạo Docker image"></a>Tạo Docker image</h2><p>OK. Trong phần này mình sẽ hướng dẫn cách tạo 1 image dùng để chạy server Jupyter.</p>
 <p>Trong thư mục trống bất kỳ, tạo 1 file mới và đặt tên là <code>Dockerfile</code>, lưu ý là không được có đuôi extension. Mở file này bằng 1 trình editor và copy nội dung sau vào file:</p>
 <pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token comment"># Có thể chọn image khác ở https://hub.docker.com/_/python</span>
-<span class="token keyword">FROM</span> python<span class="token punctuation">:</span>3.7
+<span class="token instruction"><span class="token keyword">FROM</span> python:3.7</span>
 
-<span class="token keyword">RUN</span> pip install jupyterlab
-<span class="token keyword">WORKDIR</span> /code
-<span class="token keyword">CMD</span> <span class="token punctuation">[</span><span class="token string">"jupyter-lab"</span><span class="token punctuation">,</span> <span class="token string">"--ip"</span><span class="token punctuation">,</span> <span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> <span class="token string">"--allow-root"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token instruction"><span class="token keyword">RUN</span> pip install jupyterlab</span>
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /code</span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"jupyter-lab"</span>, <span class="token string">"--ip"</span>, <span class="token string">"0.0.0.0"</span>, <span class="token string">"--allow-root"</span>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Sau đó, chạy lệnh trong terminal:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker build -t jupyter-server <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> build <span class="token parameter variable">-t</span> jupyter-server <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Lệnh này sẽ build 1 image chứa Python 3.7 và Jupyter trong đó.</p>
 <p>Sau khi build xong image, bây giờ bạn có thể sử dụng nó để chạy server Jupyter rồi. Để chạy server, chỉ cần chạy lệnh:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Bạn sẽ thấy thông báo server Jupyter đã được khởi động kèm theo token. Mở browser truy cập vào địa chỉ <a target="_blank" rel="noopener" href="http://localhost:8888/">http://localhost:8888</a> rồi nhập token đó vào, thế là bạn đã chạy được server Jupyter trên Docker rồi.</p>
 <p><strong>Lưu ý</strong>: Tất cả các file bạn tạo trên server Jupyter này đều được nằm trong container, bạn sẽ không tìm thấy thư mục code của bạn trong hệ thống file của máy chính. <strong>Nếu bạn có lỡ xóa container này thì mọi nội dung bạn tạo trong nó cũng bị xóa theo</strong>. Để tránh điều này, bạn nên mount thư mục <code>/code</code> trong container lên 1 thư mục trong hệ thống file của máy chính. Để làm điều vậy, bạn chỉ cần thêm 1 tham số trước khi chạy container:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 -v <span class="token operator">&lt;</span>path-to-your-directory<span class="token operator">></span>:/code jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 <span class="token parameter variable">-v</span> <span class="token operator">&lt;</span>path-to-your-directory<span class="token operator">></span>:/code jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Thay thế <code>&lt;path-to-your-directory&gt;</code> thành đường dần đến thư mục mà bạn muốn để code ở đó. Tham số vừa thêm vào có tác dụng mount thư mục trên máy chính của bạn lên thư mục <code>/code</code> trong container. Hiểu đơn giản là từ bây giờ 2 thư mục này có thể đồng bộ với nhau, nếu bạn tạo 1 file trong thư mục này thì nó sẽ xuất hiện trong thư mục còn lại. Nếu container bị xóa thì nội dung trong thư mục bạn chọn để mount vào vẫn y như cũ.</p>
 <h2 id="Cai-dat-thu-vien"><a href="#Cai-dat-thu-vien" class="headerlink" title="Cài đặt thư viện"></a>Cài đặt thư viện</h2><p>Bạn có thể cài thêm các thư viện cần thiết vào trong container đang chạy bằng 1 trong 3 cách sau đây</p>
 <h3 id="Cach-1-Lenh-docker-exec"><a href="#Cach-1-Lenh-docker-exec" class="headerlink" title="Cách 1: Lệnh docker exec"></a>Cách 1: Lệnh docker exec</h3><p>Để dùng lệnh này, trước tiên bạn cần phải biết tên hoặc ID của container. Mở 1 terminal mới và nhập lệnh sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token function">ps</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token function">ps</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Lệnh này sẽ in ra danh sách những container đang chạy trong Docker server, nội dung tương tự như sau:</p>
 <pre class="line-numbers language-none"><code class="language-none">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 minutes ago       Up 7 minutes        0.0.0.0:8888-&gt;8888&#x2F;tcp   nifty_liskov<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>Cột <code>CONTAINER ID</code> hiện ID của container của bạn, còn cột <code>NAMES</code> hiện tên của container. Mỗi container khi được tạo sẽ được cấp cho 1 ID và tên duy nhất trong số các container đang còn tồn tại trong Docker server. Copy 1 trong 2 field này từ màn hình terminal của bạn và nhập lệnh dưới đây:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker <span class="token builtin class-name">exec</span> -it <span class="token operator">&lt;</span>paste-here<span class="token operator">></span> <span class="token function">bash</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> <span class="token operator">&lt;</span>paste-here<span class="token operator">></span> <span class="token function">bash</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Sau khi nhấn Enter, terminal của bạn sẽ trở thành terminal trong container. Giờ bạn có thể cài bất cứ thư viện nào trong đây. Ví dụ như:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> numpy pandas<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="Cach-2-Dung-tinh-nang-shell-command-tren-Jupyter"><a href="#Cach-2-Dung-tinh-nang-shell-command-tren-Jupyter" class="headerlink" title="Cách 2: Dùng tính năng shell command trên Jupyter"></a>Cách 2: Dùng tính năng shell command trên Jupyter</h3><p>Jupyter cho phép ta chạy bất cứ lệnh nào trong notebook.</p>
@@ -164,7 +164,7 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="ckjtlfae00001zaoo1uxe0pv6" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="clc2x8fdd0001deopcnypen8y" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li></ul>
@@ -185,9 +185,9 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
     </a>
   
   
-    <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Cũ hơn</strong>
-      <div class="article-nav-title">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</div>
+      <div class="article-nav-title">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</div>
     </a>
   
 </nav>
@@ -214,15 +214,15 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
           </li>
         
           <li>
+            <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
           </li>
         
           <li>
             <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/23/Open-closed-principle/">Open-closed principle</a>
           </li>
         
       </ul>
@@ -234,7 +234,7 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
     </div>
   </div>
 
@@ -244,7 +244,7 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Coding/" style="font-size: 20px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/OOP/" style="font-size: 20px;">OOP</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 20px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
+      <a href="/tags/Artificial-Intelligence/" style="font-size: 10px;">Artificial Intelligence</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/GPT-J/" style="font-size: 10px;">GPT-J</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/K8S/" style="font-size: 10px;">K8S</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Natural-Language-Generation/" style="font-size: 10px;">Natural Language Generation</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 15px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
     </div>
   </div>
 
@@ -269,7 +269,7 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
   
   <div class="outer">
     <div id="footer-info">
-      &copy; 2021 Vũ Đức Duy<br>
+      &copy; 2022 Vũ Đức Duy<br>
     </div>
   </div>
 </footer>

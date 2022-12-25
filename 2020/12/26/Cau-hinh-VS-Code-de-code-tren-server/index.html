@@ -24,7 +24,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/images/florian-krumm-yLDabpoCL3s-unsplash.jpg">
 <meta property="article:published_time" content="2020-12-26T11:18:29.000Z">
-<meta property="article:modified_time" content="2021-01-12T06:07:26.408Z">
+<meta property="article:modified_time" content="2022-12-25T05:19:37.917Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="IDE">
 <meta property="article:tag" content="Coding">
@@ -95,7 +95,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/images/florian-krumm-yLDabpoCL3s-unsplash.jpg" rel="gallery_ckjtlfaec0004zaoogddbb3rd">
+      <a class="article-gallery-img fancybox" href="/images/florian-krumm-yLDabpoCL3s-unsplash.jpg" rel="gallery_clc2x8fdh0004deopc2cgcozx">
         <img src="/images/florian-krumm-yLDabpoCL3s-unsplash.jpg" itemprop="image">
       </a>
     
@@ -124,7 +124,7 @@
 <p>Tiếp theo, mình sẽ hướng dẫn cách cấu hình môi trường lập trình trên server.</p>
 <h2 id="Cau-hinh-moi-truong-lap-trinh-tren-server"><a href="#Cau-hinh-moi-truong-lap-trinh-tren-server" class="headerlink" title="Cấu hình môi trường lập trình trên server"></a>Cấu hình môi trường lập trình trên server</h2><h3 id="Buoc-1-Tao-SSH-key"><a href="#Buoc-1-Tao-SSH-key" class="headerlink" title="Bước 1: Tạo SSH key"></a>Bước 1: Tạo SSH key</h3><p>Trước khi kết nối đến server thông qua VS Code, bạn cần phải tạo 1 SSH key để xác thực quyền kết nối của máy bạn với server mà không cần dùng mật khẩu.<br>Nếu bạn đã cấu hình SSH server bằng SSH key rồi thì hãy đến với <a href="#Buoc-3-Thiet-lap-moi-truong-SSH-tren-VS-Code">bước 3</a>.</p>
 <p>Mở 1 terminal mới và nhập lệnh sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen -t rsa -b <span class="token number">4096</span> -f ~/.ssh/id_rsa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-b</span> <span class="token number">4096</span> <span class="token parameter variable">-f</span> ~/.ssh/id_rsa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Câu lệnh trên sẽ trả về kết quả như dưới đây:</p>
 <pre class="line-numbers language-none"><code class="language-none">Generating public&#x2F;private rsa key pair.
 Enter passphrase (empty for no passphrase):<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -162,7 +162,7 @@ Enter passphrase (empty for no passphrase):<span aria-hidden="true" class="line-
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="ckjtlfaec0004zaoogddbb3rd" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="clc2x8fdh0004deopc2cgcozx" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
@@ -212,15 +212,15 @@ Enter passphrase (empty for no passphrase):<span aria-hidden="true" class="line-
           </li>
         
           <li>
+            <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
           </li>
         
           <li>
             <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/23/Open-closed-principle/">Open-closed principle</a>
           </li>
         
       </ul>
@@ -232,7 +232,7 @@ Enter passphrase (empty for no passphrase):<span aria-hidden="true" class="line-
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
     </div>
   </div>
 
@@ -242,7 +242,7 @@ Enter passphrase (empty for no passphrase):<span aria-hidden="true" class="line-
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Coding/" style="font-size: 20px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/OOP/" style="font-size: 20px;">OOP</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 20px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
+      <a href="/tags/Artificial-Intelligence/" style="font-size: 10px;">Artificial Intelligence</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/GPT-J/" style="font-size: 10px;">GPT-J</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/K8S/" style="font-size: 10px;">K8S</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Natural-Language-Generation/" style="font-size: 10px;">Natural Language Generation</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 15px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
     </div>
   </div>
 
@@ -267,7 +267,7 @@ Enter passphrase (empty for no passphrase):<span aria-hidden="true" class="line-
   
   <div class="outer">
     <div id="footer-info">
-      &copy; 2021 Vũ Đức Duy<br>
+      &copy; 2022 Vũ Đức Duy<br>
     </div>
   </div>
 </footer>

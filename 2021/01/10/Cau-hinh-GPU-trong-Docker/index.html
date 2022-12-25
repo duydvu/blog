@@ -24,7 +24,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/Screenshot-2021-01-10-121331.png">
 <meta property="article:published_time" content="2021-01-10T11:29:40.000Z">
-<meta property="article:modified_time" content="2021-01-12T06:07:26.408Z">
+<meta property="article:modified_time" content="2022-12-25T05:19:37.913Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Jupyter">
@@ -98,26 +98,26 @@
 <p>Mình giả định rằng máy của bạn đang dùng Nvidia GPU và bạn đã cài driver cần thiết trên hệ điều hành Ubuntu rồi. Nếu bạn chưa cài đặt driver cho GPU thì vào đường link ở <a target="_blank" rel="noopener" href="https://www.nvidia.com/Download/index.aspx">đây</a>, chọn tải rồi cài driver trước nhé.</p>
 <p><escape><a id="more"></a></escape></p>
 <h2 id="Cai-dat-nvidia-container-runtime"><a href="#Cai-dat-nvidia-container-runtime" class="headerlink" title="Cài đặt nvidia-container-runtime"></a>Cài đặt nvidia-container-runtime</h2><p>Mở terminal và chạy đoạn lệnh dưới đây:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey <span class="token operator">|</span> <span class="token punctuation">\</span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-L</span> https://nvidia.github.io/nvidia-container-runtime/gpgkey <span class="token operator">|</span> <span class="token punctuation">\</span>
   <span class="token function">sudo</span> apt-key <span class="token function">add</span> -
 <span class="token assign-left variable">distribution</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">.</span> /etc/os-release<span class="token punctuation">;</span><span class="token builtin class-name">echo</span> $ID$VERSION_ID<span class="token variable">)</span></span>
-<span class="token function">curl</span> -s -L https://nvidia.github.io/nvidia-container-runtime/<span class="token variable">$distribution</span>/nvidia-container-runtime.list <span class="token operator">|</span> <span class="token punctuation">\</span>
+<span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-L</span> https://nvidia.github.io/nvidia-container-runtime/<span class="token variable">$distribution</span>/nvidia-container-runtime.list <span class="token operator">|</span> <span class="token punctuation">\</span>
   <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/sources.list.d/nvidia-container-runtime.list
 <span class="token function">sudo</span> <span class="token function">apt-get</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Sau đó, nhập lệnh sau để cài đặt nvidia-container-runtime:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nvidia-container-runtime<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Khởi động lại Docker server:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> docker restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">service</span> <span class="token function">docker</span> restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Thế là xong. Đến bước tiếp theo là khởi động 1 container mới với cấu hình cho phép truy cập GPU.</p>
 <h2 id="Khoi-dong-Docker-container"><a href="#Khoi-dong-Docker-container" class="headerlink" title="Khởi động Docker container"></a>Khởi động Docker container</h2><p>Để sử dụng GPU trong 1 container, bạn phải thêm tham số <code>--gpus</code> trong lệnh chạy <code>docker run</code>. Ví dụ:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 --gpus all jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 <span class="token parameter variable">--gpus</span> all jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Tham số <code>--gpus</code> có giá trị là <code>all</code> ở đây nghĩa là bạn cho phép container này truy cập vào toàn bộ GPU mà máy bạn đang có. Hoặc là bạn có thể chỉ định những GPU cụ thể được sử dụng trong container.</p>
 <p>Mỗi GPU trong máy được đánh giá trị index bắt đầu từ 0. Ví dụ nếu bạn có 2 GPU thì chúng sẽ được đánh index lần lượt là 0 và 1. Để xem index của từng GPU và các thông số khác như memory, usage thì có thể dùng lệnh <code>nvidia-smi</code>. Ví dụ như trong hình dưới đây:</p>
 <p><img src="/2021/01/10/Cau-hinh-GPU-trong-Docker/Screenshot-2021-01-10-121331.png" alt="Ví dụ chạy lệnh nvidia-smi"></p>
 <p>Ở cột ngoài cùng bên trái, bạn sẽ thấy index của từng GPU. Ở đây có 2 GPU nên được đánh lần lượt 0 và 1. GPU 0 đang sử dụng 4905 MB / 11178 MB, còn GPU 1 thì đang dùng 11140 MB / 11178 MB. Nếu bạn chỉ muốn cấp cho container sử dụng GPU 0 thì dùng lệnh như sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 --gpus <span class="token assign-left variable">device</span><span class="token operator">=</span><span class="token number">0</span> jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 <span class="token parameter variable">--gpus</span> <span class="token assign-left variable">device</span><span class="token operator">=</span><span class="token number">0</span> jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Hoặc nếu bạn có nhiều hơn 2 GPU thì bạn có thể chỉ định bất kỳ GPU nào được dùng trong container như sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it -p <span class="token number">8888</span>:8888 --gpus <span class="token assign-left variable">device</span><span class="token operator">=</span><span class="token number">0,2</span>,4 jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 <span class="token parameter variable">--gpus</span> <span class="token assign-left variable">device</span><span class="token operator">=</span><span class="token number">0,2</span>,4 jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="Tong-ket"><a href="#Tong-ket" class="headerlink" title="Tổng kết"></a>Tổng kết</h2><p>Giờ đây bạn có thể cài thư viện Tensorflow GPU hay PyTorch trong server Jupyter là có thể dùng được ngay GPU. Với Docker, bạn có thể tha hồ cài đặt bất kỳ phần mềm nào mà bạn muốn.</p>
 <p>Mình cũng chia sẻ thêm một số package rất hữu ích mà mình hay dùng trong công việc:</p>
 <ul>
@@ -129,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="ckjtlfae60003zaooh7gm8myx" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="clc2x8fdg0003deopbegh6res" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li></ul>
@@ -170,15 +170,15 @@
           </li>
         
           <li>
+            <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
           </li>
         
           <li>
             <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/23/Open-closed-principle/">Open-closed principle</a>
           </li>
         
       </ul>
@@ -190,7 +190,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
     </div>
   </div>
 
@@ -200,7 +200,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Coding/" style="font-size: 20px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/OOP/" style="font-size: 20px;">OOP</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 20px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
+      <a href="/tags/Artificial-Intelligence/" style="font-size: 10px;">Artificial Intelligence</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/GPT-J/" style="font-size: 10px;">GPT-J</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/K8S/" style="font-size: 10px;">K8S</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Natural-Language-Generation/" style="font-size: 10px;">Natural Language Generation</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 15px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
     </div>
   </div>
 
@@ -225,7 +225,7 @@
   
   <div class="outer">
     <div id="footer-info">
-      &copy; 2021 Vũ Đức Duy<br>
+      &copy; 2022 Vũ Đức Duy<br>
     </div>
   </div>
 </footer>

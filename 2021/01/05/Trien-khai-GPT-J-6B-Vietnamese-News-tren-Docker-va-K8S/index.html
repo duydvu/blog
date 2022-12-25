@@ -13,18 +13,29 @@
 </script>
 
   
-  <title>Ký sự AI</title>
+  <title>Triển khai GPT-J 6B Vietnamese News trên Docker và K8S | Ký sự AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Nơi để mình chia sẻ kiến thức về lập trình, khoa học dữ liệu, AI và nhiều thứ hay ho liên quan đến tech.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ký sự AI">
-<meta property="og:url" content="https://www.kysuai.com/index.html">
+  <meta name="description" content="Thời gian gần đây đang nổi lên 1 con AI tên là ChatGPT có khả năng giao tiếp như người thật, biết làm thơ, viết luận văn, giải toán, dịch tiếng Anh sang tiếng Việt, ngay cả viết và đọc hiểu code. Thậm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Triển khai GPT-J 6B Vietnamese News trên Docker và K8S">
+<meta property="og:url" content="https://www.kysuai.com/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/index.html">
 <meta property="og:site_name" content="Ký sự AI">
-<meta property="og:description" content="Nơi để mình chia sẻ kiến thức về lập trình, khoa học dữ liệu, AI và nhiều thứ hay ho liên quan đến tech.">
+<meta property="og:description" content="Thời gian gần đây đang nổi lên 1 con AI tên là ChatGPT có khả năng giao tiếp như người thật, biết làm thơ, viết luận văn, giải toán, dịch tiếng Anh sang tiếng Việt, ngay cả viết và đọc hiểu code. Thậm">
 <meta property="og:locale" content="vi_VN">
+<meta property="og:image" content="https://www.kysuai.com/images/possessed-photography-U3sOwViXhkY-unsplash.jpg">
+<meta property="article:published_time" content="2021-01-05T10:08:36.000Z">
+<meta property="article:modified_time" content="2022-12-25T05:19:37.921Z">
 <meta property="article:author" content="Vũ Đức Duy">
-<meta property="article:tag" content="ký sự AI, lập trình, programming, công nghệ phần mềm, software engineering, AI, trí tuệ nhân tạo, data science, khoa học dữ liệu">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="GPT-J">
+<meta property="article:tag" content="K8S">
+<meta property="article:tag" content="Natural Language Generation">
+<meta property="article:tag" content="Language Model">
+<meta property="article:tag" content="Artificial Intelligence">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.kysuai.com/images/possessed-photography-U3sOwViXhkY-unsplash.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
   
@@ -65,98 +76,7 @@
   </div>
 </header>
       <div id="content" class="outer">
-        <section id="main">
-  
-    <article id="post-Cau-hinh-GPU-trong-Docker" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/" class="article-date">
-  <time datetime="2021-01-10T11:29:40.000Z" itemprop="datePublished">10-01-2021</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/10/Cau-hinh-GPU-trong-Docker/">Cấu hình GPU trong Docker</a>
-    </h1>
-  
-
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Trong bài <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban">trước</a>, mình đã trình bày cách thiết lập môi trường Docker để chạy server Jupyter. Với nó, bạn có thể cài đặt bất kỳ package nào mà bạn muốn như scikit-learn, Tensorflow, PyTorch. Nhưng những thư viện này sẽ không thể sử dụng được GPU trong máy bạn như khi cài trực tiếp trên hệ điều hành bởi vì bạn chưa cấu hình GPU cho container của bạn. Trong bài này, mình sẽ hướng dẫn bạn cách để sử dụng được GPU trong Docker.</p>
-<p>Mình giả định rằng máy của bạn đang dùng Nvidia GPU và bạn đã cài driver cần thiết trên hệ điều hành Ubuntu rồi. Nếu bạn chưa cài đặt driver cho GPU thì vào đường link ở <a target="_blank" rel="noopener" href="https://www.nvidia.com/Download/index.aspx">đây</a>, chọn tải rồi cài driver trước nhé.</p>
-<p><escape>
-        
-          <p class="article-more-link">
-            <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/">Đọc tiếp →</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="clc2x8fdg0003deopbegh6res" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" class="article-date">
-  <time datetime="2021-01-05T10:08:36.000Z" itemprop="datePublished">05-01-2021</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Cách thiết lập môi trường Docker cho server Jupyter của bạn</a>
-    </h1>
-  
-
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để chạy VnCoreNLP, cài tensorflow GPU để huấn luyện model, cài cmake để cài CocCoc Tokenizer, quản lý dependency,… Có khi bạn lỡ làm sai gì đó khiến cho máy bạn gặp vấn đề mà không biết giải quyết làm sao, vừa tốn công sức vừa tốn thời gian cho những tác vụ không liên quan. Docker chính là chìa khóa để giái quyết những vấn đề trên. Bài viết này sẽ hướng dẫn bạn cách thiết lập môi trường Docker để chạy server Jupyter của bạn.</p>
-<p><escape>
-        
-          <p class="article-more-link">
-            <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Đọc tiếp →</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="clc2x8fdd0001deopcnypen8y" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/" class="article-date">
   <time datetime="2021-01-05T10:08:36.000Z" itemprop="datePublished">05-01-2021</time>
@@ -168,25 +88,78 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
+    <h1 class="article-title" itemprop="name">
+      Triển khai GPT-J 6B Vietnamese News trên Docker và K8S
     </h1>
   
 
       </header>
     
     
+      
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img fancybox" href="/images/possessed-photography-U3sOwViXhkY-unsplash.jpg" rel="gallery_clc2x8fdw001adeopfg3zg7fk">
+        <img src="/images/possessed-photography-U3sOwViXhkY-unsplash.jpg" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
+    
     <div class="article-entry" itemprop="articleBody">
       
         <p>Thời gian gần đây đang nổi lên 1 con AI tên là ChatGPT có khả năng giao tiếp như người thật, biết làm thơ, viết luận văn, giải toán, dịch tiếng Anh sang tiếng Việt, ngay cả viết và đọc hiểu code. Thậm chí nó có thể “giả lập” máy ảo linux và “chat với 1 ChatGPT khác trong máy ảo đó” (Đọc thêm ở <a target="_blank" rel="noopener" href="https://www.engraved.blog/building-a-virtual-machine-inside/">đây</a>). Bản chất bên dưới của hệ thống này là 1 mô hình Generative Pre-trained Transformer 3 (GPT-3) với số lượng tham số khổng lồ (175 tỷ), chỉ riêng việc lưu mô hình này thôi cũng cần đến 800 GB! Ngay cả khi OpenAI công bố mô hình này cho cộng đồng thì cũng không thể tự sử dụng được với kinh phí khiêm tốn.</p>
 <p>May mắn là có một mô hình GPT khác đến từ cộng đồng AI Việt Nam, tên là <a target="_blank" rel="noopener" href="https://huggingface.co/VietAI/gpt-j-6B-vietnamese-news">GPT-J 6B Vietnamese News</a>, được train bởi VietAI. Mô hình này chỉ có 6 tỷ tham số, đủ nhỏ để chạy trên những con GPU giá rẻ. Trong bài viết này, mình sẽ hướng dẫn cách triển khai mô hình này lên môi trường Docker và K8S, sử dụng thông qua API để lấy kết quả.</p>
 <p>Link tới Github repo chứa code trong bài viết này: <a target="_blank" rel="noopener" href="https://github.com/duydvu/gpt-j-6B-vietnamese-news-api">https://github.com/duydvu/gpt-j-6B-vietnamese-news-api</a></p>
-<p><escape>
-        
-          <p class="article-more-link">
-            <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Đọc tiếp →</a>
-          </p>
-        
+<p><escape><a id="more"></a></escape></p>
+<h1 id="Load-va-chay-thu-mo-hinh"><a href="#Load-va-chay-thu-mo-hinh" class="headerlink" title="Load và chạy thử mô hình"></a>Load và chạy thử mô hình</h1><p>Bước đầu tiên là load tokenizer và tham số của mô hình:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer<span class="token punctuation">,</span> AutoModelForCausalLM
+
+<span class="token comment"># Load tokenizer</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>model_path<span class="token punctuation">)</span>
+
+<span class="token comment"># Load tham số mô hình</span>
+model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>model_path<span class="token punctuation">,</span>
+                                             torch_dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>float16<span class="token punctuation">,</span>
+                                             low_cpu_mem_usage<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span>parallelize<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># Chia nhỏ mô hình và phân bổ lên nhiều GPU để tránh bị lỗi OOM</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Trong đoạn code trên, mình thực hiện 2 phương pháp tối ưu:</p>
+<ol>
+<li>Sử dụng kiểu dữ liệu float16 thay vì float32 để giảm dung lượng bộ nhớ trên GPU. Vì float16 tương ứng với 2 byte còn float32 tới 4 byte nên tiết kiệm được 50% dung lượng.</li>
+<li>Vì mô hình này vẫn rất lớn so với dung lượng bộ nhớ của các loại GPU phổ biến, nếu bạn có nhiều GPU thì có thể phân bổ các tham số của mô hình trên nhiều GPU thay vì chỉ chạy trên 1 con. Phương pháp này có tên là <strong>Model Parallel</strong>.</li>
+</ol>
+<p>Sau khi đã xong bước 1, chạy thử mô hình để kiểm tra xem có bị lỗi gì không:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Convert đoạn text từ dạng string sang dãy số integer </span>
+input_ids <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"Tiềm năng của trí tuệ nhân tạo"</span><span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">'pt'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span><span class="token string">'cuda:0'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Chạy mô hình</span>
+outputs <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+  input_ids<span class="token punctuation">,</span>
+  max_length<span class="token operator">=</span><span class="token number">256</span><span class="token punctuation">,</span>
+  do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+  top_k<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span>
+  top_p<span class="token operator">=</span><span class="token number">0.9</span><span class="token punctuation">,</span>
+  num_return_sequences<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Decode kết quả của mô hình từ dãy số integer sang dạng string và in ra màn hình</span>
+<span class="token keyword">for</span> output <span class="token keyword">in</span> outputs<span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>output<span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Vì thuật toán sinh văn bản mà mình đang sử dụng là lấy mẫu dựa trên xác suất nên sau mỗi lần chạy, mô hình sẽ cho ra kết quả khác nhau. Kết quả thu được trên máy của mình là:</p>
+<pre class="line-numbers language-none"><code class="language-none">Tiềm năng của trí tuệ nhân tạo là rất lớn, nhiều ứng dụng có thể ra đời trong tương lai không xa, và điều đó đòi hỏi sự nỗ lực của cả cộng đồng.
+
+Một điểm khác cần lưu ý là trí tuệ nhân tạo là một lĩnh vực phát triển hoàn toàn mới và không thể chỉ dựa vào mỗi việc nghiên cứu của các trường, viện mà phải kết hợp với các doanh nghiệp, và phải có sự kết nối mạnh mẽ với các doanh nghiệp.
+
+Về việc chuẩn bị nhân lực cho cuộc cách mạng công nghiệp lần thứ 4, Phó Thủ tướng lưu ý các trường cần có sự đổi mới về cơ chế, phương pháp, mô hình dạy và học nhằm tạo môi trường tốt nhất cho trí tuệ nhân tạo.
+
+&quot;Nếu cứ làm theo cách cũ thì các trường sẽ như &quot;rúc thóc&quot; vào bao, nhưng nếu áp dụng phương pháp mới mà các trường chưa có, mới ở giai đoạn đầu mà có quy mô lớn hơn nhiều lần thì sẽ rất khó khăn&quot;, Phó Thủ tướng chia sẻ.
+
+Phó Thủ tướng Vũ Đức Đam đề nghị Bộ KH&amp;CN tiếp tục có sự phối hợp với các bộ, ngành, trước hết là Bộ KH&amp;CN xây dựng chiến lược, quy hoạch phát triển, thực hiện đề án tăng cường.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Sau khi chạy thử thành công, mình viết lại đoạn code trên thành 1 class trong file <code>src/predictor.py</code> và đóng gói toàn bộ code bao gồm cả phần API server vào trong thư mục <code>src</code>.</p>
+
       
     </div>
     <footer class="article-footer">
@@ -198,104 +171,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" class="article-date">
-  <time datetime="2021-01-01T18:18:04.000Z" itemprop="datePublished">01-01-2021</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
+    <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Mới hơn</strong>
+      <div class="article-nav-title">
         
+          Cách thiết lập môi trường Docker cho server Jupyter của bạn
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
-    </h1>
   
+    <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Cũ hơn</strong>
+      <div class="article-nav-title">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả, Kafka được sinh ra để làm nhiệm vụ đó. Trong phần đầu tiên của series “Làm quen với Kafka”, mình sẽ viết 1 ứng dụng Python dùng để chat với nhau trên màn hình console để hiểu được những tính năng cơ bản của Kafka.</p>
-<p>Lưu ý đây chỉ là 1 ứng dụng làm cho vui để làm quen với Kafka thôi chứ không nên đưa vào thực tế nhé.</p>
-<p><escape>
-        
-          <p class="article-more-link">
-            <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Đọc tiếp →</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="clc2x8fdi0005deopbvxhfo9b" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-Cau-hinh-VS-Code-de-code-tren-server" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" class="article-date">
-  <time datetime="2020-12-26T11:18:29.000Z" itemprop="datePublished">26-12-2020</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
-    </h1>
-  
-
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Trong bài viết này, mình sẽ hướng dẫn cho các bạn cách thiết lập môi trường lập trình trên server hơn thông qua extension Remote - SSH của VS Code.</p>
-<p><escape>
-        
-          <p class="article-more-link">
-            <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Đọc tiếp →</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="clc2x8fdh0004deopc2cgcozx" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
-  </nav>
 
 </section>
         
