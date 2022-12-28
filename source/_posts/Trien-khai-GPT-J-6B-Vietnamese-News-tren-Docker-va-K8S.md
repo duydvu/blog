@@ -1,6 +1,6 @@
 ---
 title: Triển khai GPT-J 6B Vietnamese News trên Docker và K8S
-date: 2021-01-05 10:08:36
+date: 2022-12-28 11:28:00
 photos:
 - /images/possessed-photography-U3sOwViXhkY-unsplash.jpg
 tags:
@@ -23,6 +23,8 @@ Link tới Github repo chứa code trong bài viết này: [https://github.com/d
 <escape><!-- more --></escape>
 
 # Load và chạy thử mô hình
+
+Trước khi chạy thử mô hình này, bạn cần đảm bảo đủ bộ nhớ GPU để load mô hình lên máy. Yêu cầu tối thiểu là khoảng 17 GB. Nếu bạn có nhiều hơn 1 GPU và tổng bộ nhớ nhiều hơn con số này thì vẫn có thể chạy được. Mình đã thử thành công trên 2 card GTX 1080Ti 12GB.
 
 Bước đầu tiên là load tokenizer và tham số của mô hình:
 
@@ -80,3 +82,89 @@ Phó Thủ tướng Vũ Đức Đam đề nghị Bộ KH&CN tiếp tục có s�
 ```
 
 Sau khi chạy thử thành công, mình viết lại đoạn code trên thành 1 class trong file `src/predictor.py` và đóng gói toàn bộ code bao gồm cả phần API server vào trong thư mục `src`.
+
+# Tạo Docker image
+
+Để build được Docker, trước hết bạn cần phải tải mô hình về máy theo các bước sau:
+1. Cài đặt [git-lfs](https://git-lfs.com/)
+2. Chạy lệnh `git clone https://huggingface.co/VietAI/gpt-j-6B-vietnamese-news`
+
+Lệnh clone sẽ tải mô hình về và đặt ở thư mục hiện tại trên terminal.
+
+Sau khi tải xong, dùng lệnh `mv` để đưa thư mục vừa clone về vào thư mục của repo API:
+```bash
+mv ./gpt-j-6B-vietnamese-news ./gpt-j-6B-vietnamese-news-api
+```
+
+Cuối cùng là dùng lệnh `build` Docker image:
+```bash
+docker build -t gpt-j .
+```
+
+Tiến hành chạy thử bằng việc tạo 1 container và map tới port 5000 của máy:
+```bash
+docker run -it --rm -p 5000:5000 gpt-j
+```
+
+Gọi thử bằng lệnh `curl`:
+```bash
+curl --location --request POST 'http://localhost:5000/predict' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    "text": "Tiềm năng của trí tuệ nhân tạo",
+    "n_samples": 1
+  }'
+```
+
+# Triển khai lên môi trường K8S với Helm Chart
+
+## Một chút phân tích
+
+Trong bài viết này, mình chọn Google Cloud Platform (GCP) là nhà cung cấp dịch vụ cloud để triển khai mô hình lên K8S vì mình thường xuyên dùng GCP trong công việc. Dù vậy, nếu bạn có sử dụng nhà cung cấp khác thì cũng không thành vấn đề, quan trọng là họ có GPU cho K8S là được.
+
+Sau khi nghiên cứu các mức giá GPU của GCP, mình quyết định chọn Nvidia T4 bởi 2 tiêu chí:
+1. Mức giá - giá thuê hàng tháng của T4 là gần 180 USD, nếu dùng spot VM thì giá chỉ còn 80 USD, cộng với chi phí của CPU, RAM và disk thì khoảng 90 USD, thấp thứ 2 chỉ sau dòng K80.
+2. Tốc độ xử lý - Lý do mình không chọn K80 là vì nó không hỗ trợ FP16 ([nguồn tham khảo](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)), giúp giảm bộ nhớ cũng như tăng tốc độ chạy mô hình.
+
+Với dung lượng 16 GB, cần tới 2 card T4 thì mới có thể chạy được mô hình GPT-J này. Như vậy chi phí hàng tháng nếu duy trì liên tục là 90 x 2=180 USD. Nếu chỉ thỉnh thoảng chạy thì chi phí sẽ còn thấp hơn nữa.
+
+## Bắt đầu triển khai
+
+Helm là một công cụ rất tuyệt vời cho việc đóng gói ứng dụng mà chúng ta vừa tạo để đưa lên K8S. Mình đã tạo Helm Chart và để trong thư mục `k8s/chart`. Chart này bao gồm 2 thành phần:
+
+1. Deployment: Tạo deployment chứa pod chạy container gpt-j.
+2. Service: Tạo service kết nối tới pod trong deployment ở trên.
+
+Trong phần deployment có 2 phần quan trọng cần lưu ý, một là:
+```YAML
+strategy:
+  rollingUpdate:
+    maxSurge: 0
+    maxUnavailable: 1
+  type: RollingUpdate
+```
+
+Mặc định trong K8S khi cập nhật deployment thì sẽ tạo thêm 1 pod mới chạy song song với pod cũ, nhưng trong trường hợp này mình chỉ có đủ GPU để chạy cho 1 pod nên K8S sẽ không thể thay thế được pod cũ vì không có GPU để chạy pod mới. Vì vậy mình thay đổi strategy để khi cập nhật deployment thì K8S sẽ xóa pod cũ trước khi tạo pod mới. Như vậy thì sẽ không bị hiện tượng trên, nhưng sẽ bị vấn đề khác là xảy ra downtime trong quá trình deploy.
+
+Hai là:
+
+```YAML
+resources:
+  requests:
+    cpu: 500m
+    memory: 8000Mi
+    nvidia.com/gpu: "2"
+  limits:
+    memory: 16000Mi
+    nvidia.com/gpu: "2"
+```
+
+Có 2 dòng quan trọng là `nvidia.com/gpu: "2"` dùng để cấp phát tài nguyên GPU cho pod. Bắt buộc phải có 2 dòng này thì pod mới có thể dùng GPU được. Một điểm trừ là hiện tại GCP chỉ cho phép 1 GPU được cấp phát tới 1 pod nên nhiều pod không thể chia sẽ cùng 1 GPU được. Nếu có nhiều mô hình khác cần dùng tới GPU thì tốt nhất bạn nên dùng các giải pháp chạy mô hình tập trung như [Triton](https://github.com/triton-inference-server/server) để có thể chạy nhiều mô hình trên cùng 1 GPU.
+
+Bước cuối cùng là cài đặt Helm Chart này lên K8S thông qua lệnh sau:
+
+```bash
+helm install --set namespace=default --set image=gpt-j --set version=latest gpt-j ./k8s/chart
+```
+
+Như vậy là chúng ta đã thành công trong việc triển khai GPT-J lên K8S rồi đó. Chúc bạn cũng thành công như mình nhé!
