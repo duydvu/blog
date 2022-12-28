@@ -67,6 +67,52 @@
       <div id="content" class="outer">
         <section id="main">
   
+    <article id="post-Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/" class="article-date">
+  <time datetime="2022-12-28T11:28:00.000Z" itemprop="datePublished">28-12-2022</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
+    </h1>
+  
+
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Thời gian gần đây đang nổi lên 1 con AI tên là ChatGPT có khả năng giao tiếp như người thật, biết làm thơ, viết luận văn, giải toán, dịch tiếng Anh sang tiếng Việt, ngay cả viết và đọc hiểu code. Thậm chí nó có thể “giả lập” máy ảo linux và “chat với 1 ChatGPT khác trong máy ảo đó” (Đọc thêm ở <a target="_blank" rel="noopener" href="https://www.engraved.blog/building-a-virtual-machine-inside/">đây</a>). Bản chất bên dưới của hệ thống này là 1 mô hình Generative Pre-trained Transformer 3 (GPT-3) với số lượng tham số khổng lồ (175 tỷ), chỉ riêng việc lưu mô hình này thôi cũng cần đến 800 GB! Ngay cả khi OpenAI công bố mô hình này cho cộng đồng thì cũng không thể tự sử dụng được với kinh phí khiêm tốn.</p>
+<p>May mắn là có một mô hình GPT khác đến từ cộng đồng AI Việt Nam, tên là <a target="_blank" rel="noopener" href="https://huggingface.co/VietAI/gpt-j-6B-vietnamese-news">GPT-J 6B Vietnamese News</a>, được train bởi VietAI. Mô hình này chỉ có 6 tỷ tham số, đủ nhỏ để chạy trên những con GPU giá rẻ. Trong bài viết này, mình sẽ hướng dẫn cách triển khai mô hình này lên môi trường Docker và K8S, sử dụng thông qua API để lấy kết quả.</p>
+<p>Link tới Github repo chứa code trong bài viết này: <a target="_blank" rel="noopener" href="https://github.com/duydvu/gpt-j-6B-vietnamese-news-api">https://github.com/duydvu/gpt-j-6B-vietnamese-news-api</a></p>
+<p><escape>
+        
+          <p class="article-more-link">
+            <a href="/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Đọc tiếp →</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div data-url="https://www.kysuai.com/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/" data-id="clc7vh7rz001afmon8x5vhnok" class="article-share-link">Chia sẻ</div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Cau-hinh-GPU-trong-Docker" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/" class="article-date">
@@ -100,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="clc2x8fdg0003deopbegh6res" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/" data-id="clc7vh7rf0003fmonh8j4a3b1" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li></ul>
@@ -144,56 +190,10 @@
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="clc2x8fdd0001deopcnypen8y" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="clc7vh7rc0001fmonc7x05jlw" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/" class="article-date">
-  <time datetime="2021-01-05T10:08:36.000Z" itemprop="datePublished">05-01-2021</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
-    </h1>
-  
-
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Thời gian gần đây đang nổi lên 1 con AI tên là ChatGPT có khả năng giao tiếp như người thật, biết làm thơ, viết luận văn, giải toán, dịch tiếng Anh sang tiếng Việt, ngay cả viết và đọc hiểu code. Thậm chí nó có thể “giả lập” máy ảo linux và “chat với 1 ChatGPT khác trong máy ảo đó” (Đọc thêm ở <a target="_blank" rel="noopener" href="https://www.engraved.blog/building-a-virtual-machine-inside/">đây</a>). Bản chất bên dưới của hệ thống này là 1 mô hình Generative Pre-trained Transformer 3 (GPT-3) với số lượng tham số khổng lồ (175 tỷ), chỉ riêng việc lưu mô hình này thôi cũng cần đến 800 GB! Ngay cả khi OpenAI công bố mô hình này cho cộng đồng thì cũng không thể tự sử dụng được với kinh phí khiêm tốn.</p>
-<p>May mắn là có một mô hình GPT khác đến từ cộng đồng AI Việt Nam, tên là <a target="_blank" rel="noopener" href="https://huggingface.co/VietAI/gpt-j-6B-vietnamese-news">GPT-J 6B Vietnamese News</a>, được train bởi VietAI. Mô hình này chỉ có 6 tỷ tham số, đủ nhỏ để chạy trên những con GPU giá rẻ. Trong bài viết này, mình sẽ hướng dẫn cách triển khai mô hình này lên môi trường Docker và K8S, sử dụng thông qua API để lấy kết quả.</p>
-<p>Link tới Github repo chứa code trong bài viết này: <a target="_blank" rel="noopener" href="https://github.com/duydvu/gpt-j-6B-vietnamese-news-api">https://github.com/duydvu/gpt-j-6B-vietnamese-news-api</a></p>
-<p><escape>
-        
-          <p class="article-more-link">
-            <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Đọc tiếp →</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/" data-id="clc2x8fdw001adeopfg3zg7fk" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li></ul>
 
     </footer>
   </div>
@@ -235,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="clc2x8fdi0005deopbvxhfo9b" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="clc7vh7rh0005fmondyf35e4k" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
@@ -279,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="clc2x8fdh0004deopc2cgcozx" class="article-share-link">Chia sẻ</div>
+      <div data-url="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" data-id="clc7vh7rg0004fmon8ixv0g3a" class="article-share-link">Chia sẻ</div>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
@@ -308,15 +308,15 @@
       <ul>
         
           <li>
+            <a href="/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/">Cấu hình GPU trong Docker</a>
           </li>
         
           <li>
             <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Cách thiết lập môi trường Docker cho server Jupyter của bạn</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/05/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
           </li>
         
           <li>
@@ -358,7 +358,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">tháng 1 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">tháng 12 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">tháng 8 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">tháng 12 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">tháng 1 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">tháng 12 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">tháng 8 2020</a></li></ul>
     </div>
   </div>
 
