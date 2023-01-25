@@ -1,21 +1,22 @@
+
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-1CPE7Q03HT');
-</script>
-
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <title>Sự đối lập giữa Object và Data Structure | Ký sự AI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Bài viết này là kiến thức mình học được khi đọc cuốn Clean Code: A Handbook of Agile Software Craftsmanship, mình muốn thông qua bài viết này có thể chia sẻ hiểu biết của mình với mọi người cũng như t">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Vũ Đức Duy">
+  <meta name="keywords" content="ký sự AI, lập trình, programming, công nghệ phần mềm, software engineering, AI, trí tuệ nhân tạo, data science, khoa học dữ liệu">
+  
+    <meta name="description" content="Bài viết này là kiến thức mình học được khi đọc cuốn Clean Code: A Handbook of Agile Software Craftsmanship, mình muốn thông qua bài viết này có thể chia sẻ hiểu biết của mình với mọi người cũng như t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sự đối lập giữa Object và Data Structure">
 <meta property="og:url" content="https://www.kysuai.com/2020/08/09/su-doi-lap-giua-object-va-data-structure/index.html">
@@ -23,274 +24,637 @@
 <meta property="og:description" content="Bài viết này là kiến thức mình học được khi đọc cuốn Clean Code: A Handbook of Agile Software Craftsmanship, mình muốn thông qua bài viết này có thể chia sẻ hiểu biết của mình với mọi người cũng như t">
 <meta property="og:locale" content="vi_VN">
 <meta property="article:published_time" content="2020-08-09T16:13:43.000Z">
-<meta property="article:modified_time" content="2023-01-25T09:43:40.678Z">
+<meta property="article:modified_time" content="2023-01-25T15:08:08.006Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="OOP">
 <meta property="article:tag" content="Software Engineering">
 <meta property="article:tag" content="Data structure">
 <meta property="article:tag" content="Java">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
   
-    <link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
   
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
   
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
-<link rel="stylesheet" href="/css/style.css">
+  <title>Sự đối lập giữa Object và Data Structure - Ký sự AI</title>
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.kysuai.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":"G-1CPE7Q03HT","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT', function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1CPE7Q03HT');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
+</head>
+
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="header-outer" class="outer">
-    <div id="header-inner">
-      <nav id="main-nav">
-        <a id="logo" href="/">
-          <img src="/favicon-32x32.png" alt="Ký sự AI">
-          <h1>Ký sự AI</h1>
-        </a>
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Tìm kiếm"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.kysuai.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div id="content" class="outer">
-        <section id="main"><article id="post-su-doi-lap-giua-object-va-data-structure" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/09/su-doi-lap-giua-object-va-data-structure/" class="article-date">
-  <time datetime="2020-08-09T16:13:43.000Z" itemprop="datePublished">09-08-2020</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Sự đối lập giữa Object và Data Structure
-    </h1>
   
 
-      </header>
+  <header>
     
-    
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Bài viết này là kiến thức mình học được khi đọc cuốn <em>Clean Code: A Handbook of Agile Software Craftsmanship</em>, mình muốn thông qua bài viết này có thể chia sẻ hiểu biết của mình với mọi người cũng như tự giúp bản thân nắm vững hơn những gì đã đọc được.</p>
-<p>Trong lập trình hướng đối tượng, 2 khái niệm object và data structure có sự đối lập nhau rõ ràng mặc dù nghe thì chúng có vẻ hơi hơi giống nhau. Trong bài viết này, mình sẽ tìm hiểu và phân tích sự đối lập này thông qua 1 ví dụ thực tế.</p>
-<p><escape><a id="more"></a></escape></p>
-<h2 id="Su-khac-nhau-giua-Object-va-Data-Structure"><a href="#Su-khac-nhau-giua-Object-va-Data-Structure" class="headerlink" title="Sự khác nhau giữa Object và Data Structure"></a>Sự khác nhau giữa Object và Data Structure</h2><p>Object đóng gói toàn bộ dữ liệu của nó bên trong 1 class và chỉ cung cấp ra bên ngoài một hoặc nhiều hàm để người dùng gọi. Như vậy, chỉ có các hàm bên trong 1 class mới có thể quản lý dữ liệu của class đó. Ngược lại, data structure để phơi bày dữ liệu của nó và không có bất kỳ hàm nào có ý nghĩa.</p>
-<p>Ta có thể thấy trong đoạn văn trên, object và data structure hoàn toàn đối lập nhau. Một bên thì giấu dữ liệu và phơi bày hàm, còn một bên thì phơi bày dữ liệu và không có hàm (coi như giấu).</p>
-<h2 id="Vi-du"><a href="#Vi-du" class="headerlink" title="Ví dụ"></a>Ví dụ</h2><p>Mình hãy cùng xem xét 1 ví dụ như sau:<br>Dưới đây là 1 đoạn code viết theo hướng data structure. Mỗi shape chỉ đơn giản là 1 tập các thuộc tính riêng biệt của mỗi dạng hình học. Class Geometry có nhiệm vụ tính toán các giá trị chẳng hạn như diện tích dựa trên 3 shape này.</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Square</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token class-name">Point</span> topLeft<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">double</span> side<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token class-name">Point</span> topLeft<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">double</span> height<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">double</span> width<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Circle</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token class-name">Point</span> center<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">double</span> radius<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Geometry</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token class-name">Object</span> shape<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">NoSuchShapeException</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>shape <span class="token keyword">instanceof</span> <span class="token class-name">Square</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token class-name">Square</span> s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Square</span><span class="token punctuation">)</span>shape<span class="token punctuation">;</span>
-            <span class="token keyword">return</span> s<span class="token punctuation">.</span>side <span class="token operator">*</span> s<span class="token punctuation">.</span>side<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>shape <span class="token keyword">instanceof</span> <span class="token class-name">Rectangle</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token class-name">Rectangle</span> r <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Rectangle</span><span class="token punctuation">)</span>shape<span class="token punctuation">;</span>
-            <span class="token keyword">return</span> r<span class="token punctuation">.</span>height <span class="token operator">*</span> r<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>shape <span class="token keyword">instanceof</span> <span class="token class-name">Circle</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token class-name">Circle</span> c <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Circle</span><span class="token punctuation">)</span>shape<span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token constant">PI</span> <span class="token operator">*</span> c<span class="token punctuation">.</span>radius <span class="token operator">*</span> c<span class="token punctuation">.</span>radius<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NoSuchShapeException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Còn dưới đây là 1 đoạn code được viết theo hướng OOP, mỗi shape bắt buộc phải thừa kế từ class Shape và tự hiện thực các hàm của Shape.</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Square</span> <span class="token keyword">implements</span> <span class="token class-name">Shape</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">private</span> <span class="token class-name">Point</span> topLeft<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">double</span> side<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> side <span class="token operator">*</span> side<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token keyword">implements</span> <span class="token class-name">Shape</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">private</span> <span class="token class-name">Point</span> topLeft<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">double</span> height<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">double</span> width<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> height <span class="token operator">*</span> width<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Circle</span> <span class="token keyword">implements</span> <span class="token class-name">Shape</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">private</span> <span class="token class-name">Point</span> center<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">double</span> radius<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token constant">PI</span> <span class="token operator">*</span> radius <span class="token operator">*</span> radius<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Giả sử như chúng ta muốn thêm 1 shape mới vào code (Triangle chẳng hạn), đối với đoạn code đầu tiên (code theo data structure) thì ta cần khai báo thêm 1 data structure mới tên là Triangle và thay đổi toàn bộ hàm có trong class Geometry (trong trường hợp này chỉ có 1 hàm area). Tuy nhiên, trong 1 trường hợp khác, khi ta chỉ muốn thêm 1 hàm mới để tính chu vi của shape, ta chỉ cần khai báo 1 hàm tên là perimeter trong class Geometry và mọi thay đổi chỉ gói gọn trong hàm này mà thôi.<br>Bây giờ mình sẽ dùng đoạn code thứ hai (sử dụng OOP) để áp dụng vào trường hợp trên. Việc thêm 1 shape mới trở nên dễ dàng hơn rất nhiều so với sử dụng data structure, chỉ cần tạo 1 class mới tên là Triangle và hiện thực các hàm cần thiết của class Shape mà không làm ảnh hưởng đến các Shape còn lại. Trong khi đó, nếu thêm hàm perimeter vào class Shape thì đòi hỏi ta phải thay đổi toàn bộ code của mọi class thừa kế từ Shape.</p>
-<p>Như vậy có thể thấy rằng:<br><strong>Đối với lập trình sử dụng data structure, việc thêm 1 hàm mới trở nên dễ dàng mà không cần thay đổi code trong những data structure khác nhưng lại khó để thêm 1 data structure mới vì phải thay đổi toàn bộ hàm có sẵn. Ở chiều ngược lại, lập trình theo hướng đối tượng khiến cho việc thêm 1 class mới dễ dàng mà không cần thay đổi những class khác nhưng lại khó để thêm 1 hàm mới vì toàn bộ class khác phải thay đổi theo.</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2020/08/09/su-doi-lap-giua-object-va-data-structure/" data-id="cldbhbe6n001pd3oq97u8ahmu" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/08/23/Open-closed-principle/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Mới hơn</strong>
-      <div class="article-nav-title">
-        
-          Open-closed principle
-        
-      </div>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ký sự AI</strong>
     </a>
-  
-  
-</nav>
 
-  
-</article>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-</section>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Bài viết gần đây</h3>
-    <div class="widget">
-      <ul>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
         
-          <li>
-            <a href="/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
-          <li>
-            <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/">Cấu hình GPU trong Docker</a>
-          </li>
         
-          <li>
-            <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Cách thiết lập môi trường Docker cho server Jupyter của bạn</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
     </div>
   </div>
+</nav>
 
   
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/minh-triet-3FqC2nPXURQ-unsplash.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Sự đối lập giữa Object và Data Structure"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
-    </div>
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-08-09 16:13" pubdate>
+          9 tháng 8 năm 2020
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 phút
+        
+      </span>
+    
+
+    
+    
   </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Artificial-Intelligence/" style="font-size: 10px;">Artificial Intelligence</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/GPT-J/" style="font-size: 10px;">GPT-J</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/K8S/" style="font-size: 10px;">K8S</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Natural-Language-Generation/" style="font-size: 10px;">Natural Language Generation</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 15px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
-    </div>
-  </div>
-
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">tháng 12 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">tháng 1 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">tháng 12 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">tháng 8 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-</aside>
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info">
-      &copy; 2023 Vũ Đức Duy<br>
+
+      
     </div>
   </div>
-</footer>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
     </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Sự đối lập giữa Object và Data Structure</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Bài viết này là kiến thức mình học được khi đọc cuốn <em>Clean Code: A Handbook of Agile Software Craftsmanship</em>, mình muốn thông qua bài viết này có thể chia sẻ hiểu biết của mình với mọi người cũng như tự giúp bản thân nắm vững hơn những gì đã đọc được.</p>
+<p>Trong lập trình hướng đối tượng, 2 khái niệm object và data structure có sự đối lập nhau rõ ràng mặc dù nghe thì chúng có vẻ hơi hơi giống nhau. Trong bài viết này, mình sẽ tìm hiểu và phân tích sự đối lập này thông qua 1 ví dụ thực tế.</p>
+<p><escape><a id="more"></a></escape></p>
+<h2 id="Su-khac-nhau-giua-Object-va-Data-Structure"><a href="#Su-khac-nhau-giua-Object-va-Data-Structure" class="headerlink" title="Sự khác nhau giữa Object và Data Structure"></a>Sự khác nhau giữa Object và Data Structure</h2><p>Object đóng gói toàn bộ dữ liệu của nó bên trong 1 class và chỉ cung cấp ra bên ngoài một hoặc nhiều hàm để người dùng gọi. Như vậy, chỉ có các hàm bên trong 1 class mới có thể quản lý dữ liệu của class đó. Ngược lại, data structure để phơi bày dữ liệu của nó và không có bất kỳ hàm nào có ý nghĩa.</p>
+<p>Ta có thể thấy trong đoạn văn trên, object và data structure hoàn toàn đối lập nhau. Một bên thì giấu dữ liệu và phơi bày hàm, còn một bên thì phơi bày dữ liệu và không có hàm (coi như giấu).</p>
+<h2 id="Vi-du"><a href="#Vi-du" class="headerlink" title="Ví dụ"></a>Ví dụ</h2><p>Mình hãy cùng xem xét 1 ví dụ như sau:<br>Dưới đây là 1 đoạn code viết theo hướng data structure. Mỗi shape chỉ đơn giản là 1 tập các thuộc tính riêng biệt của mỗi dạng hình học. Class Geometry có nhiệm vụ tính toán các giá trị chẳng hạn như diện tích dựa trên 3 shape này.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Square</span> &#123;<br>    <span class="hljs-keyword">public</span> Point topLeft;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> side;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Rectangle</span> &#123;<br>    <span class="hljs-keyword">public</span> Point topLeft;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> height;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> width;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Circle</span> &#123;<br>    <span class="hljs-keyword">public</span> Point center;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> radius;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Geometry</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">area</span><span class="hljs-params">(Object shape)</span> <span class="hljs-keyword">throws</span> NoSuchShapeException &#123;<br>        <span class="hljs-keyword">if</span> (shape <span class="hljs-keyword">instanceof</span> Square) &#123;<br>            <span class="hljs-type">Square</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> (Square)shape;<br>            <span class="hljs-keyword">return</span> s.side * s.side;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (shape <span class="hljs-keyword">instanceof</span> Rectangle) &#123;<br>            <span class="hljs-type">Rectangle</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> (Rectangle)shape;<br>            <span class="hljs-keyword">return</span> r.height * r.width;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (shape <span class="hljs-keyword">instanceof</span> Circle) &#123;<br>            <span class="hljs-type">Circle</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> (Circle)shape;<br>            <span class="hljs-keyword">return</span> Math.PI * c.radius * c.radius;<br>        &#125;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NoSuchShapeException</span>();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Còn dưới đây là 1 đoạn code được viết theo hướng OOP, mỗi shape bắt buộc phải thừa kế từ class Shape và tự hiện thực các hàm của Shape.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Square</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Shape</span> &#123;<br>    <span class="hljs-keyword">private</span> Point topLeft;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> side;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">area</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> side * side;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Rectangle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Shape</span> &#123;<br>    <span class="hljs-keyword">private</span> Point topLeft;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> height;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> width;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">area</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> height * width;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Circle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Shape</span> &#123;<br>    <span class="hljs-keyword">private</span> Point center;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> radius;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">area</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> Math.PI * radius * radius;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Giả sử như chúng ta muốn thêm 1 shape mới vào code (Triangle chẳng hạn), đối với đoạn code đầu tiên (code theo data structure) thì ta cần khai báo thêm 1 data structure mới tên là Triangle và thay đổi toàn bộ hàm có trong class Geometry (trong trường hợp này chỉ có 1 hàm area). Tuy nhiên, trong 1 trường hợp khác, khi ta chỉ muốn thêm 1 hàm mới để tính chu vi của shape, ta chỉ cần khai báo 1 hàm tên là perimeter trong class Geometry và mọi thay đổi chỉ gói gọn trong hàm này mà thôi.<br>Bây giờ mình sẽ dùng đoạn code thứ hai (sử dụng OOP) để áp dụng vào trường hợp trên. Việc thêm 1 shape mới trở nên dễ dàng hơn rất nhiều so với sử dụng data structure, chỉ cần tạo 1 class mới tên là Triangle và hiện thực các hàm cần thiết của class Shape mà không làm ảnh hưởng đến các Shape còn lại. Trong khi đó, nếu thêm hàm perimeter vào class Shape thì đòi hỏi ta phải thay đổi toàn bộ code của mọi class thừa kế từ Shape.</p>
+<p>Như vậy có thể thấy rằng:<br><strong>Đối với lập trình sử dụng data structure, việc thêm 1 hàm mới trở nên dễ dàng mà không cần thay đổi code trong những data structure khác nhưng lại khó để thêm 1 data structure mới vì phải thay đổi toàn bộ hàm có sẵn. Ở chiều ngược lại, lập trình theo hướng đối tượng khiến cho việc thêm 1 class mới dễ dàng mà không cần thay đổi những class khác nhưng lại khó để thêm 1 hàm mới vì toàn bộ class khác phải thay đổi theo.</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OOP/">#OOP</a>
+      
+        <a href="/tags/Software-Engineering/">#Software Engineering</a>
+      
+        <a href="/tags/Data-structure/">#Data structure</a>
+      
+        <a href="/tags/Java/">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Sự đối lập giữa Object và Data Structure</div>
+      <div>https://www.kysuai.com/2020/08/09/su-doi-lap-giua-object-va-data-structure/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Tác giả</div>
+          <div>Vũ Đức Duy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Đăng vào</div>
+          <div>9 tháng 8 năm 2020</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/08/23/Open-closed-principle/" title="Open-closed principle">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Open-closed principle</span>
+                        <span class="visible-mobile">Trước</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Mục lục</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Tìm kiếm</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Từ khóa</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
   </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
 </html>

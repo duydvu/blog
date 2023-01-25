@@ -17,6 +17,16 @@
   </url>
   
   <url>
+    <loc>https://www.kysuai.com/about/index.html</loc>
+    <lastmod>2023-01-25</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</loc>
+    <lastmod>2021-01-05</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/</loc>
     <lastmod>2021-01-10</lastmod>
   </url>
@@ -29,11 +39,6 @@
   <url>
     <loc>https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/</loc>
     <lastmod>2021-01-01</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</loc>
-    <lastmod>2021-01-05</lastmod>
   </url>
   
 

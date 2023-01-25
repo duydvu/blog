@@ -1,116 +1,310 @@
+
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-1CPE7Q03HT');
-</script>
-
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <title>Cách thiết lập môi trường Docker cho server Jupyter của bạn | Ký sự AI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để c">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Vũ Đức Duy">
+  <meta name="keywords" content="ký sự AI, lập trình, programming, công nghệ phần mềm, software engineering, AI, trí tuệ nhân tạo, data science, khoa học dữ liệu">
+  
+    <meta name="description" content="Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cách thiết lập môi trường Docker cho server Jupyter của bạn">
 <meta property="og:url" content="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/index.html">
 <meta property="og:site_name" content="Ký sự AI">
 <meta property="og:description" content="Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để c">
 <meta property="og:locale" content="vi_VN">
-<meta property="og:image" content="https://www.kysuai.com/images/docker-logo.png">
+<meta property="og:image" content="https://www.kysuai.com/images/venti-views-1cqIcrWFQBI-unsplash.jpg">
 <meta property="article:published_time" content="2021-01-05T10:08:36.000Z">
-<meta property="article:modified_time" content="2023-01-25T09:43:40.670Z">
+<meta property="article:modified_time" content="2023-01-25T15:08:08.002Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Jupyter Notebook">
 <meta property="article:tag" content="Jupyter Lab">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.kysuai.com/images/docker-logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kysuai.com/images/venti-views-1cqIcrWFQBI-unsplash.jpg">
   
-    <link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
   
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
   
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
-<link rel="stylesheet" href="/css/style.css">
+  <title>Cách thiết lập môi trường Docker cho server Jupyter của bạn - Ký sự AI</title>
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.kysuai.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":"G-1CPE7Q03HT","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT', function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1CPE7Q03HT');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
+</head>
+
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="header-outer" class="outer">
-    <div id="header-inner">
-      <nav id="main-nav">
-        <a id="logo" href="/">
-          <img src="/favicon-32x32.png" alt="Ký sự AI">
-          <h1>Ký sự AI</h1>
-        </a>
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Tìm kiếm"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.kysuai.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div id="content" class="outer">
-        <section id="main"><article id="post-Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" class="article-date">
-  <time datetime="2021-01-05T10:08:36.000Z" itemprop="datePublished">05-01-2021</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Cách thiết lập môi trường Docker cho server Jupyter của bạn
-    </h1>
   
 
-      </header>
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ký sự AI</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/venti-views-1cqIcrWFQBI-unsplash.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Cách thiết lập môi trường Docker cho server Jupyter của bạn"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
     
     
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-01-05 10:08" pubdate>
+          5 tháng 1 năm 2021
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 phút
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
       
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img fancybox" href="/images/docker-logo.png" rel="gallery_cldbhbe610001d3oq34lr7in1">
-        <img src="/images/docker-logo.png" itemprop="image">
-      </a>
-    
+    </div>
   </div>
 </div>
 
+</div>
+
+  </header>
+
+  <main>
     
-    <div class="article-entry" itemprop="articleBody">
       
-        <p>Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để chạy VnCoreNLP, cài tensorflow GPU để huấn luyện model, cài cmake để cài CocCoc Tokenizer, quản lý dependency,… Có khi bạn lỡ làm sai gì đó khiến cho máy bạn gặp vấn đề mà không biết giải quyết làm sao, vừa tốn công sức vừa tốn thời gian cho những tác vụ không liên quan. Docker chính là chìa khóa để giái quyết những vấn đề trên. Bài viết này sẽ hướng dẫn bạn cách thiết lập môi trường Docker để chạy server Jupyter của bạn.</p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Cách thiết lập môi trường Docker cho server Jupyter của bạn</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để chạy VnCoreNLP, cài tensorflow GPU để huấn luyện model, cài cmake để cài CocCoc Tokenizer, quản lý dependency,… Có khi bạn lỡ làm sai gì đó khiến cho máy bạn gặp vấn đề mà không biết giải quyết làm sao, vừa tốn công sức vừa tốn thời gian cho những tác vụ không liên quan. Docker chính là chìa khóa để giái quyết những vấn đề trên. Bài viết này sẽ hướng dẫn bạn cách thiết lập môi trường Docker để chạy server Jupyter của bạn.</p>
 <p><escape><a id="more"></a></escape></p>
 <h2 id="Docker-la-gi"><a href="#Docker-la-gi" class="headerlink" title="Docker là gì?"></a>Docker là gì?</h2><p>Nếu bạn chưa biết về Docker hoặc biết 1 chút và muốn tìm hiểu thêm thì nên đọc phần này, nếu không thì bạn có thể kéo xuống <a href="#Tao-Docker-image">phần tiếp theo</a>.</p>
 <p>Docker là 1 môi trường ảo hóa giống như VirtualBox hay VMware. Nếu bạn đã từng dùng máy ảo để chạy 1 hệ điều hành thì có thể thấy rằng chúng cung cấp cho bạn 1 môi trường độc lập với máy chính, những gì bạn làm trên máy ảo không ảnh hưởng đến máy chính. Nếu bạn lỡ phá gì đó hay dính malware thì chỉ cần reset máy ảo đó đi là xong. Sự tiện lợi này khiến cho máy ảo rất thích hợp cho việc phát triển phần mềm, triển khai phần mềm, test virus,… Nhưng cũng chính sự tiện lợi này khiến cho nó tốn rất nhiều tài nguyên của máy. Vì vậy, việc sử dụng máy ảo tương đối khó khăn.</p>
 <p>Docker ra đời nhằm khắc phục những hạn chế trên của máy ảo. Đối với máy ảo, nó dùng 1 thành phần gọi là hypervisor để mô phỏng phần cứng của nhiều máy trên 1 máy, nhờ đó cho phép nhiều máy ảo chạy trên 1 máy chính duy nhất, mỗi máy ảo có thể chạy hệ điều hành khác nhau. Trong khi đó, Docker tận dụng hệ điều hành của máy chính để chạy các container trên đó, mỗi container là 1 phần mềm được đóng gói chạy hoàn toàn độc lập với nhau. Bạn có thể làm gần như bất cứ điều gì trên container này mà không ảnh hướng đến container khác. Hình dưới đây sẽ giải thích rõ hơn về sự khác nhau giữa 2 kiến trúc này.</p>
-<p><img src="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/docker.png" alt="So sánh kiến trúc giữa Docker và máy ảo"></p>
+<p><img src="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/docker.png" srcset="/img/loading.gif" lazyload alt="So sánh kiến trúc giữa Docker và máy ảo"></p>
 <p>Nhờ vào việc tận dụng tài nguyên có sẵn trong hệ điều hành của máy chính, Docker tiêu tốn ít RAM và dung lượng đĩa hơn so với máy ảo. Qua đó tạo điều kiện thuận lợi cho các nhà phát triển sử dụng Docker để việc phát triển phần mềm trở nên dễ dàng hơn, tình trạng code chạy ổn trên máy này nhưng bị bug trên máy kia được giảm thiểu vì giờ đây code đều chạy trên cùng 1 môi trường. Triển khai phần mềm cũng dễ dàng hơn, trước đây thì DevOps phải biết về các dependency của phần mềm để cài đặt trước khi triển khai, giờ thì chỉ cần Developer tạo 1 image chứa phần mềm và tất cả dependency rồi đưa nó cho DevOps, tới lượt DevOps thì chỉ cần <code>run</code> nó là xong.</p>
 <p>Đối với Data Scientist, việc sử dụng Docker cũng giúp ích rất nhiều. Ví dụ bạn có 1 tool yêu cầu Python 3.7 để chạy nhưng bạn lại đang dùng Python 3.5 thì bạn không cần phải nâng cấp Python của máy mà chỉ cần chạy tool đó trong 1 container có Python 3.7 là xong. Hoặc là trong quá trình cài đặt các phần mềm trên máy, đôi lúc bạn sẽ gặp trường hợp lỗi do cấu hình sai gì đó, nếu mà bạn không tìm được cách sửa thì sẽ tiêu tốn khá nhiều thời gian. Ngược lại, khi bạn cài trên Docker thì chỉ cần xóa container đang chạy rồi khởi động lại cái khác là xong. Mọi thứ rất nhanh phải không nào!</p>
 <p>Docker còn mang lại nhiều lợi ích hơn trong 1 team R&amp;D có nhiều Data Scientist. Bạn không cần phải quan tâm đến việc cài đặt hay cập nhật package này có ảnh hưởng đến thành viên khác trong team hay không, vì mọi thứ đã được <strong>isolated</strong> trong 1 container. Có thể bạn sẽ nghĩ rằng virtualenv của Python cho phép làm điều tương tự, nhưng Docker cho phép làm nhiều hơn thế không chỉ có mỗi quản lý Python package. Giả sử như bạn muốn dùng Java phiên bản mới hơn để chạy tool này nhưng đồng nghiệp của bạn lại đang dùng phiên bản cũ hơn không tương thích thì sao?</p>
@@ -123,36 +317,30 @@
 <p>Trước khi đi vào phần kế tiếp, bạn hãy chắc rằng mình đã nắm được những kiến thức cơ bản của Docker như image, container là gì rồi hãy bắt đầu nhé.</p>
 <h2 id="Tao-Docker-image"><a href="#Tao-Docker-image" class="headerlink" title="Tạo Docker image"></a>Tạo Docker image</h2><p>OK. Trong phần này mình sẽ hướng dẫn cách tạo 1 image dùng để chạy server Jupyter.</p>
 <p>Trong thư mục trống bất kỳ, tạo 1 file mới và đặt tên là <code>Dockerfile</code>, lưu ý là không được có đuôi extension. Mở file này bằng 1 trình editor và copy nội dung sau vào file:</p>
-<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token comment"># Có thể chọn image khác ở https://hub.docker.com/_/python</span>
-<span class="token instruction"><span class="token keyword">FROM</span> python:3.7</span>
-
-<span class="token instruction"><span class="token keyword">RUN</span> pip install jupyterlab</span>
-<span class="token instruction"><span class="token keyword">WORKDIR</span> /code</span>
-<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"jupyter-lab"</span>, <span class="token string">"--ip"</span>, <span class="token string">"0.0.0.0"</span>, <span class="token string">"--allow-root"</span>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs docker"><span class="hljs-comment"># Có thể chọn image khác ở https://hub.docker.com/_/python</span><br><span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.7</span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> pip install jupyterlab</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /code</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;jupyter-lab&quot;</span>, <span class="hljs-string">&quot;--ip&quot;</span>, <span class="hljs-string">&quot;0.0.0.0&quot;</span>, <span class="hljs-string">&quot;--allow-root&quot;</span>]</span><br></code></pre></td></tr></table></figure>
 <p>Sau đó, chạy lệnh trong terminal:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> build <span class="token parameter variable">-t</span> jupyter-server <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker build -t jupyter-server .<br></code></pre></td></tr></table></figure>
 <p>Lệnh này sẽ build 1 image chứa Python 3.7 và Jupyter trong đó.</p>
 <p>Sau khi build xong image, bây giờ bạn có thể sử dụng nó để chạy server Jupyter rồi. Để chạy server, chỉ cần chạy lệnh:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -it -p 8888:8888 jupyter-server<br></code></pre></td></tr></table></figure>
 <p>Bạn sẽ thấy thông báo server Jupyter đã được khởi động kèm theo token. Mở browser truy cập vào địa chỉ <a target="_blank" rel="noopener" href="http://localhost:8888/">http://localhost:8888</a> rồi nhập token đó vào, thế là bạn đã chạy được server Jupyter trên Docker rồi.</p>
 <p><strong>Lưu ý</strong>: Tất cả các file bạn tạo trên server Jupyter này đều được nằm trong container, bạn sẽ không tìm thấy thư mục code của bạn trong hệ thống file của máy chính. <strong>Nếu bạn có lỡ xóa container này thì mọi nội dung bạn tạo trong nó cũng bị xóa theo</strong>. Để tránh điều này, bạn nên mount thư mục <code>/code</code> trong container lên 1 thư mục trong hệ thống file của máy chính. Để làm điều vậy, bạn chỉ cần thêm 1 tham số trước khi chạy container:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 <span class="token parameter variable">-v</span> <span class="token operator">&lt;</span>path-to-your-directory<span class="token operator">></span>:/code jupyter-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -it -p 8888:8888 -v &lt;path-to-your-directory&gt;:/code jupyter-server<br></code></pre></td></tr></table></figure>
 <p>Thay thế <code>&lt;path-to-your-directory&gt;</code> thành đường dần đến thư mục mà bạn muốn để code ở đó. Tham số vừa thêm vào có tác dụng mount thư mục trên máy chính của bạn lên thư mục <code>/code</code> trong container. Hiểu đơn giản là từ bây giờ 2 thư mục này có thể đồng bộ với nhau, nếu bạn tạo 1 file trong thư mục này thì nó sẽ xuất hiện trong thư mục còn lại. Nếu container bị xóa thì nội dung trong thư mục bạn chọn để mount vào vẫn y như cũ.</p>
 <h2 id="Cai-dat-thu-vien"><a href="#Cai-dat-thu-vien" class="headerlink" title="Cài đặt thư viện"></a>Cài đặt thư viện</h2><p>Bạn có thể cài thêm các thư viện cần thiết vào trong container đang chạy bằng 1 trong 3 cách sau đây</p>
 <h3 id="Cach-1-Lenh-docker-exec"><a href="#Cach-1-Lenh-docker-exec" class="headerlink" title="Cách 1: Lệnh docker exec"></a>Cách 1: Lệnh docker exec</h3><p>Để dùng lệnh này, trước tiên bạn cần phải biết tên hoặc ID của container. Mở 1 terminal mới và nhập lệnh sau:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token function">ps</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker ps<br></code></pre></td></tr></table></figure>
 <p>Lệnh này sẽ in ra danh sách những container đang chạy trong Docker server, nội dung tương tự như sau:</p>
-<pre class="line-numbers language-none"><code class="language-none">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 minutes ago       Up 7 minutes        0.0.0.0:8888-&gt;8888&#x2F;tcp   nifty_liskov<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES<br>b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 minutes ago       Up 7 minutes        0.0.0.0:8888-&gt;8888/tcp   nifty_liskov<br></code></pre></td></tr></table></figure>
 <p>Cột <code>CONTAINER ID</code> hiện ID của container của bạn, còn cột <code>NAMES</code> hiện tên của container. Mỗi container khi được tạo sẽ được cấp cho 1 ID và tên duy nhất trong số các container đang còn tồn tại trong Docker server. Copy 1 trong 2 field này từ màn hình terminal của bạn và nhập lệnh dưới đây:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> <span class="token operator">&lt;</span>paste-here<span class="token operator">></span> <span class="token function">bash</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it &lt;paste-here&gt; bash<br></code></pre></td></tr></table></figure>
 <p>Sau khi nhấn Enter, terminal của bạn sẽ trở thành terminal trong container. Giờ bạn có thể cài bất cứ thư viện nào trong đây. Ví dụ như:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> numpy pandas<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install numpy pandas<br></code></pre></td></tr></table></figure>
 <h3 id="Cach-2-Dung-tinh-nang-shell-command-tren-Jupyter"><a href="#Cach-2-Dung-tinh-nang-shell-command-tren-Jupyter" class="headerlink" title="Cách 2: Dùng tính năng shell command trên Jupyter"></a>Cách 2: Dùng tính năng shell command trên Jupyter</h3><p>Jupyter cho phép ta chạy bất cứ lệnh nào trong notebook.</p>
 <p>Để làm vậy, bạn cần phải thêm dấu chấm thang (!) vào trước lệnh shell rồi chạy notebook. Ví dụ:</p>
-<pre class="line-numbers language-none"><code class="language-none">!pip install numpy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">!pip install numpy<br></code></pre></td></tr></table></figure>
 <p>Hình dưới đây là kết quả sau khi chạy lệnh trên trong notebook</p>
-<p><img src="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/screenshot.png" alt="Chạy lệnh shell command trong notebook"></p>
+<p><img src="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/screenshot.png" srcset="/img/loading.gif" lazyload alt="Chạy lệnh shell command trong notebook"></p>
 <p>Cách này nhanh hơn rất nhiều so với cách 1.</p>
 <h3 id="Cach-3-Dung-terminal-cua-Jupyter-Lab"><a href="#Cach-3-Dung-terminal-cua-Jupyter-Lab" class="headerlink" title="Cách 3: Dùng terminal của Jupyter Lab"></a>Cách 3: Dùng terminal của Jupyter Lab</h3><p>Trên thanh công cụ của Jupyter Lab, chọn <strong>File</strong> → <strong>New</strong> → <strong>Terminal</strong>. Một tab mới được mở ra và bạn có thể nhập lệnh vào terminal để cài thư viện.</p>
 <p>Cách làm này chậm hơn cách thứ 2 nhưng mà phù hợp với những tác vụ như monitor bằng lệnh <code>top</code> hoặc <code>watch</code> hoặc <code>tail</code>.</p>
@@ -161,138 +349,355 @@ b3e70a2ab109        jupyter-server      &quot;jupyter-lab --ip 0.…&quot;   8 m
 <p>Còn 1 vấn đề mà mình chưa giải quyết là làm sao để sử dụng GPU trong Docker, nếu bạn đang làm dự án liên quan đến Deep Learning thì GPU cực kỳ cần thiết để tăng tốc quá trình huấn luyện mô hình. Vì vậy, mình sẽ giải quyết vần đề này trong bài viết theo.</p>
 <p>Happy Coding!</p>
 
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Docker/">#Docker</a>
+      
+        <a href="/tags/Jupyter-Notebook/">#Jupyter Notebook</a>
+      
+        <a href="/tags/Jupyter-Lab/">#Jupyter Lab</a>
       
     </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" data-id="cldbhbe610001d3oq34lr7in1" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li></ul>
+  
+</div>
 
-    </footer>
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Cách thiết lập môi trường Docker cho server Jupyter của bạn</div>
+      <div>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Tác giả</div>
+          <div>Vũ Đức Duy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Đăng vào</div>
+          <div>5 tháng 1 năm 2021</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Mới hơn</strong>
-      <div class="article-nav-title">
-        
-          Cấu hình GPU trong Docker
-        
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/" title="Cấu hình GPU trong Docker">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Cấu hình GPU trong Docker</span>
+                        <span class="visible-mobile">Trước</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" title="Làm quen với Kafka: Phần 1 - Chat với nhau trên console">
+                        <span class="hidden-mobile">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</span>
+                        <span class="visible-mobile">Sau</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
       </div>
-    </a>
-  
-  
-    <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Cũ hơn</strong>
-      <div class="article-nav-title">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</div>
-    </a>
-  
-</nav>
+    </div>
 
-  
-</article>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Mục lục</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Bài viết gần đây</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/">Cấu hình GPU trong Docker</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Cách thiết lập môi trường Docker cho server Jupyter của bạn</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
-          </li>
-        
-      </ul>
+
+
+  </aside>
+
+
     </div>
   </div>
+</div>
+
+
+
+
 
   
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
-    </div>
-  </div>
 
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Artificial-Intelligence/" style="font-size: 10px;">Artificial Intelligence</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/GPT-J/" style="font-size: 10px;">GPT-J</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/K8S/" style="font-size: 10px;">K8S</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Natural-Language-Generation/" style="font-size: 10px;">Natural Language Generation</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 15px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
-    </div>
-  </div>
-
-  
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
     
 
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">tháng 12 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">tháng 1 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">tháng 12 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">tháng 8 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-</aside>
-        
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Tìm kiếm</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info">
-      &copy; 2023 Vũ Đức Duy<br>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Từ khóa</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
   </div>
-</footer>
-    </div>
+</div>
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
 
 
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
 
   
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
-<script src="/js/script.js"></script>
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
 
 
+  
 
-
-  </div>
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
 </html>

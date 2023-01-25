@@ -1,21 +1,22 @@
+
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-1CPE7Q03HT');
-</script>
-
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <title>Làm quen với Kafka: Phần 1 - Chat với nhau trên console | Ký sự AI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả,">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Vũ Đức Duy">
+  <meta name="keywords" content="ký sự AI, lập trình, programming, công nghệ phần mềm, software engineering, AI, trí tuệ nhân tạo, data science, khoa học dữ liệu">
+  
+    <meta name="description" content="Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Làm quen với Kafka: Phần 1 - Chat với nhau trên console">
 <meta property="og:url" content="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/index.html">
@@ -24,88 +25,281 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:image" content="https://www.kysuai.com/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg">
 <meta property="article:published_time" content="2021-01-01T18:18:04.000Z">
-<meta property="article:modified_time" content="2023-01-25T09:43:40.674Z">
+<meta property="article:modified_time" content="2023-01-25T15:08:08.002Z">
 <meta property="article:author" content="Vũ Đức Duy">
 <meta property="article:tag" content="Coding">
 <meta property="article:tag" content="Kafka">
 <meta property="article:tag" content="Python">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.kysuai.com/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg">
   
-    <link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
   
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
   
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
-<link rel="stylesheet" href="/css/style.css">
+  <title>Làm quen với Kafka: Phần 1 - Chat với nhau trên console - Ký sự AI</title>
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.kysuai.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":"G-1CPE7Q03HT","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT', function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1CPE7Q03HT');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
+</head>
+
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="header-outer" class="outer">
-    <div id="header-inner">
-      <nav id="main-nav">
-        <a id="logo" href="/">
-          <img src="/favicon-32x32.png" alt="Ký sự AI">
-          <h1>Ký sự AI</h1>
-        </a>
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Tìm kiếm"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.kysuai.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div id="content" class="outer">
-        <section id="main"><article id="post-Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" class="article-date">
-  <time datetime="2021-01-01T18:18:04.000Z" itemprop="datePublished">01-01-2021</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Làm quen với Kafka: Phần 1 - Chat với nhau trên console
-    </h1>
   
 
-      </header>
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ký sự AI</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Làm quen với Kafka: Phần 1 - Chat với nhau trên console"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
     
     
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-01-01 18:18" pubdate>
+          1 tháng 1 năm 2021
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 phút
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
       
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img fancybox" href="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" rel="gallery_cldbhbe660005d3oq9gt3679c">
-        <img src="/images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg" itemprop="image">
-      </a>
-    
+    </div>
   </div>
 </div>
 
+</div>
+
+  </header>
+
+  <main>
     
-    <div class="article-entry" itemprop="articleBody">
       
-        <p>Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả, Kafka được sinh ra để làm nhiệm vụ đó. Trong phần đầu tiên của series “Làm quen với Kafka”, mình sẽ viết 1 ứng dụng Python dùng để chat với nhau trên màn hình console để hiểu được những tính năng cơ bản của Kafka.</p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả, Kafka được sinh ra để làm nhiệm vụ đó. Trong phần đầu tiên của series “Làm quen với Kafka”, mình sẽ viết 1 ứng dụng Python dùng để chat với nhau trên màn hình console để hiểu được những tính năng cơ bản của Kafka.</p>
 <p>Lưu ý đây chỉ là 1 ứng dụng làm cho vui để làm quen với Kafka thôi chứ không nên đưa vào thực tế nhé.</p>
 <p><escape><a id="more"></a></escape></p>
 <h2 id="Truoc-het-Kafka-la-gi"><a href="#Truoc-het-Kafka-la-gi" class="headerlink" title="Trước hết, Kafka là gì?"></a>Trước hết, Kafka là gì?</h2><p>Kafka là 1 nền tảng event streaming rất phổ biến hiện nay được phát triển bởi tổ chức Apache và là một phần mềm mã nguồn mở. Event streaming ở đây có nghĩa là việc lấy dữ liệu theo thời gian thực từ những nguồn như là cơ sở dữ liệu, cảm biến, thiết bị di động, dịch vụ đám mây và ứng dụng dưới dạng những luồng sự kiện; lưu những sự kiện này để sau đó có thể lấy lên lại và xử lý.</p>
@@ -115,12 +309,10 @@
 <h2 id="Viet-ung-dung-chat-tren-console"><a href="#Viet-ung-dung-chat-tren-console" class="headerlink" title="Viết ứng dụng chat trên console"></a>Viết ứng dụng chat trên console</h2><p>Kafka hoạt động theo cơ chế client-server, trong đó, server là 1 process chạy trên 1 máy tính và client có thể kết nối đến nó giống như cách bạn kết nối đến database, sử dụng địa chỉ IP và port cùng với username và password nếu có. Client có thể là publisher, consumer hoặc là admin.</p>
 <p>Việc đầu tiên bạn cần phải làm đó là khởi động Kafka server trên 1 chiếc máy tính.</p>
 <h3 id="Khoi-dong-Kafka-server"><a href="#Khoi-dong-Kafka-server" class="headerlink" title="Khởi động Kafka server"></a>Khởi động Kafka server</h3><ol>
-<li><strong>Bước 1</strong>: Mở terminal lên vào nhập dòng lệnh sau để tải Kafka:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/Downloads
-<span class="token function">wget</span> https://downloads.apache.org/kafka/2.7.0/kafka_2.13-2.7.0.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><strong>Bước 2</strong>: Giải nén file vừa tải về:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-xzf</span> kafka_2.13-2.7.0.tgz
-<span class="token builtin class-name">cd</span> kafka_2.13-2.7.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><strong>Bước 3</strong>: Khởi động ZooKeeper service:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><strong>Bước 4</strong>: Mở 1 terminal mới và nhập dòng lệnh sau đây để bắt đầu chạy Kafka server:<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/kafka-server-start.sh config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li><strong>Bước 1</strong>: Mở terminal lên vào nhập dòng lệnh sau để tải Kafka:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/Downloads<br>wget https://downloads.apache.org/kafka/2.7.0/kafka_2.13-2.7.0.tgz<br></code></pre></td></tr></table></figure></li>
+<li><strong>Bước 2</strong>: Giải nén file vừa tải về:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -xzf kafka_2.13-2.7.0.tgz<br><span class="hljs-built_in">cd</span> kafka_2.13-2.7.0<br></code></pre></td></tr></table></figure></li>
+<li><strong>Bước 3</strong>: Khởi động ZooKeeper service:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin/zookeeper-server-start.sh config/zookeeper.properties<br></code></pre></td></tr></table></figure></li>
+<li><strong>Bước 4</strong>: Mở 1 terminal mới và nhập dòng lệnh sau đây để bắt đầu chạy Kafka server:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin/kafka-server-start.sh config/server.properties<br></code></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -130,84 +322,35 @@
 <li>Mỗi user luôn subscribe vào topic của chính họ, và publish vào topic của các user khác.</li>
 <li>Giả sử user A và user B đang chat với nhau, user A muốn gửi tin nhắn cho B thì sẽ publish nội dung tin nhắn vào topic B, sau đó user B đang subscribe trên topic của mình sẽ nhận được tin nhắn từ A, quá trình nhắn tin từ B tới A cũng diễn ra tương tụ.</li>
 </ul>
-<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/kafka-message.svg" alt="Minh họa cách thức giao tiếp giữa 2 user A và B"></p>
+<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/kafka-message.svg" srcset="/img/loading.gif" lazyload alt="Minh họa cách thức giao tiếp giữa 2 user A và B"></p>
 <h3 id="Code-nao"><a href="#Code-nao" class="headerlink" title="Code nào"></a>Code nào</h3><p>Để có thể giao tiếp được với Kafka server, bạn cần dùng thư viện kafka-python. Sử dụng pip để cài đặt thư viện này:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> kafka-python<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install kafka-python<br></code></pre></td></tr></table></figure>
 <p>Bạn có thể đọc document của thư viện này tại <a target="_blank" rel="noopener" href="https://kafka-python.readthedocs.io/en/master/usage.html">đây</a>.</p>
 <p>Trước tiên, mình thử publish vào 1 topic bằng đoạn code sau:</p>
-<pre class="line-numbers language-python" data-language="python"><div class="caption"><span>publisher.py</span></div><code class="language-python"><span class="token keyword">from</span> kafka <span class="token keyword">import</span> KafkaProducer
-
-BOOTSTRAP_SERVERS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost:9092'</span><span class="token punctuation">]</span>
-producer <span class="token operator">=</span> KafkaProducer<span class="token punctuation">(</span>bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                         value_serializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> <span class="token builtin">bytes</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-username1 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'What is your name? '</span><span class="token punctuation">)</span>
-username2 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'Who do want connect? '</span><span class="token punctuation">)</span>
-
-<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-    value <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>send<span class="token punctuation">(</span>username2<span class="token punctuation">,</span> value<span class="token operator">=</span>value<span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><figcaption><span>publisher.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaProducer<br><br>BOOTSTRAP_SERVERS = [<span class="hljs-string">&#x27;localhost:9092&#x27;</span>]<br>producer = KafkaProducer(bootstrap_servers=BOOTSTRAP_SERVERS,<br>                         value_serializer=<span class="hljs-keyword">lambda</span> value: <span class="hljs-built_in">bytes</span>(value, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br>username1 = <span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;What is your name? &#x27;</span>)<br>username2 = <span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;Who do want connect? &#x27;</span>)<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    value = <span class="hljs-built_in">input</span>()<br>    producer.send(username2, value=value)<br>    producer.flush()<br></code></pre></td></tr></table></figure>
 <p>Đoạn code này sẽ hỏi tên của bạn và tên của user mà bạn muốn nhắn tin, sau đó nó bắt đầu 1 vòng lặp forever để chờ bạn nhập tin nhắn và gửi tin nhắn đó đến topic của user kia.</p>
 <p><code>BOOTSTRAP_SERVERS</code> chứa thông tin để kết nối đến server Kafka mà mình vừa khởi động ở trên, vì mình chạy Kafka trên máy của mình nên địa chỉ IP của server Kafka là localhost và port mặc định là 9092.</p>
 <p>Một message trong Kafka có 2 trường: <code>key</code> và <code>value</code>. Bạn có thể truyền bất cứ dữ liệu nào vào trong 2 trường này. Ở đây mình chỉ cần gửi nội dung tin nhắn nên dùng trường <code>value</code> là đủ.</p>
 <p>Dữ liệu trong 1 message phải có dạng <code>byte</code>. Vậy nên trước khi gửi mình phải chuyển tin nhắn từ dạng <code>string</code> sang <code>byte</code> bằng cách truyền tham số <code>value_serializer</code> cho 1 hàm lambda.</p>
 <p>Test script này bằng lệnh trong terminal:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python publisher.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-160825.png" alt="Chạy thử script chat.py với tên là user1 và user2"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python publisher.py<br></code></pre></td></tr></table></figure>
+<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-160825.png" srcset="/img/loading.gif" lazyload alt="Chạy thử script chat.py với tên là user1 và user2"></p>
 <p>Vì mình mới chỉ chạy ở bên phía user1 nên không có bất cứ phản hồi nào từ user2. Giờ mình sẽ viết code để user2 lắng nghe tin nhắn từ user1:</p>
-<pre class="line-numbers language-python" data-language="python"><div class="caption"><span>subscriber.py</span></div><code class="language-python"><span class="token keyword">from</span> kafka <span class="token keyword">import</span> KafkaConsumer
-
-BOOTSTRAP_SERVERS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost:9092'</span><span class="token punctuation">]</span>
-username2 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'What is your name? '</span><span class="token punctuation">)</span>
-
-consumer <span class="token operator">=</span> KafkaConsumer<span class="token punctuation">(</span>username2<span class="token punctuation">,</span> auto_offset_reset<span class="token operator">=</span><span class="token string">'latest'</span><span class="token punctuation">,</span>
-                         bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                         value_deserializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> value<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">for</span> msg <span class="token keyword">in</span> consumer<span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><figcaption><span>subscriber.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaConsumer<br><br>BOOTSTRAP_SERVERS = [<span class="hljs-string">&#x27;localhost:9092&#x27;</span>]<br>username2 = <span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;What is your name? &#x27;</span>)<br><br>consumer = KafkaConsumer(username2, auto_offset_reset=<span class="hljs-string">&#x27;latest&#x27;</span>,<br>                         bootstrap_servers=BOOTSTRAP_SERVERS,<br>                         value_deserializer=<span class="hljs-keyword">lambda</span> value: value.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br><span class="hljs-keyword">for</span> msg <span class="hljs-keyword">in</span> consumer:<br>    <span class="hljs-built_in">print</span>(msg.value)<br></code></pre></td></tr></table></figure>
 <p>Đoạn code trên khởi tạo 1 instance <code>KafkaConsumer</code> để subscribe vào topic của user2 và bắt đầu 1 vòng lặp for để lắng nghe trên topic này. Vòng lặp for này sẽ chờ message từ topic trong thời gian vô hạn và không bao giờ dừng lại trừ khi bạn dừng chương trình.</p>
 <p>Tham số <code>value_deserializer</code> là 1 hàm được dùng khi consumer nhận được message từ topic để chuyển trường <code>value</code> của message từ dạng <code>byte</code> trở về dạng ban đầu của nó, trong trường hợp này là <code>string</code>.</p>
 <p>Để chạy script này, mở một tab terminal mới và chạy lệnh:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python subscriber.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python subscriber.py<br></code></pre></td></tr></table></figure>
 <p>Nhập tên user2 để bắt đầu lắng nghe.</p>
 <p>Quay lại tab đang chạy publisher, thử nhập 1 message bất kỳ và quay lại tab đang chạy subscriber. Bạn sẽ thấy message mà mình vừa nhập hiện trên terminal của subscriber.</p>
-<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-161638.png" alt="Chạy thử script chat.py với tên là user1 và user2"></p>
+<p><img src="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/Screenshot-2021-01-01-161638.png" srcset="/img/loading.gif" lazyload alt="Chạy thử script chat.py với tên là user1 và user2"></p>
 <p>Như vậy là chúng ta đã thiết lập được giao tiếp 1 chiều giữa 2 user. Tiếp theo, mình sẽ làm cho mỗi user vừa publish vừa subscribe vào Kafka để có thể vừa gửi và nhập tin nhắn.</p>
 <p>Như bạn thấy trong 2 đoạn code trên, cả 2 đều chứa 1 vòng lặp vô hạn. Điều này có nghĩa là khi user đang gửi tin nhắn thì không thể nhận tin nhắn và ngược lại, vì bản chất của 2 đoạn code trên là blocking - chương trình sẽ chờ trong vô hạn để hoàn thành 1 tác vụ rồi mới chuyển sang tác vụ kế tiếp.</p>
 <p>Để giải quyết vấn đề này, mình sẽ sử dụng thread để tạo 1 thread chạy song song với thread chính. Thread chính có nhiệm vụ là gửi tin nhắn cho đối phương còn thread được tạo có nhiệm vụ nhận tin nhắn từ đối phương.</p>
 <p>Trong Python, để làm việc với thread, mình sử dụng thư viện threading có sẵn. Cách sử dụng khá đơn giản, chỉ cần khởi tạo 1 instance <code>Thread</code> với 2 tham số: <code>target</code> là hàm sẽ chạy trong thread mới; và <code>args</code> là tham số truyền vào hàm <code>target</code>. Sau đó gọi method <code>start</code>. Ví dụ:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">thread <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>foo<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">thread = threading.Thread(target=foo, args=())<br>thread.start()<br></code></pre></td></tr></table></figure>
 <p>Vậy trước khi bắt đầu vòng lặp while trong publisher, mình chỉ cần tạo 1 thread mới chạy hàm của subscriber là xong. Dưới đây là đoạn code hoàn chỉnh của chương trình:</p>
-<pre class="line-numbers language-python" data-language="python"><div class="caption"><span>chat.py</span></div><code class="language-python"><span class="token keyword">import</span> threading
-
-<span class="token keyword">from</span> kafka <span class="token keyword">import</span> KafkaConsumer<span class="token punctuation">,</span> KafkaProducer
-
-BOOTSTRAP_SERVERS <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost:9092'</span><span class="token punctuation">]</span>
-
-<span class="token keyword">def</span> <span class="token function">subscribe</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    consumer <span class="token operator">=</span> KafkaConsumer<span class="token punctuation">(</span>topic<span class="token punctuation">,</span> auto_offset_reset<span class="token operator">=</span><span class="token string">'latest'</span><span class="token punctuation">,</span>
-                             bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                             value_deserializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> value<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> msg <span class="token keyword">in</span> consumer<span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
-
-username1 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'What is your name? '</span><span class="token punctuation">)</span>
-username2 <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'Who do want connect? '</span><span class="token punctuation">)</span>
-
-consumer_thread <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>subscribe<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span>username2<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-consumer_thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-producer <span class="token operator">=</span> KafkaProducer<span class="token punctuation">(</span>bootstrap_servers<span class="token operator">=</span>BOOTSTRAP_SERVERS<span class="token punctuation">,</span>
-                         value_serializer<span class="token operator">=</span><span class="token keyword">lambda</span> value<span class="token punctuation">:</span> <span class="token builtin">bytes</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-    key <span class="token operator">=</span> username1
-    value <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>send<span class="token punctuation">(</span>username1<span class="token punctuation">,</span> value<span class="token operator">=</span>value<span class="token punctuation">)</span>
-    producer<span class="token punctuation">.</span>flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><figcaption><span>chat.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><br><span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaConsumer, KafkaProducer<br><br>BOOTSTRAP_SERVERS = [<span class="hljs-string">&#x27;localhost:9092&#x27;</span>]<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">subscribe</span>(<span class="hljs-params">topic</span>):<br>    consumer = KafkaConsumer(topic, auto_offset_reset=<span class="hljs-string">&#x27;latest&#x27;</span>,<br>                             bootstrap_servers=BOOTSTRAP_SERVERS,<br>                             value_deserializer=<span class="hljs-keyword">lambda</span> value: value.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>    <span class="hljs-keyword">for</span> msg <span class="hljs-keyword">in</span> consumer:<br>        <span class="hljs-built_in">print</span>(msg.value)<br><br>username1 = <span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;What is your name? &#x27;</span>)<br>username2 = <span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;Who do want connect? &#x27;</span>)<br><br>consumer_thread = threading.Thread(target=subscribe, args=(username2,))<br>consumer_thread.start()<br><br>producer = KafkaProducer(bootstrap_servers=BOOTSTRAP_SERVERS,<br>                         value_serializer=<span class="hljs-keyword">lambda</span> value: <span class="hljs-built_in">bytes</span>(value, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    key = username1<br>    value = <span class="hljs-built_in">input</span>()<br>    producer.send(username1, value=value)<br>    producer.flush()<br></code></pre></td></tr></table></figure>
 <p>Bạn thử mở 2 tab terminal, cho mỗi terminal chạy script này. Tab 1 nhập lần lượt user1 và user2, tab 2 nhập ngược lại user2 và user1.</p>
 <p>Khi bạn nhập 1 tin nhắn ở tab 1 và nhấn Enter thì tin nhắn đó sẽ được hiện trên tab 2, điều tương tự cũng diễn ra khi bạn nhập vào tab 2.</p>
 <p>Bạn có thể xem code đầy đủ của bài viết này ở <a target="_blank" rel="noopener" href="https://github.com/duydvu/kafka-tutorial">đây</a>.</p>
@@ -219,138 +362,355 @@ producer <span class="token operator">=</span> KafkaProducer<span class="token p
 <p>Mình sẽ thực hiện những tính năng này trong phần 2 của series.</p>
 <p>Happy Coding!</p>
 
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Coding/">#Coding</a>
+      
+        <a href="/tags/Kafka/">#Kafka</a>
+      
+        <a href="/tags/Python/">#Python</a>
       
     </div>
-    <footer class="article-footer">
-      <div data-url="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/" data-id="cldbhbe660005d3oq9gt3679c" class="article-share-link">Chia sẻ</div>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+  
+</div>
 
-    </footer>
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Làm quen với Kafka: Phần 1 - Chat với nhau trên console</div>
+      <div>https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Tác giả</div>
+          <div>Vũ Đức Duy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Đăng vào</div>
+          <div>1 tháng 1 năm 2021</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Mới hơn</strong>
-      <div class="article-nav-title">
-        
-          Cách thiết lập môi trường Docker cho server Jupyter của bạn
-        
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/" title="Cách thiết lập môi trường Docker cho server Jupyter của bạn">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Cách thiết lập môi trường Docker cho server Jupyter của bạn</span>
+                        <span class="visible-mobile">Trước</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" title="Cấu hình VS Code để lập trình trên server bằng Remote - SSH">
+                        <span class="hidden-mobile">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</span>
+                        <span class="visible-mobile">Sau</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
       </div>
-    </a>
-  
-  
-    <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Cũ hơn</strong>
-      <div class="article-nav-title">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</div>
-    </a>
-  
-</nav>
+    </div>
 
-  
-</article>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Mục lục</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Bài viết gần đây</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/">Triển khai GPT-J 6B Vietnamese News trên Docker và K8S</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/10/Cau-hinh-GPU-trong-Docker/">Cấu hình GPU trong Docker</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/">Cách thiết lập môi trường Docker cho server Jupyter của bạn</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/">Làm quen với Kafka: Phần 1 - Chat với nhau trên console</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/">Cấu hình VS Code để lập trình trên server bằng Remote - SSH</a>
-          </li>
-        
-      </ul>
+
+
+  </aside>
+
+
     </div>
   </div>
+</div>
+
+
+
+
 
   
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Artificial-Intelligence/" rel="tag">Artificial Intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coding/" rel="tag">Coding</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-structure/" rel="tag">Data structure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-J/" rel="tag">GPT-J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Lab/" rel="tag">Jupyter Lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter-Notebook/" rel="tag">Jupyter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K8S/" rel="tag">K8S</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/" rel="tag">Language Model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Natural-Language-Generation/" rel="tag">Natural Language Generation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLID/" rel="tag">SOLID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a></li></ul>
-    </div>
-  </div>
 
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Artificial-Intelligence/" style="font-size: 10px;">Artificial Intelligence</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a> <a href="/tags/Data-structure/" style="font-size: 10px;">Data structure</a> <a href="/tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/GPT-J/" style="font-size: 10px;">GPT-J</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Jupyter-Lab/" style="font-size: 10px;">Jupyter Lab</a> <a href="/tags/Jupyter-Notebook/" style="font-size: 10px;">Jupyter Notebook</a> <a href="/tags/K8S/" style="font-size: 10px;">K8S</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Natural-Language-Generation/" style="font-size: 10px;">Natural Language Generation</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/SOLID/" style="font-size: 10px;">SOLID</a> <a href="/tags/Software-Engineering/" style="font-size: 15px;">Software Engineering</a> <a href="/tags/VScode/" style="font-size: 10px;">VScode</a>
-    </div>
-  </div>
-
-  
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
     
 
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">tháng 12 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">tháng 1 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">tháng 12 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">tháng 8 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-</aside>
-        
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Tìm kiếm</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info">
-      &copy; 2023 Vũ Đức Duy<br>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Từ khóa</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
   </div>
-</footer>
-    </div>
+</div>
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
 
 
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
 
   
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
-<script src="/js/script.js"></script>
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
 
 
+  
 
-
-  </div>
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
 </html>
