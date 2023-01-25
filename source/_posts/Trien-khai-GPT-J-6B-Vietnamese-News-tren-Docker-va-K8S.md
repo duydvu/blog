@@ -1,8 +1,8 @@
 ---
 title: Triển khai GPT-J 6B Vietnamese News trên Docker và K8S
 date: 2022-12-28 11:28:00
-photos:
-- /images/possessed-photography-U3sOwViXhkY-unsplash.jpg
+index_img: /images/possessed-photography-U3sOwViXhkY-unsplash.jpg
+banner_img: /images/possessed-photography-U3sOwViXhkY-unsplash.jpg
 tags:
 - GPT-J
 - Docker
@@ -69,7 +69,7 @@ for output in outputs:
 
 Vì thuật toán sinh văn bản mà mình đang sử dụng là lấy mẫu dựa trên xác suất nên sau mỗi lần chạy, mô hình sẽ cho ra kết quả khác nhau. Kết quả thu được trên máy của mình là:
 
-```
+```text
 Tiềm năng của trí tuệ nhân tạo là rất lớn, nhiều ứng dụng có thể ra đời trong tương lai không xa, và điều đó đòi hỏi sự nỗ lực của cả cộng đồng.
 
 Một điểm khác cần lưu ý là trí tuệ nhân tạo là một lĩnh vực phát triển hoàn toàn mới và không thể chỉ dựa vào mỗi việc nghiên cứu của các trường, viện mà phải kết hợp với các doanh nghiệp, và phải có sự kết nối mạnh mẽ với các doanh nghiệp.

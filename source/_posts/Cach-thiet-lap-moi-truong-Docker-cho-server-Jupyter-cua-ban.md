@@ -1,8 +1,8 @@
 ---
 title: Cách thiết lập môi trường Docker cho server Jupyter của bạn
 date: 2021-01-05 10:08:36
-photos:
-- /images/docker-logo.png
+index_img: /images/venti-views-1cqIcrWFQBI-unsplash.jpg
+banner_img: /images/venti-views-1cqIcrWFQBI-unsplash.jpg
 tags:
 - Docker
 - Jupyter Notebook
@@ -83,7 +83,7 @@ docker ps
 ```
 
 Lệnh này sẽ in ra danh sách những container đang chạy trong Docker server, nội dung tương tự như sau:
-```
+```text
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 b3e70a2ab109        jupyter-server      "jupyter-lab --ip 0.…"   8 minutes ago       Up 7 minutes        0.0.0.0:8888->8888/tcp   nifty_liskov
 ```
@@ -102,7 +102,7 @@ pip install numpy pandas
 Jupyter cho phép ta chạy bất cứ lệnh nào trong notebook.
 
 Để làm vậy, bạn cần phải thêm dấu chấm thang (!) vào trước lệnh shell rồi chạy notebook. Ví dụ:
-```
+```bash
 !pip install numpy
 ```
 Hình dưới đây là kết quả sau khi chạy lệnh trên trong notebook

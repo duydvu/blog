@@ -1,6 +1,8 @@
 ---
 title: Cấu hình GPU trong Docker
 date: 2021-01-10 11:29:40
+index_img: /images/henry-co-McJ8hWmUn54-unsplash.jpg
+banner_img: /images/henry-co-McJ8hWmUn54-unsplash.jpg
 tags:
 - Docker
 - Jupyter

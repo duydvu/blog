@@ -1,8 +1,8 @@
 ---
 title: 'Làm quen với Kafka: Phần 1 - Chat với nhau trên console'
 date: 2021-01-01 18:18:04
-photos:
-- /images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg
+index_img: /images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg
+banner_img: /images/nicolas-j-leclercq-qDLLP0yP7FU-unsplash.jpg
 tags:
 - Kafka
 - Coding

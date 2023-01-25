@@ -1,8 +1,8 @@
 ---
 title: Cấu hình VS Code để lập trình trên server bằng Remote - SSH
 date: 2020-12-26 11:18:29
-photos:
-- /images/florian-krumm-yLDabpoCL3s-unsplash.jpg
+index_img: /images/florian-krumm-yLDabpoCL3s-unsplash.jpg
+banner_img: /images/florian-krumm-yLDabpoCL3s-unsplash.jpg
 tags:
 - IDE
 - Coding
@@ -51,7 +51,7 @@ Mở 1 terminal mới và nhập lệnh sau:
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
 ```
 Câu lệnh trên sẽ trả về kết quả như dưới đây:
-```
+```text
 Generating public/private rsa key pair.
 Enter passphrase (empty for no passphrase):
 ```
@@ -84,7 +84,8 @@ Như vậy là bạn đã hoàn tất việc xác thực SSH key với server, t
 **Lưu ý**: Nếu ở trong bước 1, bạn sử dụng tên khác để tạo SSH key như `id_abc` thì bạn cần phải làm thêm 1 bước là thay đổi cấu hình SSH để nó biết được cần phải dùng key nào khi kết nối đến server của bạn.
 
 Trong file `~/.ssh/config`, bạn cần thêm đoạn dưới đây vào cuối file:
-```. Chỉ thêm khi file key của bạn khác với mặc định (id_rsa, id_dsa, id_ecdsa, id_ed25519)
+```text
+# Chỉ thêm khi file key của bạn khác với mặc định (id_rsa, id_dsa, id_ecdsa, id_ed25519)
 Host <ip-address>
   HostName <ip-address>
   User <username>
