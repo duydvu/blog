@@ -1,0 +1,69 @@
+name: 'Tiếng Việt'
+
+home:
+  menu: 'Home'
+  title: 'Home'
+
+archive:
+  menu: 'Archives'
+  title: 'Archives'
+  subtitle: 'Archives'
+  post_total: '%d bài'
+
+category:
+  menu: 'Categories'
+  title: 'Categories'
+  subtitle: 'Categories'
+  post_total: '%d bài'
+  more: 'Thêm...'
+
+tag:
+  menu: 'Tags'
+  title: 'Tags'
+  subtitle: 'Tags'
+  post_total: '%d bài'
+
+about:
+  menu: 'About'
+  title: 'About'
+  subtitle: 'About'
+
+links:
+  menu: 'Links'
+  title: 'Links'
+  subtitle: 'Links'
+
+page404:
+  menu: 'Không tìm thấy trang'
+  title: 'Không tìm thấy trang'
+  subtitle: 'Không tìm thấy trang'
+
+post:
+  toc: 'Mục lục'
+  prev_post: 'Trước'
+  next_post: 'Sau'
+  updated: 'Cập nhật lần cuối vào %s'
+  meta:
+    wordcount: '%s từ'
+    min2read: '%s phút'
+    views: '{} lượt xem'
+  copyright:
+    author: 'Tác giả'
+    posted: 'Đăng vào'
+    updated: 'Cập nhật vào'
+    licensed: 'Licensed under'
+    CC: 'CC - Creative Commons license'
+    BY: 'BY - Attribution'
+    SA: 'SA - Share-alike'
+    NC: 'NC - Non-commercial'
+    ND: 'ND - No derivative works'
+
+footer:
+  pv: 'Views: {}'
+  uv: 'Visitors: {}'
+
+search:
+  title: 'Tìm kiếm'
+  keyword: 'Từ khóa'
+
+noscript_warning: 'Blog works best with JavaScript enabled'
