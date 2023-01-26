@@ -6,7 +6,7 @@
   <link href="https://www.kysuai.com/atom.xml" rel="self"/>
   
   <link href="https://www.kysuai.com/"/>
-  <updated>2023-01-25T15:08:08.006Z</updated>
+  <updated>2023-01-26T08:36:40.345Z</updated>
   <id>https://www.kysuai.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.kysuai.com/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/"/>
     <id>https://www.kysuai.com/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/</id>
     <published>2022-12-28T11:28:00.000Z</published>
-    <updated>2023-01-25T15:08:08.006Z</updated>
+    <updated>2023-01-26T08:36:40.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;Thời gian gần đây đang nổi lên 1 con AI tên là ChatGPT có khả năng giao tiếp như người thật, biết làm thơ, viết luận văn, giải toán, dịch tiếng Anh sang tiếng Việt, ngay cả viết và đọc hiểu code. Thậm chí nó có thể “giả lập” máy ảo linux và “chat với 1 ChatGPT khác trong máy ảo đó” (Đọc thêm ở &lt;a href=&quot;https://www.engraved.blog/building-a-virtual-machine-inside/&quot;&gt;đây&lt;/a&gt;). Bản chất bên dưới của hệ thống này là 1 mô hình Generative Pre-trained Transformer 3 (GPT-3) với số lượng tham số khổng lồ (175 tỷ), chỉ riêng việc lưu mô hình này thôi cũng cần đến 800 GB! Ngay cả khi OpenAI công bố mô hình này cho cộng đồng thì cũng không thể tự sử dụng được với kinh phí khiêm tốn.&lt;/p&gt;
@@ -55,7 +55,7 @@
     <link href="https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/"/>
     <id>https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/</id>
     <published>2021-01-10T11:29:40.000Z</published>
-    <updated>2023-01-25T15:08:08.002Z</updated>
+    <updated>2023-01-26T08:36:40.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;Trong bài &lt;a href=&quot;/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban&quot;&gt;trước&lt;/a&gt;, mình đã trình bày cách thiết lập môi trường Docker để chạy server Jupyter. Với nó, bạn có thể cài đặt bất kỳ package nào mà bạn muốn như scikit-learn, Tensorflow, PyTorch. Nhưng những thư viện này sẽ không thể sử dụng được GPU trong máy bạn như khi cài trực tiếp trên hệ điều hành bởi vì bạn chưa cấu hình GPU cho container của bạn. Trong bài này, mình sẽ hướng dẫn bạn cách để sử dụng được GPU trong Docker.&lt;/p&gt;
@@ -76,7 +76,7 @@
     <link href="https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/"/>
     <id>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</id>
     <published>2021-01-05T10:08:36.000Z</published>
-    <updated>2023-01-25T15:08:08.002Z</updated>
+    <updated>2023-01-26T08:36:40.337Z</updated>
     
     
     <summary type="html">&lt;p&gt;Jupyter Notebook và Jupyter Lab là 2 môi trường tuyệt vời cho data scientist thực hành với dữ liệu của mình. Tuy nhiên, đôi khi việc thực hành với dữ liệu gặp 1 chút khó khăn. Nào là cài đặt Java để chạy VnCoreNLP, cài tensorflow GPU để huấn luyện model, cài cmake để cài CocCoc Tokenizer, quản lý dependency,… Có khi bạn lỡ làm sai gì đó khiến cho máy bạn gặp vấn đề mà không biết giải quyết làm sao, vừa tốn công sức vừa tốn thời gian cho những tác vụ không liên quan. Docker chính là chìa khóa để giái quyết những vấn đề trên. Bài viết này sẽ hướng dẫn bạn cách thiết lập môi trường Docker để chạy server Jupyter của bạn.&lt;/p&gt;
@@ -98,7 +98,7 @@
     <link href="https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/"/>
     <id>https://www.kysuai.com/2021/01/01/Lam-quen-voi-Kafka-Phan-1-Chat-voi-nhau-tren-console/</id>
     <published>2021-01-01T18:18:04.000Z</published>
-    <updated>2023-01-25T15:08:08.002Z</updated>
+    <updated>2023-01-26T08:36:40.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;Trong 1 hệ thống theo kiến trúc Microservice, để xử lý 1 khối lượng dữ liệu lớn với sự tác động của nhiều service khác nhau, ta phải có cơ chế để các service này giao tiếp với nhau một cách hiệu quả, Kafka được sinh ra để làm nhiệm vụ đó. Trong phần đầu tiên của series “Làm quen với Kafka”, mình sẽ viết 1 ứng dụng Python dùng để chat với nhau trên màn hình console để hiểu được những tính năng cơ bản của Kafka.&lt;/p&gt;
@@ -121,7 +121,7 @@
     <link href="https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/"/>
     <id>https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/</id>
     <published>2020-12-26T11:18:29.000Z</published>
-    <updated>2023-01-25T15:08:08.002Z</updated>
+    <updated>2023-01-26T08:36:40.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;Trong bài viết này, mình sẽ hướng dẫn cho các bạn cách thiết lập môi trường lập trình trên server hơn thông qua extension Remote - SSH của VS Code.&lt;/p&gt;
@@ -143,7 +143,7 @@
     <link href="https://www.kysuai.com/2020/08/23/Open-closed-principle/"/>
     <id>https://www.kysuai.com/2020/08/23/Open-closed-principle/</id>
     <published>2020-08-23T14:28:47.000Z</published>
-    <updated>2023-01-25T15:08:08.006Z</updated>
+    <updated>2023-01-26T08:36:40.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;Open-closed principle là 1 trong các nguyên tắc của bộ nguyên tắc lập trình SOLID trong lập trình hướng đối tượng. Đây là 1 nguyên tắc rất quan trọng bởi nó giúp cho code của dự án dễ bảo trì và mở rộng, có thể thích ứng với những thay đổi trong môi trường Agile.&lt;/p&gt;
@@ -171,7 +171,7 @@
     <link href="https://www.kysuai.com/2020/08/09/su-doi-lap-giua-object-va-data-structure/"/>
     <id>https://www.kysuai.com/2020/08/09/su-doi-lap-giua-object-va-data-structure/</id>
     <published>2020-08-09T16:13:43.000Z</published>
-    <updated>2023-01-25T15:08:08.006Z</updated>
+    <updated>2023-01-26T08:36:40.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;Bài viết này là kiến thức mình học được khi đọc cuốn &lt;em&gt;Clean Code: A Handbook of Agile Software Craftsmanship&lt;/em&gt;, mình muốn thông qua bài viết này có thể chia sẻ hiểu biết của mình với mọi người cũng như tự giúp bản thân nắm vững hơn những gì đã đọc được.&lt;/p&gt;
