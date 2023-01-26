@@ -458,6 +458,7 @@ footer:
 # Home Page
 #---------------------------
 index:
+  og_img: /images/minh-triet-3FqC2nPXURQ-unsplash.jpg
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
   banner_img: /images/minh-triet-3FqC2nPXURQ-unsplash.jpg
