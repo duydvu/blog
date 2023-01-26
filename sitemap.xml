@@ -65,6 +65,20 @@
   </url>
   
   <url>
+    <loc>https://www.kysuai.com/tags/K8S/</loc>
+    <lastmod>2023-01-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/tags/Artificial-Intelligence/</loc>
+    <lastmod>2023-01-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.kysuai.com/tags/Docker/</loc>
     <lastmod>2023-01-26</lastmod>
     <changefreq>daily</changefreq>
@@ -156,13 +170,6 @@
   </url>
   
   <url>
-    <loc>https://www.kysuai.com/tags/K8S/</loc>
-    <lastmod>2023-01-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.kysuai.com/tags/Natural-Language-Generation/</loc>
     <lastmod>2023-01-26</lastmod>
     <changefreq>daily</changefreq>
@@ -171,13 +178,6 @@
   
   <url>
     <loc>https://www.kysuai.com/tags/Language-Model/</loc>
-    <lastmod>2023-01-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/tags/Artificial-Intelligence/</loc>
     <lastmod>2023-01-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
