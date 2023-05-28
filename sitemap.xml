@@ -8,17 +8,7 @@
   
   <url>
     <loc>https://www.kysuai.com/about/index.html</loc>
-    <lastmod>2023-01-27</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/2023/01/26/Trien-khai-Triton-Inference-Server-tren-Google-Kubernetes-Engine/</loc>
-    <lastmod>2023-01-26</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/</loc>
-    <lastmod>2021-01-10</lastmod>
+    <lastmod>2023-05-28</lastmod>
   </url>
   
   <url>
@@ -37,8 +27,18 @@
   </url>
   
   <url>
+    <loc>https://www.kysuai.com/2023/05/28/Quick-Note-1-LoRA-cho-bai-toan-fine-tuning-LLM/</loc>
+    <lastmod>2023-05-28</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.kysuai.com/2022/12/28/Trien-khai-GPT-J-6B-Vietnamese-News-tren-Docker-va-K8S/</loc>
     <lastmod>2022-12-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/2023/01/26/Trien-khai-Triton-Inference-Server-tren-Google-Kubernetes-Engine/</loc>
+    <lastmod>2023-01-26</lastmod>
   </url>
   
   <url>
@@ -46,10 +46,15 @@
     <lastmod>2021-01-05</lastmod>
   </url>
   
+  <url>
+    <loc>https://www.kysuai.com/2021/01/10/Cau-hinh-GPU-trong-Docker/</loc>
+    <lastmod>2021-01-10</lastmod>
+  </url>
+  
 
   <url>
     <loc>https://www.kysuai.com/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -57,175 +62,189 @@
   
   <url>
     <loc>https://www.kysuai.com/tags/Machine-Learning/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Deep-Learning/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Docker/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Jupyter-Notebook/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Jupyter-Lab/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Jupyter/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/IDE/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Coding/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/VScode/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Kafka/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Python/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/OOP/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Software-Engineering/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/SOLID/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.kysuai.com/tags/GPT-J/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <loc>https://www.kysuai.com/tags/LoRA/</loc>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.kysuai.com/tags/K8S/</loc>
-    <lastmod>2023-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/tags/Natural-Language-Generation/</loc>
-    <lastmod>2023-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/tags/Language-Model/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <loc>https://www.kysuai.com/tags/LLM/</loc>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Artificial-Intelligence/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/tags/GPT-J/</loc>
+    <lastmod>2023-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/tags/K8S/</loc>
+    <lastmod>2023-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/tags/Natural-Language-Generation/</loc>
+    <lastmod>2023-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/tags/Language-Model/</loc>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Data-structure/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Java/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Triton-Inference-Server/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Google-Kubernetes-Engine/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/MLOps/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.kysuai.com/tags/Model-Serving/</loc>
-    <lastmod>2023-01-27</lastmod>
+    <lastmod>2023-05-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
