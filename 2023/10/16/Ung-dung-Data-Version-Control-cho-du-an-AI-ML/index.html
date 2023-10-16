@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<html lang="vi" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Vũ Đức Duy">
+  <meta name="keywords" content="ký sự AI, lập trình, programming, công nghệ phần mềm, software engineering, AI, trí tuệ nhân tạo, data science, khoa học dữ liệu">
+  
+    <meta name="description" content="Ứng dụng DVC giúp cho việc quản lý dữ liệu và mô hình trở nên dễ dàng và hiệu quả hơn, nhất là những dự án có quy mô lớn và nhiều người tham gia.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Giới thiệu về Data Version Control dùng cho các dự án AI&#x2F;ML">
+<meta property="og:url" content="https://www.kysuai.com/2023/10/16/Ung-dung-Data-Version-Control-cho-du-an-AI-ML/index.html">
+<meta property="og:site_name" content="Ký sự AI">
+<meta property="og:description" content="Ứng dụng DVC giúp cho việc quản lý dữ liệu và mô hình trở nên dễ dàng và hiệu quả hơn, nhất là những dự án có quy mô lớn và nhiều người tham gia.">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:image" content="https://www.kysuai.com/images/brandon-morgan-3qucB7U2l7I-unsplash-small.jpg">
+<meta property="article:published_time" content="2023-10-16T21:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-16T13:57:49.830Z">
+<meta property="article:author" content="Vũ Đức Duy">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Data Science">
+<meta property="article:tag" content="Data Version Control">
+<meta property="article:tag" content="Tool">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kysuai.com/images/brandon-morgan-3qucB7U2l7I-unsplash-small.jpg">
+  
+  
+  
+  <title>Giới thiệu về Data Version Control dùng cho các dự án AI/ML - Ký sự AI</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.kysuai.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":"G-1CPE7Q03HT","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT', function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1CPE7Q03HT');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ký sự AI</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/brandon-morgan-3qucB7U2l7I-unsplash-medium.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Giới thiệu về Data Version Control dùng cho các dự án AI/ML"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-16 21:00" pubdate>
+          16 tháng 10 năm 2023
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 phút
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Giới thiệu về Data Version Control dùng cho các dự án AI/ML</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Một trong những vấn đề quan trọng nhất trong các dự án AI/ML là quản lý dữ liệu và mô hình. Các dự án AI/ML thường có nhiều người tham gia và thường xuyên phải thay đổi. Những thay đổi có thể là thay đổi về dữ liệu, về kiến trúc mô hình, thay đổi tham số, thay đổi cách thức huấn luyện, thay đổi cách thức đánh giá mô hình, thay đổi cách thức triển khai mô hình, v.v…</p>
+<p>Nếu chúng ta không quản lý dữ liệu và mô hình một cách hiệu quả thì sẽ dễ dẫn đến nhiều tình huống không mong muốn. Ví dụ như:</p>
+<ul>
+<li><p>Tình huống 1:</p>
+<ul>
+<li>Bạn train một mô hình với một tập dữ liệu.</li>
+<li>Bạn chỉnh sửa tập dữ liệu và train lại mô hình nhưng không lưu lại phiên bản cũ.</li>
+<li>Khi đánh giá mô hình, bạn nhận thấy mô hình mới không tốt bằng mô hình cũ.</li>
+<li>Bạn muốn quay lại phiên bản tập dữ liệu cũ để tìm ra nguyên nhân nhưng không thể vì bạn đã xóa nó đi rồi 😰</li>
+<li>Tất nhiên là việc lưu 1 bản backup mỗi khi chỉnh sửa tập dữ liệu sẽ giúp tránh được tình huống này. Nhưng khi số lần chỉnh sửa nhiều lên khiến cho số bản backup càng nhiều, bạn sẽ rất khó quản lý chúng.</li>
+</ul>
+</li>
+<li><p>Tình huống 2: Bạn vừa được tham gia vào 1 dự án đang trong quá trình phát triển. Dự án này trước đây được phụ trách bởi 1 anh đồng nghiệp trong team. Bạn nhận code &amp; data từ ảnh về và bắt đầu công việc.</p>
+<ul>
+<li>Bạn: “Em đã thay đổi tham số và train lại model. Model mới có độ chính xác cao hơn model cũ mà anh train cách đây 3 tháng.”</li>
+<li>Anh đồng nghiệp: “Tuyệt vời! Để anh đánh giá model của em trước khi deploy nó lên prod nhé.”</li>
+<li>Anh đồng nghiệp: “Hmmm… Model của em có vẻ không chính xác bằng model của anh. Model của em là 96% trong khi của anh là 98%.”</li>
+<li>Bạn: “Sao lại thế ạ? Trong report của anh về model được train 3 tháng trước thì độ chính xác chỉ là 94% thôi mà!”</li>
+<li>Anh đồng nghiệp: “Lạ nhỉ? À anh nhớ rồi. Trước khi em join project này cách đây 1 tuần thì anh có làm sạch tập test nên khiến cho model chính xác hơn. Chưa kịp update report thì em đã train lại rồi. 😅”</li>
+<li>Bạn: “…”</li>
+</ul>
+<p>Ở đây, việc không tracking thay đổi của tập dữ liệu khiến cho bạn không biết được rằng model trước đây được đánh giá trên tập dữ liệu như thế nào.</p>
+</li>
+</ul>
+<p>Trước đây, mình đã từng đặt tên cho các tập dữ liệu và mô hình với những cái tên như: model_v1, model_v2, model_new, data_raw, data_cleaned, data_preprocessed, v.v… Rồi 1 thời gian sau, mình lại quên mình đã làm gì với những tập dữ liệu và mô hình này. model_v1 train bằng tập dữ liệu nào? learning rate là bao nhiêu? Rồi cả tỷ câu hỏi khác mà bây giờ chỉ có cách là dùng máy du hành thời gian của Doraemon mới có thể trả lời được 😂.</p>
+<p>Qua những ví dụ trên, chắc hẳn bạn đã phần nào hình dung được tầm quan trọng của việc quản lý dữ liệu và mô hình trong các dự án AI/ML.</p>
+<p>Để giải quyết vấn đề này, có rất nhiều công cụ được phát triển nhưng trong bài viết này, mình sẽ giới thiệu về <a target="_blank" rel="noopener" href="https://dvc.org/">Data Version Control (DVC)</a>.</p>
+<h1 id="Data-Version-Control-la-gi"><a href="#Data-Version-Control-la-gi" class="headerlink" title="Data Version Control là gì?"></a>Data Version Control là gì?</h1><p>Data Version Control (DVC) là một công cụ mã nguồn mở dùng để quản lý phiên bản cho dữ liệu và mô hình. Trong phát triển phần mềm thông thường, chúng ta đã quá quen thuộc với việc sử dụng Git để quản lý phiên bản cho code. Tuy nhiên, Git không phù hợp để quản lý phiên bản cho dữ liệu và mô hình. DVC ra đời để giải quyết vấn đề này.</p>
+<p>DVC được thiết kế để hoạt động dựa trên Git. Điều này có nghĩa là trong cùng 1 repo, bạn vừa có thể dùng Git để quản lý code, vừa có thể dùng DVC để quản lý dữ liệu và mô hình.</p>
+<p>Nhờ hoạt động dựa trên Git, DVC tận dụng được các tính năng mạnh mẽ của Git như: branch, tag. Bạn có thể tạo nhiều branch, mỗi branch chứa 1 tập dữ liệu khác nhau. Bạn có thể tạo tag mỗi khi train xong 1 mô hình.</p>
+<p><img src="/2023/10/16/Ung-dung-Data-Version-Control-cho-du-an-AI-ML/dvc.png" srcset="/img/loading.gif" lazyload alt="Nguồn: dvc.org"></p>
+<h1 id="Bat-dau-su-dung-DVC"><a href="#Bat-dau-su-dung-DVC" class="headerlink" title="Bắt đầu sử dụng DVC"></a>Bắt đầu sử dụng DVC</h1><p>Bạn có thể bắt đầu sử dụng DVC ngay bây giờ bằng việc cài đặt theo hướng dẫn ở link sau: <a target="_blank" rel="noopener" href="https://dvc.org/doc/install">https://dvc.org/doc/install</a>.</p>
+<p>Hoặc nếu bạn dùng pip, bạn có thể cài đặt DVC bằng lệnh sau:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install dvc<br></code></pre></td></tr></table></figure>
+<p>Sau khi cài đặt, trong thư mục chứa project repo của bạn, tiến hành khởi tạo project DVC bằng lệnh:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dvc init<br></code></pre></td></tr></table></figure>
+<h1 id="Lam-quen-voi-quan-ly-phien-ban-du-lieu"><a href="#Lam-quen-voi-quan-ly-phien-ban-du-lieu" class="headerlink" title="Làm quen với quản lý phiên bản dữ liệu"></a>Làm quen với quản lý phiên bản dữ liệu</h1><p>Khi sử dụng Git với code, thông thường bạn sẽ thay đổi code trong file rồi commit file đó vào index của Git. Cách này phù hợp với code vì các file code thường có kích thước rất nhỏ và dễ theo dõi những thay đổi về nội dung của chúng.</p>
+<p>Khác với code, dữ liệu thường có kích thước lớn và thay đổi rất nhiều. Nếu commit file dữ liệu vào repo, nó sẽ trở nên rất nặng. Bạn cũng không thể biết được rằng file dữ liệu này đã được thay đổi như thế nào.</p>
+<p>DVC tiếp cận vấn đề này bằng cách sử dụng 1 file meta để lưu lại thông tin về file dữ liệu. File meta này có kích thước nhỏ và được lưu trữ trong repo của Git. Khi bạn thay đổi file dữ liệu, DVC sẽ cập nhật file meta này. Khi bạn muốn lấy lại file dữ liệu, DVC sẽ dựa vào file meta này để tìm ra file dữ liệu cần lấy.</p>
+<p>Ví dụ, bạn có 1 file CSV chứa dữ liệu training. Bạn muốn lưu file này vào repo của Git. Bạn sẽ làm như sau:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dvc add train.csv<br></code></pre></td></tr></table></figure>
+<p>Lệnh này sẽ tạo ra file <code>train.csv.dvc</code> chứa thông tin meta của file dữ liệu. Nội dung của nó có cấu trúc giống như thế này:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">outs:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">md5:</span> <span class="hljs-string">9da9c6d8d622f096132838c67e7685b6</span><br>  <span class="hljs-attr">size:</span> <span class="hljs-number">298046</span><br>  <span class="hljs-attr">hash:</span> <span class="hljs-string">md5</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">train.csv</span><br></code></pre></td></tr></table></figure>
+<p>Về cơ bản, lệnh <code>dvc add</code> sẽ tính toán ra giá trị hash của file dữ liệu và lưu vào file <code>train.csv.dvc</code>. Hàm hash sẽ đảm bảo rằng nếu file dữ liệu thay đổi thì giá trị hash cũng sẽ thay đổi.</p>
+<p>Sau khi có được file <code>train.csv.dvc</code>, bạn commit file này vào repo của Git. File này đóng vai trò như là 1 con trỏ, nó sẽ trỏ tới file dữ liệu thật. File dữ liệu thật sẽ được lưu trữ trong thư mục <code>.dvc/cache</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add train.csv.dvc<br>git commit -m <span class="hljs-string">&quot;Add train.csv&quot;</span><br></code></pre></td></tr></table></figure>
+<p>Bây giờ, bạn thử edit file <code>train.csv</code> và lưu lại. Sau đó, bạn chạy lệnh sau:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dvc status<br></code></pre></td></tr></table></figure>
+<p>Lệnh <code>dvc status</code> có chức năng giống như <code>git status</code> nhưng dành cho dữ liệu. Lệnh này sẽ kiểm tra xem file dữ liệu đã được thay đổi hay chưa. Nếu file dữ liệu đã được thay đổi, lệnh này sẽ thông báo cho bạn biết:</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">train.csv.dvc</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-attribute">changed outs</span><span class="hljs-punctuation">:</span><br>                <span class="hljs-attribute">modified</span><span class="hljs-punctuation">:</span> <span class="hljs-string">          train.csv</span><br></code></pre></td></tr></table></figure>
+<p>Vì file dữ liệu đã thay đổi, file <code>train.csv.dvc</code> không còn trỏ đến đúng file dữ liệu nữa. Bạn cần phải update lại file này bằng lệnh:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dvc commit train.csv.dvc<br></code></pre></td></tr></table></figure>
+<p>DVC sẽ hỏi là bạn có muốn commit file này hay không. Nhập <code>y</code> và Enter để tiếp tục.</p>
+<p>Lúc này, DVC sẽ tính toán lại giá trị hash của file dữ liệu và cập nhật lại file <code>train.csv.dvc</code>. Sau đó, bạn commit file vào Git.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add train.csv.dvc<br>git commit -m <span class="hljs-string">&quot;Update train.csv&quot;</span><br></code></pre></td></tr></table></figure>
+<p>Giả sử như bạn muốn lấy lại file dữ liệu cũ. Bạn có thể làm theo cách sau:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout HEAD~1 -- train.csv.dvc<br>dvc checkout train.csv<br></code></pre></td></tr></table></figure>
+<p>Lệnh <code>git checkout</code> sẽ lấy lại file <code>train.csv.dvc</code> từ commit trước đó. Như hồi nãy mình đã nói, file meta đóng vai trò như là 1 con trỏ để trỏ tới dữ liệu thật. Lúc này, file <code>train.csv.dvc</code> không còn trỏ đến file <code>train.csv</code> trong thư mục chính nữa mà đang trỏ tới file cũ đang nằm trong <code>.dvc/cache</code>.</p>
+<p>Khi tới câu lệnh <code>dvc checkout</code>, DVC sẽ dựa vào file meta để tìm ra file dữ liệu thật và đem file này về thư mục chính. Thế là bạn đã lấy lại được file dữ liệu cũ rồi!</p>
+<p>Giống như Git, DVC cũng hỗ trợ lưu trữ remote nhưng thay vì là Github, Gitlab thì ta có S3, Google Cloud Storage, Google Drive, HDFS, v.v… Nhưng mình sẽ không đi sâu vào phần này, nếu muốn thì bạn có thể xem thêm tại <a target="_blank" rel="noopener" href="https://dvc.org/doc/user-guide/data-management/remote-storage">https://dvc.org/doc/user-guide/data-management/remote-storage</a>.</p>
+<p>Như vậy là mình đã cover được khái niệm cơ bản về quản lý phiên bản dữ liệu của DVC rồi đấy. Đối với mô hình thì về cơ bản nó cũng chỉ là 1 hoặc nhiều file có thể được <code>dvc add</code> và track bằng file <code>.dvc</code> mà thôi.</p>
+<p>Đợi đã! Nhưng chúng ta chưa giải quyết được bài toán làm thế nào để xác định 1 mô hình được train bằng dữ liệu gì và tham số như thế nào mà, đúng không???</p>
+<p>Việc quản lý phiên bản dữ liệu chỉ là bước khởi đầu cho quản lý phiên bản mô hình. Mình sẽ đi sâu hơn về vấn đề này trong bài viết tiếp theo. Còn bây giờ thì tạm thời dừng ở đây nhé :v.</p>
+<p>Happy Coding!</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Machine-Learning/">#Machine Learning</a>
+      
+        <a href="/tags/Artificial-Intelligence/">#Artificial Intelligence</a>
+      
+        <a href="/tags/Data-Science/">#Data Science</a>
+      
+        <a href="/tags/Data-Version-Control/">#Data Version Control</a>
+      
+        <a href="/tags/Tool/">#Tool</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Giới thiệu về Data Version Control dùng cho các dự án AI/ML</div>
+      <div>https://www.kysuai.com/2023/10/16/Ung-dung-Data-Version-Control-cho-du-an-AI-ML/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Tác giả</div>
+          <div>Vũ Đức Duy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Đăng vào</div>
+          <div>16 tháng 10 năm 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/28/Quick-Note-1-LoRA-cho-bai-toan-fine-tuning-LLM/" title="Quick Note #1: LoRA cho bài toán fine-tuning LLM">
+                        <span class="hidden-mobile">Quick Note #1: LoRA cho bài toán fine-tuning LLM</span>
+                        <span class="visible-mobile">Sau</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Mục lục</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Tìm kiếm</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Từ khóa</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
