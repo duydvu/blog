@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html lang="vi" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Vũ Đức Duy">
+  <meta name="keywords" content="ký sự AI, lập trình, programming, công nghệ phần mềm, software engineering, AI, trí tuệ nhân tạo, data science, khoa học dữ liệu">
+  
+    <meta name="description" content="Inspired by Bill Gates&#39;s recent article, I have been thinking about how AI agents will transform our lives in the future. In this article, I will try to sketch my vision of how these agents will work.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Drafting the high-level architecture of future AI agents">
+<meta property="og:url" content="https://www.kysuai.com/2023/11/22/Drafting-the-high-level-architecture-of-future-AI-agents/index.html">
+<meta property="og:site_name" content="Ký sự AI">
+<meta property="og:description" content="Inspired by Bill Gates&#39;s recent article, I have been thinking about how AI agents will transform our lives in the future. In this article, I will try to sketch my vision of how these agents will work.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.kysuai.com/images/the-future-of-ai-agents.jpeg">
+<meta property="article:published_time" content="2023-11-22T21:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-22T14:03:20.629Z">
+<meta property="article:author" content="Vũ Đức Duy">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="AI agent">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kysuai.com/images/the-future-of-ai-agents.jpeg">
+  
+  
+  
+  <title>Drafting the high-level architecture of future AI agents - Ký sự AI</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.kysuai.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":"G-1CPE7Q03HT","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT', function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1CPE7Q03HT');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ký sự AI</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/the-future-of-ai-agents.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Drafting the high-level architecture of future AI agents"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-22 21:00" pubdate>
+          November 22, 2023
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          58 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Drafting the high-level architecture of future AI agents</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Inspired by Bill Gates’s recent article <a target="_blank" rel="noopener" href="https://www.gatesnotes.com/AI-agents">The Future of Agents</a>, I have been thinking about how AI agents will transform our lives in the near future. As Bill Gates said, everyone will have a virtual personal assistant that does things by telling them in everyday language. They can do any task on your device for you, from writing &amp; sending an email to placing an order on Amazon.</p>
+<p>This sounds like science fiction, but with the current development of Large Language Models (LLMs) such as GPT-4, and Llama, I too believe that we will have AI agents that can do most of the tasks in our daily lives (on a computer) in the next 5-10 years. In this article, I will try to sketch my vision of how these agents will work.</p>
+<h1 id="AI-agents-of-today"><a href="#AI-agents-of-today" class="headerlink" title="AI agents of today"></a>AI agents of today</h1><p>Today, with ChatGPT &amp; GPT-4 API, you can build a bot that can write an email to send to your clients, import data from PDF to Google Sheets, and write HTML code from a website screenshot. All you have to do is command them to do the task via a UI, or more advanced - speak to them. These applications can be installed on your smartphone with an internet connection.</p>
+<p>Another method is using open-sourced LLM such as Llama or Mistral hosted on your powerful PC. These models might not be as good as the commercial competitors, but they will keep getting better and better over time, as well as the hardware will become more powerful and less expensive. So soon, intelligent LLMs will become lightweight enough to run on your smartphone or laptop.</p>
+<p>These AI agents are capable of working with a given set of “tools”, for example, web search, code interpreter, and APIs. They can only do a task if you give them the tools they need to accomplish it. So when you say to them: “Send an email for me”, they will happily do it because Gmail is such a popular platform that it must be one of the basic integrations.</p>
+<p>But when you say to them: “Write an article about the future of AI agents on Substack”, can they do this? Well, of course, they cannot if they don’t know how to call the API of Substack unless you have already integrated them with Substack, which should take some effort. Even so, you will have to guide them on which API to call for which task and how to call them.</p>
+<pre><code class=" mermaid">sequenceDiagram
+    actor User
+    participant AI as AI agent
+		participant GM as Gmail
+		participant St as Substack
+    User-&gt;&gt;+AI: &quot;Send an email for me&quot;
+    AI--)User: &quot;Roger that!&quot;
+    AI--)+GM: send_email(content, recipient)
+		AI-&gt;&gt;-User: &quot;Done&quot;
+		User-&gt;&gt;+AI: &quot;Write an article about the future of AI agents on Substack&quot;
+		AI-&gt;&gt;-User: &quot;Ugh... How do I do that?&quot;
+		
+</code></pre>
+<p>How about integrating all platforms first then? Would you want to write on Substack forever?  There will always be alternatives for everything, so this is not an option. Therefore, <strong>the AI agent of today can only work with a specific set of “tools” that it knows “how to use” them</strong>.</p>
+<p>Another problem of the current generation of AI agents is they can’t do complex tasks such as planning a trip for your vacation, which would require multiple skills in time management, expense management, and knowledge about locations &amp; weather. Sure, GPT-4 might have the ability to do it with some plugins but the majority of the LLM landscape still cannot.</p>
+<p>In fact, there have been many studies conducted by AI researchers on the planning capability of LLMs, one of which is the paper <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2206.10498">“Large Language Models Still Can’t Plan (A Benchmark for LLMs on Planning and Reasoning about Change)”</a>, which showed that <strong>LLMs still can’t plan, for now</strong>.</p>
+<h1 id="AI-agents-of-the-future"><a href="#AI-agents-of-the-future" class="headerlink" title="AI agents of the future"></a>AI agents of the future</h1><p>Imagine in the next few years, you are watching a movie and someone just sent a message to you. Too lazy to grab the phone, you simply say “I’m busy now” to your personal assistant on your phone. The assistant will carry the message to the sender and you can keep watching your favorite movie without being distracted. Sound cool, right?</p>
+<p>Not only that, they can do tasks with more complexity than they can today, just as shown in Bill Gates’s article. All within a single device, an internet connection is not mandatory unless you are interacting with some platforms from the internet.</p>
+<p>The most interesting part is that now, <strong>the AI agents can interact with any “tools” that we command them to use</strong>.</p>
+<p>You can tell the agent to place an order on an e-commerce website you just visited, even though the agent doesn’t have any prior knowledge of the website.</p>
+<p>You can also tell them to write an article on a platform you just registered, without having to integrate them into your agent.</p>
+<p>This can be done by 2 methods:</p>
+<ol>
+<li>Give an instruction on how to use the tool - <strong>Agents talk to Systems</strong></li>
+<li>Talk to another agent responsible for interacting with the tool - <strong>Agents talk to Agents</strong></li>
+</ol>
+<p>Before diving into each method, let’s consider an analogous example.</p>
+<p>Imagine you are the owner of a small factory with many machines, you are also the only operator of the factory. You know how to use every machine in the factory. One day, you decide that you will not operate the factory anymore, but hire a personal assistant to do that for you. The newly hired assistant will now have to be able to operate the factory.</p>
+<p>In this example:</p>
+<ul>
+<li>The hired assistant represents your AI agent</li>
+<li>The machine represents the tools your AI agent interacts with</li>
+</ul>
+<p>With these analogies, let’s dive in.</p>
+<h1 id="Agents-talk-to-Systems"><a href="#Agents-talk-to-Systems" class="headerlink" title="Agents talk to Systems"></a>Agents talk to Systems</h1><p>When the assistant operates the machines (the AI agent interacts with the tools), they must first know how to use them. One way is to give the assistant an instruction manual for the machine.</p>
+<p>To understand the manual, the assistant must also have fundamental knowledge such as how to read technical instructions and understand the technical terms &amp; definitions. By doing this, the assistant will know how to operate the machine properly.</p>
+<p>Mapping to our scenario, in the previous example where the AI agent can’t understand the request “Write an article about the future of AI agents on Substack”, it can now learn how to use the APIs with the instructions provided by Substack. It reads the instructions, selects the appropriate endpoint, and sends the request.</p>
+<pre><code class=" mermaid">sequenceDiagram
+    actor User
+    participant AI as AI agent
+		participant St as Substack
+		User-&gt;&gt;+AI: &quot;Write an article about the future of AI agents on Substack&quot;
+		AI--)User: &quot;Will do!&quot;
+		AI-&gt;&gt;+St: Give me your instruction
+		St--)AI: Here they are
+		AI-&gt;&gt;St: POST /articles
+		St--)-AI: 200
+		AI--)-User: &quot;Done&quot;
+</code></pre>
+<p>So what kind of instructions can be understood by AI? <a target="_blank" rel="noopener" href="https://swagger.io/specification/">OpenAPI Specification</a> might be a good candidate if the APIs are well designed. But I don’t think it would be enough for AI to understand completely on any platform.</p>
+<p>Sometimes, APIs are not called individually but in a specific order to get things done such as OAuth or creating a cart with multiple items. So there should be a better way to instruct AI to use the APIs, an “API of the API”, but it doesn’t exist yet.</p>
+<p>It could be something like this:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">name:</span> <span class="hljs-string">Substack</span> <span class="hljs-string">API</span><br><span class="hljs-attr">version:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.0</span><br><span class="hljs-attr">openapi:</span> <span class="hljs-string">&lt;openapi-spec&gt;</span><br><span class="hljs-attr">tasks:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Post</span> <span class="hljs-string">an</span> <span class="hljs-string">article</span><br>    <span class="hljs-attr">actions:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Login</span><br>        <span class="hljs-attr">action:</span> <span class="hljs-string">POST</span> <span class="hljs-string">/login</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Create</span> <span class="hljs-string">an</span> <span class="hljs-string">article</span><br>        <span class="hljs-attr">action:</span> <span class="hljs-string">POST</span> <span class="hljs-string">/articles</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Publish</span> <span class="hljs-string">the</span> <span class="hljs-string">article</span><br>        <span class="hljs-attr">action:</span> <span class="hljs-string">POST</span> <span class="hljs-string">/articles/:id/publish</span><br></code></pre></td></tr></table></figure>
+<p>When the AI agent reads this, it will know the execution order of the API calls to post an article.</p>
+<p>So my prediction is that <strong>there will be a new standard similar to OpenAPI Specification that allows AI to understand how to interact with a software system</strong>. SaaS providers must implement the standard if they want the users’ AI agent to interact with their platform.</p>
+<h1 id="Agents-talk-to-Agents"><a href="#Agents-talk-to-Agents" class="headerlink" title="Agents talk to Agents"></a>Agents talk to Agents</h1><p>In the first method, your assistant can learn how to operate the machine by reading its instruction manual. But what if the machine is so sophisticated that only you or someone with specific knowledge can operate it?</p>
+<p>We haven’t had AGI yet, and I believe there is still a long way before reaching it. So at the moment, let’s assume that AI agents cannot be good at any tasks we give to them.</p>
+<p>There will be many AI agents that are specialists in different fields. There will be an AI agent for personal assistant. In an online store, an AI agent will guide you through the products and give recommendations based on your interests. There will be an AI agent specializing in diagnostics to check your health once in a while.</p>
+<p>So when the assistant cannot understand how to operate the machine, what can they do?</p>
+<p>It’s easy, just hire another operator who knows how to do it. This time, the assistant only needs to give the request to the operator and they will do the rest. If the task you gave the assistant involves many machines, the assistant will separate the task into many subtasks atomically, each of which only requires one machine. The assistant then assigns the subtasks to the machine and only cares about the input &amp; output of the machines. All the details are handled by the operators. The assistant’s job becomes more like a project manager.</p>
+<p>Mapping to our scenario, instead of letting your AI agent learn how to use the APIs before interacting with Substack, it only has to interact with another AI agent trained specifically for working with Substack’s APIs. Your AI agent will provide your identity and the content of the article and the Substack AI agent will do the rest.</p>
+<pre><code class=" mermaid">sequenceDiagram
+    actor User
+    participant AI as Personal AI agent
+		participant SAI as Substack AI agent
+		participant St as Substack
+		User-&gt;&gt;+AI: &quot;Write an article about the future of AI agents on Substack&quot;
+		AI--)User: &quot;Will do!&quot;
+		AI-&gt;&gt;+SAI: Hello, could you post an article for &lt;user&gt;?
+		SAI--)AI: Okay, just give me the content.
+		AI-&gt;&gt;SAI: &lt;content&gt;
+		SAI-&gt;&gt;+St: POST /articles
+		St--)SAI: 200
+		SAI--)-AI: &quot;Done&quot;
+		AI--)-User: &quot;Done&quot;
+</code></pre>
+<p>Here is a more complex task that your AI agent might not be able to handle alone. You are a business owner who uses many services to manage your customers on an online store such as E-commerce service and CRM service.</p>
+<p>If you want to create a coupon in the E-commerce service and then send it to your customers in the CRM service, you would have to do it by hand. The time it takes for this process depends on how deep the integration between the 2 services is, but in the end, it still takes some effort.</p>
+<p>Instead, you give the request to your AI agent and it will talk to the respective AI agents to accomplish the task.</p>
+<pre><code class=" mermaid">sequenceDiagram
+    actor A as Admin
+    participant PVA as Personal AI agent
+    participant EVA as E-commerce AI agent
+    participant E-commerce
+    participant CVA as CRM AI agent
+    participant CRM
+
+    A-&gt;&gt;+PVA: &quot;Create a coupon and send it to my customers via email&quot;
+    PVA--)A: &quot;Roger that!&quot;
+    PVA-&gt;&gt;+EVA: &quot;Create a coupon&quot;
+    EVA-&gt;&gt;+E-commerce: create_coupon()
+    E-commerce--)-EVA: Coupon ID
+    EVA--)-PVA: &quot;Coupon ID: xxxx&quot;
+    PVA-&gt;&gt;+CVA: &quot;Send coupon with ID xxxx to my customers&quot;
+    CVA-)+CRM: send_coupon_by_email(coupon_id)
+    deactivate CRM
+    CVA--)-PVA: &quot;Done!&quot;
+    PVA--)-A: &quot;Done!&quot;
+</code></pre>
+<p>With this architecture, each AI agent doesn’t have to know everything, it only needs to know one job and do it well. This is somewhat similar to the microservice architecture in software, should I call it “micro-AI” architecture? Notion AI, Github Copilot Chat can be considered as a draft version of this kind.</p>
+<p>This approach also comes with a price. In the example, you will have to pay a salary for every operator you hire. The more operators you have, the bigger the cost.</p>
+<p>Another problem is who is going to build these micro-AIs. You, the companies, or the community?</p>
+<p>If it is the companies that build the micro-AIs, the biggest issue is that it will cost a fortune for anyone other than the rich companies to build and operate them. Imagine running a micro-AI that handles 10 million requests per day, assume each request costs $0.003 (equal to 1K input tokens + 1K output tokens to ChatGPT API). It would cost $30,000 per day or $900,000 per month to run. This is something not many companies can afford.</p>
+<p>You? Never!</p>
+<p>The community? Maybe. The community has been an integral part of many ecosystems, from the App Store, Google Play Store, and Steam to Github, Shopify, and GPTs. There could be a new ecosystem where anyone can upload their AI agents for everyone to use, commercially or non-commercially.</p>
+<h1 id="Which-one-will-be-the-future"><a href="#Which-one-will-be-the-future" class="headerlink" title="Which one will be the future?"></a>Which one will be the future?</h1><p>The above 2 methods have their advantages and disadvantages. Let’s summarize it:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Agents talk to Systems</td>
+<td>Only need one agent per user</td>
+<td>The agent might not interact well with all systems</td>
+</tr>
+<tr>
+<td>Agents talk to Agents</td>
+<td>Each agent only needs to know one job and do it well</td>
+<td>Costly to build &amp; operate</td>
+</tr>
+</tbody></table>
+<p>The winner of this race depends heavily on the process of developing AGI. If AGI is still far to come, “Agents talk to Agents” will get ahead first, but they won’t be widely adopted due to cost considerations unless a new ecosystem appears just as I said earlier. Otherwise, “Agents talk to Systems” will win.</p>
+<p>At the end of the road, “Agents talk to Systems” will still win.</p>
+<p>My reasoning is that if you, who are a human, can already do the tasks on your own without any help, your AI agent will eventually be able to do so. AI will one day do anything that we can do and even surpass us. The assistant in our example will finally operate the factory on their own without any operators.</p>
+<p>This doesn’t mean that your AI agent will not talk to your friend’s AI agent. It is just how they interact with a software system. After the Internet, the “Internet of Things” emerged, then comes the “Internet of Everything” (for physical devices), will there be an “Internet of …Agents”?</p>
+<h1 id="Internet-of-…Agents"><a href="#Internet-of-…Agents" class="headerlink" title="Internet of …Agents?"></a>Internet of …Agents?</h1><p><img src="/2023/11/22/Drafting-the-high-level-architecture-of-future-AI-agents/internet-of-agents.jpeg" srcset="/img/loading.gif" lazyload alt="Internet of Agents - Drawn by Bing Image Creator"></p>
+<p>A new network where each node is not a computer but an agent and the agents contact each other via the Internet’s infrastructure. If you want to contact your friend but they are busy, you simply let your agent talk to their agent, and they will arrange a meeting for you and your friend.</p>
+<p>There are 2 ways for the agents to contact each other:</p>
+<ol>
+<li>Directly, like calling by phone number.</li>
+<li>Indirectly via a third-party broker, like Gmail or Messenger.</li>
+</ol>
+<p>When talking directly, they must first find where the other one is, similar to how you must know your friend’s phone number before calling them. If the other end is not connected to the Internet, the message will not be received. This is a peer-to-peer connection so encryption must be taken seriously, you must have your friend’s public key first before contacting them, or someone else may pretend to be your friend to talk to you.</p>
+<p>On the other hand, if the agents talk to each other via a broker, all messages are stored in that broker. The agents can send messages asynchronously, and then check again if the other one has replied later.</p>
+<pre><code class=" mermaid">sequenceDiagram
+    participant A as Agent A
+		participant Broker
+    participant B as Agent B
+
+    A-)Broker: &quot;Hello!&quot;
+		B-)Broker: &quot;Hi!&quot;
+		A-)Broker: &quot;Let&#x27;s arrange a meeting.&quot;
+		B-)Broker: &quot;Okay! When?&quot;
+</code></pre>
+<p>Given the popularity of today’s third-party services, I think they will again be the dominant communication method. A new hub will appear where your agent will send and receive messages from other agents. Or maybe, some familiar platforms will someday introduce a new feature to support your agent, it can be Messenger, Telegram, or something else.</p>
+<p>In either way, it will be a huge risk if the agents are not self-guarded. Computers can be hacked to become a bot in a botnet for a DDOS attack. Similarly, today’s AI can be tricked into producing harmful content. If a malicious actor can behave like an agent and manipulate other agents using just natural language, they can become a dangerous army. Since the future agents will be able to do much more than generating texts, they may do damage to the real world, much worse than a DDOS attack.</p>
+<h1 id="Final-thoughts"><a href="#Final-thoughts" class="headerlink" title="Final thoughts"></a>Final thoughts</h1><p>The future of AI agents is both exciting and worrying. On the one hand, they will revolutionize the way we live &amp; the way we work like the way smartphones did. On the other hand, they also open new doors for bad actors, criminals will have new tools to harm society. Therefore, it’s crucial to control this technology in the hands of the right people and mitigate the downside of it. One things is certain, AI agents will become one of the most important inventions of humankind.</p>
+<p>In the next few years, we will see the first generation of AI agents living inside your devices that can do basic tasks with a limited set of tools. Then, the second generation will do more complex tasks with an open set of tools. And more will come.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Artificial-Intelligence/">#Artificial Intelligence</a>
+      
+        <a href="/tags/AI-agent/">#AI agent</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Drafting the high-level architecture of future AI agents</div>
+      <div>https://www.kysuai.com/2023/11/22/Drafting-the-high-level-architecture-of-future-AI-agents/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Vũ Đức Duy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 22, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/27/Cac-cong-thuc-can-nho-cho-mo-hinh-Transformer/" title="Các công thức cần nhớ cho mô hình Transformer">
+                        <span class="hidden-mobile">Các công thức cần nhớ cho mô hình Transformer</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/10.6.1/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default","fontSize":"24px"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
