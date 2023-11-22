@@ -37,23 +37,8 @@
   </url>
   
   <url>
-    <loc>https://www.kysuai.com/2023/11/22/Drafting-the-high-level-architecture-of-future-AI-agents/</loc>
-    <lastmod>2023-11-22</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.kysuai.com/2023/01/26/Trien-khai-Triton-Inference-Server-tren-Google-Kubernetes-Engine/</loc>
     <lastmod>2023-01-26</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/2023/10/27/Cac-cong-thuc-can-nho-cho-mo-hinh-Transformer/</loc>
-    <lastmod>2023-10-27</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</loc>
-    <lastmod>2021-01-05</lastmod>
   </url>
   
   <url>
@@ -64,6 +49,21 @@
   <url>
     <loc>https://www.kysuai.com/2020/12/26/Cau-hinh-VS-Code-de-code-tren-server/</loc>
     <lastmod>2020-12-26</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/2023/11/22/Drafting-the-high-level-architecture-of-future-AI-agents/</loc>
+    <lastmod>2023-11-22</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/2023/10/27/Cac-cong-thuc-can-nho-cho-mo-hinh-Transformer/</loc>
+    <lastmod>2023-10-27</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.kysuai.com/2021/01/05/Cach-thiet-lap-moi-truong-Docker-cho-server-Jupyter-cua-ban/</loc>
+    <lastmod>2021-01-05</lastmod>
   </url>
   
 
