@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Vũ Đức Duy">
+  <meta name="keywords" content="ký sự AI, lập trình, programming, công nghệ phần mềm, software engineering, AI, trí tuệ nhân tạo, data science, khoa học dữ liệu">
+  
+    <meta name="description" content="In this post, we will explore OpenAI&#39;s CLIP, a model that can understand images and texts, and use it to perform zero-shot image classification on the Animal Faces dataset.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zero-shot image classification with OpenAI&#39;s CLIP">
+<meta property="og:url" content="https://www.kysuai.com/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/index.html">
+<meta property="og:site_name" content="Ký sự AI">
+<meta property="og:description" content="In this post, we will explore OpenAI&#39;s CLIP, a model that can understand images and texts, and use it to perform zero-shot image classification on the Animal Faces dataset.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.kysuai.com/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/CLIP.png">
+<meta property="article:published_time" content="2024-02-25T21:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-25T16:05:56.679Z">
+<meta property="article:author" content="Vũ Đức Duy">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Computer Vision">
+<meta property="article:tag" content="OpenAI">
+<meta property="article:tag" content="CLIP">
+<meta property="article:tag" content="Zero-shot learning">
+<meta property="article:tag" content="Image classification">
+<meta property="article:tag" content="Vision Transformer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kysuai.com/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/CLIP.png">
+  
+  
+  
+  <title>Zero-shot image classification with OpenAI&#39;s CLIP - Ký sự AI</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.kysuai.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":"G-1CPE7Q03HT","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('https://www.googletagmanager.com/gtag/js?id=G-1CPE7Q03HT', function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1CPE7Q03HT');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Ký sự AI" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ký sự AI</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/CLIP.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Zero-shot image classification with OpenAI&#39;s CLIP"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-25 21:00" pubdate>
+          February 25, 2024
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Zero-shot image classification with OpenAI&#39;s CLIP</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>In recent years, there is a trend in the field of Deep Learning to develop models that can understand multiple modalities, such as texts, images, sounds and videos. Google’s Gemini is the latest example of this trend. These models open up new possibilities for AI applications, such as zero-shot learning, where the model can perform tasks without any training data. In this post, we will explore OpenAI’s CLIP, a model that can understand images and texts, and use it to perform zero-shot image classification on the Animal Faces dataset.</p>
+<h1 id="Introduction-to-CLIP"><a href="#Introduction-to-CLIP" class="headerlink" title="Introduction to CLIP"></a>Introduction to CLIP</h1><p>CLIP (Contrastive Language-Image Pre-Training) is a model developed by OpenAI that can understand images and texts. It is based on a Vision Transformer (ViT) and a Transformer-based language model. The model is trained to predict which of the image-text pairs in a batch is the correct pair. The model is trained on a large dataset of images and texts, and it learns to understand the relationship between the two modalities.</p>
+<p>Here is the model architecture from the paper:</p>
+<p><img src="/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/CLIP.png" srcset="/img/loading.gif" lazyload alt="CLIP model architecture"></p>
+<h1 id="The-Animal-Faces-dataset"><a href="#The-Animal-Faces-dataset" class="headerlink" title="The Animal Faces dataset"></a>The Animal Faces dataset</h1><p>The Animal Faces dataset also known as Animal Faces-HQ (AFHQ), consists of 16,130 high-quality images at 512×512 resolution.</p>
+<p>There are three domains of classes, each providing about 5000 images. By having multiple (three) domains and diverse images of various breeds per each domain, AFHQ sets a challenging image-to-image translation problem. The classes are:</p>
+<ul>
+<li>Cat</li>
+<li>Dog</li>
+<li>Wildlife</li>
+</ul>
+<p>Link to the dataset: <a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets/andrewmvd/animal-faces">Animal Faces-HQ</a></p>
+<h1 id="Loading-the-CLIP-model"><a href="#Loading-the-CLIP-model" class="headerlink" title="Loading the CLIP model"></a>Loading the CLIP model</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> CLIPProcessor, CLIPModel<br><br>device = <span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span><br>processor = CLIPProcessor.from_pretrained(<span class="hljs-string">&quot;openai/clip-vit-base-patch32&quot;</span>)<br>model = CLIPModel.from_pretrained(<span class="hljs-string">&quot;openai/clip-vit-base-patch32&quot;</span>).to(device)<br></code></pre></td></tr></table></figure>
+<h1 id="Zero-shot-image-classification"><a href="#Zero-shot-image-classification" class="headerlink" title="Zero-shot image classification"></a>Zero-shot image classification</h1><p>Download the Animal Faces dataset from the link provided above and extract it. The dataset is organized into three folders, one for each class. We will use the <code>glob</code> library to get the paths of all the images in the dataset.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> glob <span class="hljs-keyword">import</span> glob<br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> classification_report<br><br>classes = [<span class="hljs-string">&quot;dog&quot;</span>, <span class="hljs-string">&quot;cat&quot;</span>, <span class="hljs-string">&quot;wild&quot;</span>]<br>text = [<br>  (<span class="hljs-string">&quot;a photo of a dog&quot;</span>, <span class="hljs-number">0</span>),<br>  (<span class="hljs-string">&quot;a photo of a cat&quot;</span>, <span class="hljs-number">1</span>),<br>  (<span class="hljs-string">&quot;a photo of a wild animal&quot;</span>, <span class="hljs-number">2</span>),<br>]<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">classify_image</span>(<span class="hljs-params">image_path</span>):<br>  image = Image.<span class="hljs-built_in">open</span>(image_path)<br>  inputs = processor(text=[t[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> text], images=image, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>, padding=<span class="hljs-literal">True</span>).to(device)<br><br>  outputs = model(**inputs)<br>  logits_per_image = outputs.logits_per_image<br>  probs = logits_per_image.softmax(dim=<span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">return</span> probs<br><br><br>image_paths = []<br>true_label = []<br>predicted_label = []<br><span class="hljs-keyword">for</span> cls <span class="hljs-keyword">in</span> classes:<br>  <span class="hljs-keyword">for</span> image_path <span class="hljs-keyword">in</span> tqdm(glob(<span class="hljs-string">f&quot;afhq/val/<span class="hljs-subst">&#123;cls&#125;</span>/*.jpg&quot;</span>)):<br>    image_paths.append(image_path)<br>    true_label.append(cls)<br><br>    probs = classify_image(image_path)<br>    confidence, class_index = torch.<span class="hljs-built_in">max</span>(probs, <span class="hljs-number">1</span>)<br><br>    predicted_label.append(classes[text[class_index][<span class="hljs-number">1</span>]])<br><br><span class="hljs-built_in">print</span>(classification_report(true_label, predicted_label))<br></code></pre></td></tr></table></figure>
+<p>Run the above code give us the following result:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache">              <span class="hljs-attribute">precision</span>    recall  f1-score   support<br><br>         <span class="hljs-attribute">cat</span>       <span class="hljs-number">0</span>.<span class="hljs-number">76</span>      <span class="hljs-number">1</span>.<span class="hljs-number">00</span>      <span class="hljs-number">0</span>.<span class="hljs-number">86</span>       <span class="hljs-number">500</span><br>         <span class="hljs-attribute">dog</span>       <span class="hljs-number">0</span>.<span class="hljs-number">91</span>      <span class="hljs-number">1</span>.<span class="hljs-number">00</span>      <span class="hljs-number">0</span>.<span class="hljs-number">95</span>       <span class="hljs-number">500</span><br>        <span class="hljs-attribute">wild</span>       <span class="hljs-number">1</span>.<span class="hljs-number">00</span>      <span class="hljs-number">0</span>.<span class="hljs-number">58</span>      <span class="hljs-number">0</span>.<span class="hljs-number">73</span>       <span class="hljs-number">500</span><br><br>    <span class="hljs-attribute">accuracy</span>                           <span class="hljs-number">0</span>.<span class="hljs-number">86</span>      <span class="hljs-number">1500</span><br>   <span class="hljs-attribute">macro</span> avg       <span class="hljs-number">0</span>.<span class="hljs-number">89</span>      <span class="hljs-number">0</span>.<span class="hljs-number">86</span>      <span class="hljs-number">0</span>.<span class="hljs-number">85</span>      <span class="hljs-number">1500</span><br><span class="hljs-attribute">weighted</span> avg       <span class="hljs-number">0</span>.<span class="hljs-number">89</span>      <span class="hljs-number">0</span>.<span class="hljs-number">86</span>      <span class="hljs-number">0</span>.<span class="hljs-number">85</span>      <span class="hljs-number">1500</span><br></code></pre></td></tr></table></figure>
+<p>Nice! We achieved an accuracy of 86% by just using texts to classify images. This is the power of zero-shot learning.</p>
+<p>But the 58% recall for the “wild” class is not good. Let’s see some examples of misclassified images.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> display<br><br>df = pd.DataFrame(&#123;<br>  <span class="hljs-string">&quot;image_path&quot;</span>: image_paths,<br>  <span class="hljs-string">&quot;true_label&quot;</span>: true_label,<br>  <span class="hljs-string">&quot;predicted_label&quot;</span>: predicted_label<br>&#125;)<br>wrong_df = df[df[<span class="hljs-string">&#x27;true_label&#x27;</span>] != df[<span class="hljs-string">&#x27;predicted_label&#x27;</span>]]<br><br>sample = wrong_df.sample(<span class="hljs-number">1</span>)<br>image_path = sample[<span class="hljs-string">&#x27;image_path&#x27;</span>].values[<span class="hljs-number">0</span>]<br>true_label = sample[<span class="hljs-string">&#x27;true_label&#x27;</span>].values[<span class="hljs-number">0</span>]<br>predicted_label = sample[<span class="hljs-string">&#x27;predicted_label&#x27;</span>].values[<span class="hljs-number">0</span>]<br>image = Image.<span class="hljs-built_in">open</span>(image_path)<br>display(image)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;True label: <span class="hljs-subst">&#123;true_label&#125;</span>&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Predicted label: <span class="hljs-subst">&#123;predicted_label&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p><img src="/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/output1.png" srcset="/img/loading.gif" lazyload alt="True label: wild. Predicted label: cat"><br><img src="/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/output2.png" srcset="/img/loading.gif" lazyload alt="True label: wild. Predicted label: dog"><br><img src="/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/output3.png" srcset="/img/loading.gif" lazyload alt="True label: wild. Predicted label: cat"></p>
+<p>As we can see, the model is misclassifying images of wild animals as cats and dogs. These animals, such as lions, wolves, and tigers, share some visual similarities with cats and dogs, which makes it difficult for the model to distinguish them.</p>
+<p>One way to improve the model’s performance is to change the text descriptions to include more specific details about the animals. For example, instead of “a photo of a wild animal”, we can use “a photo of a lion” or “a photo of a tiger”. This will help the model to better understand the differences between the classes.</p>
+<p>Change the text descriptions as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">text = [<br>  (<span class="hljs-string">&quot;a photo of a dog&quot;</span>, <span class="hljs-number">0</span>),<br>  (<span class="hljs-string">&quot;a photo of a cat&quot;</span>, <span class="hljs-number">1</span>),<br>  (<span class="hljs-string">&quot;a photo of a wild animal&quot;</span>, <span class="hljs-number">2</span>),<br>  (<span class="hljs-string">&quot;a photo of a wolf&quot;</span>, <span class="hljs-number">2</span>),<br>  (<span class="hljs-string">&quot;a photo of a tiger&quot;</span>, <span class="hljs-number">2</span>),<br>  (<span class="hljs-string">&quot;a photo of a lion&quot;</span>, <span class="hljs-number">2</span>),<br>  (<span class="hljs-string">&quot;a photo of a fox&quot;</span>, <span class="hljs-number">2</span>),<br>  (<span class="hljs-string">&quot;a photo of a leopard&quot;</span>, <span class="hljs-number">2</span>),<br>]<br></code></pre></td></tr></table></figure>
+<p>Run the code again and we get the following result:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache">              <span class="hljs-attribute">precision</span>    recall  f1-score   support<br><br>         <span class="hljs-attribute">cat</span>       <span class="hljs-number">1</span>.<span class="hljs-number">00</span>      <span class="hljs-number">1</span>.<span class="hljs-number">00</span>      <span class="hljs-number">1</span>.<span class="hljs-number">00</span>       <span class="hljs-number">500</span><br>         <span class="hljs-attribute">dog</span>       <span class="hljs-number">1</span>.<span class="hljs-number">00</span>      <span class="hljs-number">0</span>.<span class="hljs-number">94</span>      <span class="hljs-number">0</span>.<span class="hljs-number">97</span>       <span class="hljs-number">500</span><br>        <span class="hljs-attribute">wild</span>       <span class="hljs-number">0</span>.<span class="hljs-number">94</span>      <span class="hljs-number">1</span>.<span class="hljs-number">00</span>      <span class="hljs-number">0</span>.<span class="hljs-number">97</span>       <span class="hljs-number">500</span><br><br>    <span class="hljs-attribute">accuracy</span>                           <span class="hljs-number">0</span>.<span class="hljs-number">98</span>      <span class="hljs-number">1500</span><br>   <span class="hljs-attribute">macro</span> avg       <span class="hljs-number">0</span>.<span class="hljs-number">98</span>      <span class="hljs-number">0</span>.<span class="hljs-number">98</span>      <span class="hljs-number">0</span>.<span class="hljs-number">98</span>      <span class="hljs-number">1500</span><br><span class="hljs-attribute">weighted</span> avg       <span class="hljs-number">0</span>.<span class="hljs-number">98</span>      <span class="hljs-number">0</span>.<span class="hljs-number">98</span>      <span class="hljs-number">0</span>.<span class="hljs-number">98</span>      <span class="hljs-number">1500</span><br></code></pre></td></tr></table></figure>
+<p>Wow! We achieved an accuracy of 98% and improved the recall for the “wild” class to 100%. This is a significant improvement over the previous result.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>In this post, we explored OpenAI’s CLIP, a model that can understand images and texts, and used it to perform zero-shot image classification on the Animal Faces dataset. We achieved an accuracy of 86% by just using texts to classify images. We also improved the model’s performance by changing the text descriptions to include more specific details about the animals, and achieved an accuracy of 98% with 100% recall for the “wild” class. This demonstrates the power of zero-shot learning and the potential of models like CLIP to perform complex tasks without any training data.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Machine-Learning/">#Machine Learning</a>
+      
+        <a href="/tags/Artificial-Intelligence/">#Artificial Intelligence</a>
+      
+        <a href="/tags/Computer-Vision/">#Computer Vision</a>
+      
+        <a href="/tags/OpenAI/">#OpenAI</a>
+      
+        <a href="/tags/CLIP/">#CLIP</a>
+      
+        <a href="/tags/Zero-shot-learning/">#Zero-shot learning</a>
+      
+        <a href="/tags/Image-classification/">#Image classification</a>
+      
+        <a href="/tags/Vision-Transformer/">#Vision Transformer</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Zero-shot image classification with OpenAI&#39;s CLIP</div>
+      <div>https://www.kysuai.com/2024/02/25/Zero-shot-image-classification-with-OpenAI-CLIP/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Vũ Đức Duy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>February 25, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/22/Drafting-the-high-level-architecture-of-future-AI-agents/" title="Drafting the high-level architecture of future AI agents">
+                        <span class="hidden-mobile">Drafting the high-level architecture of future AI agents</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
