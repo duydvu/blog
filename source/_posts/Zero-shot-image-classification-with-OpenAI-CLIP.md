@@ -20,11 +20,26 @@ In recent years, there is a trend in the field of Deep Learning to develop model
 
 # Introduction to CLIP
 
-CLIP (Contrastive Language-Image Pre-Training) is a model developed by OpenAI that can understand images and texts. It is based on a Vision Transformer (ViT) and a Transformer-based language model. The model is trained to predict which of the image-text pairs in a batch is the correct pair. The model is trained on a large dataset of images and texts, and it learns to understand the relationship between the two modalities.
+CLIP (Contrastive Language-Image Pre-Training) is a model developed by OpenAI that can understand images and texts. The model is trained to predict which of the image-text pairs in a batch is the correct pair. The model is trained on a dataset of 400 million image-text pairs, which are collected from the internet.
 
 Here is the model architecture from the paper:
 
 ![CLIP model architecture](CLIP.png)
+
+It has 2 main components:
+- **Image encoder**: It takes an image as input and encodes it into a sequence of vectors. In the paper, the authors experimented with ResNet and Vision Transformer as the image encoder.
+- **Text encoder**: It takes a text description as input and encodes it into a sequence of vectors. In the paper, the authors experimented with CBOW and Text Transformer as the text encoder.
+
+The outputs of the image and text encoders are then used to compute the cosine similarity between the image and text representations. The cosine similarity is a measure of how similar two vectors are in terms of their direction. It is calculated as follows:
+
+{% katex '{ "displayMode": true }' %}
+\text{cosine similarity} = \frac{A \cdot B}{\|A\| \|B\|}
+{% endkatex %}
+
+where {% katex %}A{% endkatex %} and {% katex %}B
+{% endkatex %} are the two vectors and {% katex %}\|A\|{% endkatex %} and {% katex %}\|B\|{% endkatex %} are their magnitudes.
+
+The model is trained *"to maximize the cosine similarity of the image and text embeddings of the {% katex %}N{% endkatex %} real pairs in the batch while minimizing the cosine similarity of the embeddings of the {% katex %}N^2-N{% endkatex %} incorrect pairings"*.
 
 # The Animal Faces dataset
 
@@ -38,6 +53,8 @@ There are three domains of classes, each providing about 5000 images. By having 
 Link to the dataset: [Animal Faces-HQ](https://www.kaggle.com/datasets/andrewmvd/animal-faces)
 
 # Loading the CLIP model
+
+OpenAI has released the pretrained CLIP model. We can load the model using the `transformers` library.
 
 ```python
 import torch
@@ -59,6 +76,7 @@ from tqdm import tqdm
 from sklearn.metrics import classification_report
 
 classes = ["dog", "cat", "wild"]
+# an array of text descriptions for each class, along with their corresponding class index
 text = [
   ("a photo of a dog", 0),
   ("a photo of a cat", 1),
@@ -173,4 +191,12 @@ Wow! We achieved an accuracy of 98% and improved the recall for the "wild" class
 
 # Conclusion
 
-In this post, we explored OpenAI's CLIP, a model that can understand images and texts, and used it to perform zero-shot image classification on the Animal Faces dataset. We achieved an accuracy of 86% by just using texts to classify images. We also improved the model's performance by changing the text descriptions to include more specific details about the animals, and achieved an accuracy of 98% with 100% recall for the "wild" class. This demonstrates the power of zero-shot learning and the potential of models like CLIP to perform complex tasks without any training data.
+In this post, we explored OpenAI's CLIP, a model that can understand images and texts, and used it to perform zero-shot image classification on the Animal Faces dataset. We achieved an accuracy of 98% by just using texts. This demonstrates the power of zero-shot learning and the potential of models that can understand multiple modalities.
+
+Howerver, while the model performed well on this dataset, it may not perform as well on other datasets. For example, if the task is to classify images of specific breeds of dogs or cats, the model may not be able to distinguish between them based on the text descriptions alone. It heavily depends on how the model was trained and the quality of the text descriptions.
+
+In such cases, it's still better to use traditional supervised learning methods to train a model on a specific dataset. But zero-shot learning can be a useful tool when you don't have enough labeled data for a specific task, or we can use it as a starting point for labeling data.
+
+# References
+
+- Radford, A. et al. (2021). Learning Transferable Visual Models From Natural Language Supervision. arXiv preprint arXiv:2103.00020. [Link](https://arxiv.org/abs/2103.00020)
